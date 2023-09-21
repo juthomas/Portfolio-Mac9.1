@@ -39,7 +39,13 @@ export function Header() {
 
     if (menuItems) {
       return (
-        <Menu key={link.label} trigger="click" transitionProps={{ exitDuration: 0 }} withinPortal>
+        <Menu
+          // className={classes.linkMenu}
+          key={link.label}
+          trigger="click"
+          transitionProps={{ exitDuration: 0 }}
+          withinPortal
+        >
           <Menu.Target>
             <a
               href={link.link}
@@ -52,7 +58,7 @@ export function Header() {
               </Center>
             </a>
           </Menu.Target>
-          <Menu.Dropdown>{menuItems}</Menu.Dropdown>
+          <Menu.Dropdown className={classes.linkMenu}>{menuItems}</Menu.Dropdown>
         </Menu>
       );
     }
@@ -74,7 +80,7 @@ export function Header() {
       {/* <Container size="md"> */}
       <div className={classes.inner}>
         {/* <MantineLogo size={28} /> */}
-        <Group style={{ height: '100%', padding: 4 }} gap={15} visibleFrom="sm">
+        <Group style={{ height: '100%', padding: 3 }} gap={15} visibleFrom="sm">
           {/* <Image
             src={juthomasLogo}
             alt="logo"
@@ -84,15 +90,19 @@ export function Header() {
           /> */}
           <Menu trigger="click" transitionProps={{ exitDuration: 0 }} withinPortal>
             <Menu.Target>
-              <Image
-                src={juthomasLogo}
-                alt="logo"
-                width={0}
-                height={0}
-                style={{ width: 'auto', height: '100%' }}
-              />
+              <div className={classes.link}>
+                <Image
+                  src={juthomasLogo}
+                  alt="logo"
+                  width={0}
+                  height={0}
+                  style={{ width: 'auto', height: '100%' }}
+                />
+              </div>
             </Menu.Target>
-            <Menu.Dropdown>À propos de cette page</Menu.Dropdown>
+            <Menu.Dropdown>
+              <Menu.Item>À propos de cette page</Menu.Item>
+            </Menu.Dropdown>
           </Menu>
 
           {items}

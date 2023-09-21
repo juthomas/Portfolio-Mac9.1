@@ -46,21 +46,30 @@
 
 .link {
   display: block;
-  line-height: 1;
+  padding-left: rem(4px);
+  padding-right: rem(4px);
+  /* vertical-align: middle; */
+  line-height: 1.2;
+  height: 100%;
   /* padding: rem(8px) rem(12px); */
-  border-radius: var(--mantine-radius-sm);
+  /* border-radius: var(--mantine-radius-sm); */
   text-decoration: none;
-  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
-  font-size: var(--mantine-font-size-lg);
+  color: light-dark(var(--mantine-color-dark-9), var(--mantine-color-dark-0));
+  font-size: var(--mantine-font-size-xl);
   font-weight: 500;
-
   font-family: 'VT323';
 
   @mixin hover {
-    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+    background-color: light-dark(var(--mantine-color-purple-8), var(--mantine-color-dark-0));
+    color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-0));
+
   }
 }
 
+.linkMenu {
+ background-color: red;
+}
+
 .linkLabel {
-  margin-right: rem(5px);
+  /* margin-right: rem(5px); */
 }
