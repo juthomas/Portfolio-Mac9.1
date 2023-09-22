@@ -11,17 +11,23 @@ export function DraggableElement({
   top,
   left,
   children,
+  focused,
+  focusing,
+  deleting,
   windowIcon = fileIcon,
   windowName = 'Portfolio',
 }: {
   top: number;
   left: number;
   children?: React.ReactNode;
+  focused: boolean;
   windowIcon?: string;
   windowName?: React.ReactNode;
+  focusing: () => void;
+  deleting: () => void;
 }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: 'test',
+    id: 'default',
     disabled: false,
   });
 
@@ -30,9 +36,11 @@ export function DraggableElement({
   return (
     <Box
       className={classes.windowOuter}
+      onClick={focusing}
       style={{
         height: minimized ? undefined : 400,
         paddingBottom: minimized ? 0 : undefined,
+        zIndex: focused ? 2 : 1,
         width: 600,
         top,
         left,
@@ -40,7 +48,13 @@ export function DraggableElement({
       }}
     >
       <Box className={classes.windowBar}>
-        <Box className={classes.button} />
+        <Box
+          className={classes.button}
+          onClick={(event) => {
+            event.stopPropagation();
+            deleting();
+          }}
+        />
         <Box className={classes.dragHandle} ref={setNodeRef} {...listeners} {...attributes}>
           <Box className={classes.stripes}>
             <Box className={classes.stripe} />

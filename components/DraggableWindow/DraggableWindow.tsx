@@ -12,7 +12,19 @@ import { useState } from 'react';
 import type { Coordinates } from '@dnd-kit/utilities';
 import { DraggableElement } from '../DraggableElement/DraggableElement';
 
-export function DraggableWindow({ children }: { children?: React.ReactNode }) {
+export function DraggableWindow({
+  id = 'default',
+  focused = false,
+  focusing,
+  deleting,
+  children,
+}: {
+  id?: string;
+  focused?: boolean;
+  focusing: () => void;
+  deleting: () => void;
+  children?: React.ReactNode;
+}) {
   const [{ x, y }, setCoordinates] = useState<Coordinates>({ x: 0, y: 0 });
 
   const mouseSensor = useSensor(MouseSensor, {});
@@ -22,12 +34,14 @@ export function DraggableWindow({ children }: { children?: React.ReactNode }) {
 
   return (
     <DndContext
+      id={id}
       sensors={sensors}
+      onDragStart={focusing}
       onDragEnd={({ delta }) => {
         setCoordinates(() => ({ x: x + delta.x, y: y + delta.y }));
       }}
     >
-      <DraggableElement top={y} left={x}>
+      <DraggableElement top={y} left={x} focused={focused} deleting={deleting} focusing={focusing}>
         {children}
       </DraggableElement>
     </DndContext>

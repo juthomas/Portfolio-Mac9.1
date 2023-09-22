@@ -1,7 +1,7 @@
 .windowOuter {
   border: var(--borders-size) solid black;
   box-shadow: var(--borders-size) var(--borders-size) #000000;
-  position: relative;
+  position: absolute;
   background-color: #aaaaaa;
   padding: rem(30px) calc(var(--borders-size) * 3) calc(var(--borders-size) * 3)
     calc(var(--borders-size) * 3);
@@ -62,7 +62,7 @@
   left: 0;
   right: 0;
   height: 30px;
-  z-index: 3;
+  /* z-index: 3; */
   display: flex;
   gap: 10px;
   align-items: center;
