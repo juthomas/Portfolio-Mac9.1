@@ -1,20 +1,19 @@
 .header {
-  margin-bottom: var(--borders-size);/* rem(4px); */
+  margin-bottom: var(--borders-size);
   padding: var(--borders-size);
-  height: rem(30px);/* rem(48px); */
+  height: rem(30px);
   background-color: #d9d9d9;
-  box-shadow: rem(0px) var(--borders-size) #000000;/* rem(0px) rem(4px) #000000; */
+  box-shadow: rem(0px) var(--borders-size) #000000;
   position: relative;
   font-family: 'VT323', monospace;
   font-size: var(--mantine-font-size-xl);
 }
 
 @font-face {
-	font-family: 'VT3232';
-	/* src: url('/fonts/VT323-Regular.ttf') format('truetype'); */
-	src: local("VT323-Regular"),
-    url("/fonts/VT323-Regular.ttf") format("truetype");
-  }
+  font-family: 'VT3232';
+  /* src: url('/fonts/VT323-Regular.ttf') format('truetype'); */
+  src: local('VT323-Regular'), url('/fonts/VT323-Regular.ttf') format('truetype');
+}
 
 .header::before,
 .header::after {
@@ -25,17 +24,16 @@
   bottom: 0;
   right: 0;
   pointer-events: none;
-
 }
 
 .header::before {
-  border-left: var(--borders-size) solid #ffffff;/* rem(4px) solid #ffffff; */
-  border-top: var(--borders-size) solid #ffffff;/* rem(4px) solid #ffffff; */
+  border-left: var(--borders-size) solid #ffffff;
+  border-top: var(--borders-size) solid #ffffff;
 }
 
 .header::after {
-  border-right: var(--borders-size) solid #939393;/* rem(4px) solid #939393; */
-  border-bottom: var(--borders-size) solid #939393;/* rem(4px) solid #939393; */
+  border-right: var(--borders-size) solid #939393;
+  border-bottom: var(--borders-size) solid #939393;
 }
 
 .inner {
@@ -47,37 +45,23 @@
 }
 
 .link {
-  /* display: block; */
   padding-left: rem(4px);
   padding-right: rem(4px);
-  /* vertical-align: middle; */
-  /* line-height: 1.2; */
   height: 100%;
-  /* padding: rem(8px) rem(12px); */
-  /* border-radius: var(--mantine-radius-sm); */
   text-decoration: none;
   color: light-dark(var(--mantine-color-dark-9), var(--mantine-color-dark-0));
-  /* font-size: var(--mantine-font-size-xl); */
-  /* font-weight: 500; */
-  /* font-family: 'VT323'; */
 
   @mixin hover {
     background-color: light-dark(var(--mantine-color-purple-8), var(--mantine-color-dark-0));
     color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-0));
-
   }
 }
 
 .linkMenu {
- /* background-color: red; */
- top: calc(30px + var(--borders-size)) !important;
- border-radius: 0;
- border: var(--borders-size) solid #000000;
- box-shadow: var(--borders-size) var(--borders-size) #000000;/* rem(0px) rem(4px) #000000; */
-}
-
-.linkLabel {
-  /* margin-right: rem(5px); */
+  top: calc(30px + var(--borders-size)) !important;
+  border-radius: 0;
+  border: var(--borders-size) solid #000000;
+  box-shadow: var(--borders-size) var(--borders-size) #000000;
 }
 
 .menuBar {

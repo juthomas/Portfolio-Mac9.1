@@ -60,7 +60,7 @@ export function Header() {
                   color: 'light-dark(var(--mantine-color-dark-9), var(--mantine-color-dark-0))',
                 }}
               >
-                <span className={classes.linkLabel}>{link.label}</span>
+                <span>{link.label}</span>
                 {/* <IconChevronDown size="0.9rem" stroke={1.5} /> */}
               </a>
             </Flex>
