@@ -1,0 +1,68 @@
+.windowOuter {
+  border: var(--borders-size) solid black;
+  box-shadow: var(--borders-size) var(--borders-size) #000000; /* rem(0px) rem(4px) #000000; */
+  position: relative;
+  background-color: #aaaaaa;
+  padding: rem(30px) calc(var(--borders-size) * 3)  calc(var(--borders-size) * 3)  calc(var(--borders-size) * 3) ;
+}
+
+.windowOuter::before,
+.windowOuter::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.windowOuter::before {
+  border-left: var(--borders-size) solid #ffffff; /* rem(4px) solid #ffffff; */
+  border-top: var(--borders-size) solid #ffffff; /* rem(4px) solid #ffffff; */
+}
+
+.windowOuter::after {
+  border-right: var(--borders-size) solid #939393; /* rem(4px) solid #939393; */
+  border-bottom: var(--borders-size) solid #939393; /* rem(4px) solid #939393; */
+}
+
+.windowInner {
+  background-color: #d9d9d9;
+  height: 100%;
+  position: relative;
+  border: var(--borders-size) solid black;
+}
+
+.windowInner::before,
+.windowInner::after {
+  content: '';
+  position: absolute;
+  top: calc(var(--borders-size) * -2);
+  left: calc(var(--borders-size) * -2);
+  bottom: calc(var(--borders-size) * -2);
+  right: calc(var(--borders-size) * -2);
+  pointer-events: none;
+}
+
+.windowInner::before {
+  border-right: var(--borders-size) solid #ffffff; /* rem(4px) solid #ffffff; */
+  border-bottom: var(--borders-size) solid #ffffff; /* rem(4px) solid #ffffff; */
+}
+
+.windowInner::after {
+  border-top: var(--borders-size) solid #939393; /* rem(4px) solid #939393; */
+  border-left: var(--borders-size) solid #939393; /* rem(4px) solid #939393; */
+}
+
+.dragHandle {
+	/* background-color: red; */
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 30px;
+	z-index: 3;
+	touch-action: none;
+	cursor: pointer;
+}

@@ -1,36 +1,35 @@
 'use client';
 
-import { useDraggable } from '@dnd-kit/core';
+import {
+  DndContext,
+  useSensor,
+  MouseSensor,
+  TouchSensor,
+  KeyboardSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import { useState } from 'react';
+import type { Coordinates } from '@dnd-kit/utilities';
+import { DraggableElement } from '../DraggableElement/DraggableElement';
 
-import { Box } from '@mantine/core';
+export function DraggableWindow({ children }: { children?: React.ReactNode }) {
+  const [{ x, y }, setCoordinates] = useState<Coordinates>({ x: 0, y: 0 });
 
-// import { useState } from 'react';
-import classes from './DraggableWindow.module.css';
-
-export function DraggableWindow({ top, left }: { top: number; left: number }) {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: 'test',
-    disabled: false,
-  });
+  const mouseSensor = useSensor(MouseSensor, {});
+  const touchSensor = useSensor(TouchSensor, {});
+  const keyboardSensor = useSensor(KeyboardSensor, {});
+  const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
 
   return (
-    <Box
-      className={classes.windowOuter}
-      style={{
-        height: 400,
-        width: 600,
-        // borderRadius: 666,
-        // position: 'absolute',
-        // backgroundColor: 'red',
-        // border: '3px solid black',
-
-        top,
-        left,
-        transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+    <DndContext
+      sensors={sensors}
+      onDragEnd={({ delta }) => {
+        setCoordinates(() => ({ x: x + delta.x, y: y + delta.y }));
       }}
     >
-      <Box className={classes.dragHandle} ref={setNodeRef} {...listeners} {...attributes} />
-      <Box className={classes.windowInner}>cccv</Box>
-    </Box>
+      <DraggableElement top={y} left={x}>
+        {children}
+      </DraggableElement>
+    </DndContext>
   );
 }
