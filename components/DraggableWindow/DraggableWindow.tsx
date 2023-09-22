@@ -5,17 +5,9 @@ import { useDraggable } from '@dnd-kit/core';
 import { Box } from '@mantine/core';
 
 // import { useState } from 'react';
-// import classes from './DraggableWindow.module.css';
+import classes from './DraggableWindow.module.css';
 
-export function DraggableWindow({
-  top,
-  left,
-  size = 40,
-}: {
-  top: number;
-  left: number;
-  size?: number;
-}) {
+export function DraggableWindow({ top, left }: { top: number; left: number }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: 'test',
     disabled: false,
@@ -23,24 +15,22 @@ export function DraggableWindow({
 
   return (
     <Box
+      className={classes.windowOuter}
       style={{
-        height: size,
-        width: size,
-        borderRadius: 666,
-        position: 'absolute',
+        height: 400,
+        width: 600,
+        // borderRadius: 666,
+        // position: 'absolute',
         // backgroundColor: 'red',
-        border: `${size * 0.075}px solid black`,
-        touchAction: 'none',
-        cursor: 'pointer',
+        // border: '3px solid black',
+
         top,
         left,
         transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
       }}
-      ref={setNodeRef}
-      {...listeners}
-      {...attributes}
     >
-      cc
+      <Box className={classes.dragHandle} ref={setNodeRef} {...listeners} {...attributes} />
+      <Box className={classes.windowInner}>cccv</Box>
     </Box>
   );
 }
