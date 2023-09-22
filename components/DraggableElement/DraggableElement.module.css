@@ -1,9 +1,10 @@
 .windowOuter {
   border: var(--borders-size) solid black;
-  box-shadow: var(--borders-size) var(--borders-size) #000000; /* rem(0px) rem(4px) #000000; */
+  box-shadow: var(--borders-size) var(--borders-size) #000000;
   position: relative;
   background-color: #aaaaaa;
-  padding: rem(30px) calc(var(--borders-size) * 3)  calc(var(--borders-size) * 3)  calc(var(--borders-size) * 3) ;
+  padding: rem(30px) calc(var(--borders-size) * 3) calc(var(--borders-size) * 3)
+    calc(var(--borders-size) * 3);
 }
 
 .windowOuter::before,
@@ -18,13 +19,13 @@
 }
 
 .windowOuter::before {
-  border-left: var(--borders-size) solid #ffffff; /* rem(4px) solid #ffffff; */
-  border-top: var(--borders-size) solid #ffffff; /* rem(4px) solid #ffffff; */
+  border-left: var(--borders-size) solid #ffffff;
+  border-top: var(--borders-size) solid #ffffff;
 }
 
 .windowOuter::after {
-  border-right: var(--borders-size) solid #939393; /* rem(4px) solid #939393; */
-  border-bottom: var(--borders-size) solid #939393; /* rem(4px) solid #939393; */
+  border-right: var(--borders-size) solid #939393;
+  border-bottom: var(--borders-size) solid #939393;
 }
 
 .windowInner {
@@ -46,23 +47,70 @@
 }
 
 .windowInner::before {
-  border-right: var(--borders-size) solid #ffffff; /* rem(4px) solid #ffffff; */
-  border-bottom: var(--borders-size) solid #ffffff; /* rem(4px) solid #ffffff; */
+  border-right: var(--borders-size) solid #ffffff;
+  border-bottom: var(--borders-size) solid #ffffff;
 }
 
 .windowInner::after {
-  border-top: var(--borders-size) solid #939393; /* rem(4px) solid #939393; */
-  border-left: var(--borders-size) solid #939393; /* rem(4px) solid #939393; */
+  border-top: var(--borders-size) solid #939393;
+  border-left: var(--borders-size) solid #939393;
 }
 
 .dragHandle {
-	/* background-color: red; */
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	height: 30px;
-	z-index: 3;
-	touch-action: none;
-	cursor: pointer;
+  /* background-color: red; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  z-index: 3;
+  touch-action: none;
+  cursor: move;
+  display: flex;
+  align-items: center;
+  padding-left: calc(var(--borders-size) * 3);
+  padding-right: calc(var(--borders-size) * 3);
+}
+
+.button {
+  cursor: pointer;
+  background: linear-gradient(120deg, #8d8d8d, white);
+  border: var(--borders-size) solid black;
+  margin: var(--borders-size);
+  height: 15px;
+  width: 15px;
+  position: relative;
+}
+
+.button::before,
+.button::after {
+  content: '';
+  position: absolute;
+  top: calc(var(--borders-size) * -2);
+  left: calc(var(--borders-size) * -2);
+  bottom: calc(var(--borders-size) * -2);
+  right: calc(var(--borders-size) * -2);
+  pointer-events: none;
+}
+
+.button::before {
+  border-right: var(--borders-size) solid #c8c8c8;
+  border-bottom: var(--borders-size) solid #c8c8c8;
+}
+
+.button::after {
+  border-top: var(--borders-size) solid #939393;
+  border-left: var(--borders-size) solid #939393;
+}
+
+.maximizeButtonBox {
+  width: 7px;
+  height: 7px;
+  outline: var(--borders-size) solid black;
+}
+
+.minimizeButtonBox {
+  width: 15px;
+  height: 3px;
+  outline: var(--borders-size) solid black;
 }

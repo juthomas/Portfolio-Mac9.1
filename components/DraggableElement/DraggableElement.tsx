@@ -29,7 +29,15 @@ export function DraggableElement({
         transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
       }}
     >
-      <Box className={classes.dragHandle} ref={setNodeRef} {...listeners} {...attributes} />
+      <Box className={classes.dragHandle} ref={setNodeRef} {...listeners} {...attributes}>
+        <Box className={classes.button} />
+        <Box className={classes.button}>
+          <Box className={classes.maximizeButtonBox} />
+        </Box>
+        <Box style={{ display: 'flex', alignItems: 'center' }} className={classes.button}>
+          <Box className={classes.minimizeButtonBox} />
+        </Box>
+      </Box>
       <Box className={classes.windowInner}>{children}</Box>
     </Box>
   );
