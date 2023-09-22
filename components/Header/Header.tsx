@@ -88,11 +88,12 @@ export function Header() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      let hours = new Date().getHours();
+      let hours: string | number = new Date().getHours();
       let minutes: string | number = new Date().getMinutes();
       const ampm = hours >= 12 ? 'PM' : 'AM';
       hours %= 12;
       hours = hours || 12; // the hour '0' should be '12'
+      hours = hours < 10 ? `0${hours}` : hours;
       minutes = minutes < 10 ? `0${minutes}` : minutes;
       setTime(`${hours}:${minutes} ${ampm}`);
 
