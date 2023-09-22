@@ -32,9 +32,9 @@ export default function WindowsManager() {
 
   return (
     <>
-      {windowsState.map((elem, key) => (
+      {windowsState.map((elem) => (
         <DraggableWindow
-          key={key}
+          key={elem.id}
           id={elem.id}
           focused={elem.focused}
           focusing={() => {
