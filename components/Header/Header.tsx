@@ -82,7 +82,6 @@ export function Header() {
     );
   });
 
-  const pad = (val: number): string => (val < 10 ? `0${val}` : `${val}`);
 
   const [time, setTime] = useState('12:00 PM');
 
@@ -96,10 +95,6 @@ export function Header() {
       hours = hours < 10 ? `0${hours}` : hours;
       minutes = minutes < 10 ? `0${minutes}` : minutes;
       setTime(`${hours}:${minutes} ${ampm}`);
-
-      document.title = `${pad(new Date().getHours())}:${pad(new Date().getMinutes())}:${pad(
-        new Date().getSeconds()
-      )}`;
     }, 1000);
     return () => clearInterval(interval);
   }, []);
