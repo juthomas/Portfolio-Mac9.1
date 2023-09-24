@@ -15,22 +15,24 @@ import useWindowDimensions from '@/hooks/useWindowDImensions';
 
 export function DraggableWindow({
   id = 'default',
-  focused = false,
+  zIndex = 1,
   focusing,
   deleting,
   children,
+  coordinates = { x: 0, y: 30 },
   height = 400,
   width = 600,
 }: {
   id?: string;
-  focused?: boolean;
+  coordinates?: { x: number; y: number };
+  zIndex?: number;
   height?: number;
   width?: number;
   focusing: () => void;
   deleting: () => void;
   children?: React.ReactNode;
 }) {
-  const [{ x, y }, setCoordinates] = useState<Coordinates>({ x: 0, y: 0 });
+  const [{ x, y }, setCoordinates] = useState<Coordinates>(coordinates);
 
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
   const mouseSensor = useSensor(MouseSensor, {});
@@ -67,7 +69,7 @@ export function DraggableWindow({
         left={x}
         height={height}
         width={width}
-        focused={focused}
+        zIndex={zIndex}
         deleting={deleting}
         focusing={focusing}
       >

@@ -11,11 +11,11 @@ export function DraggableElement({
   top,
   left,
   children,
-  focused,
   focusing,
   deleting,
   height = 400,
   width = 600,
+  zIndex = 1,
   windowIcon = fileIcon,
   windowName = 'Portfolio',
 }: {
@@ -23,8 +23,8 @@ export function DraggableElement({
   left: number;
   height?: number;
   width?: number;
+  zIndex?: number;
   children?: React.ReactNode;
-  focused: boolean;
   windowIcon?: string;
   windowName?: React.ReactNode;
   focusing: () => void;
@@ -44,7 +44,8 @@ export function DraggableElement({
       style={{
         height: minimized ? undefined : height,
         paddingBottom: minimized ? 0 : undefined,
-        zIndex: focused ? 2 : 1,
+        // zIndex: focused ? 2 : 1,
+        zIndex,
         width,
         top,
         left,

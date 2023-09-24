@@ -5,25 +5,25 @@ import { DraggableWindow } from '../DraggableWindow/DraggableWindow';
 
 export default function WindowsManager() {
   const [windowsState, setWindowsState] = useState([
-    { id: '1', focused: false },
-    { id: '2', focused: false },
+    { id: '1', coordinates: { x: 0, y: 30 } },
+    { id: '2', coordinates: { x: 100, y: 130 } },
+    { id: '3', coordinates: { x: 130, y: 100 } },
   ]);
 
   function SetWindowFocus(id: string) {
-    setWindowsState(
-      windowsState.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            focused: true,
-          };
-        }
-        return {
-          ...item,
-          focused: false,
-        };
-      })
-    );
+    const tmpList = [...windowsState];
+
+    const elementAdeplacer = tmpList.find((item) => item.id === id);
+
+    if (elementAdeplacer) {
+      const index = tmpList.indexOf(elementAdeplacer);
+      if (index !== -1) {
+        tmpList.splice(index, 1);
+      }
+      tmpList.push(elementAdeplacer);
+    }
+
+    setWindowsState(tmpList);
   }
 
   useEffect(() => {
@@ -32,11 +32,12 @@ export default function WindowsManager() {
 
   return (
     <>
-      {windowsState.map((elem) => (
+      {windowsState.map((elem, index) => (
         <DraggableWindow
           key={elem.id}
           id={elem.id}
-          focused={elem.focused}
+          coordinates={elem.coordinates}
+          zIndex={index}
           focusing={() => {
             console.log('Event focus');
             SetWindowFocus(elem.id);
