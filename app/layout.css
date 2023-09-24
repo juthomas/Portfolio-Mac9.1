@@ -1,4 +1,5 @@
 body {
-  background-color: light-dark(var(--mantine-color-macBlue-6), var(--mantine-color-dark-0)) !important;
+  --mantine-color-body: light-dark(var(--mantine-color-macBlue-6), var(--mantine-color-dark-0));
+  /* background-color: light-dark(var(--mantine-color-macBlue-6), var(--mantine-color-dark-0)) !important; */
   --borders-size: rem(2px);
 }
