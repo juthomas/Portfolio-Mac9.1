@@ -14,11 +14,15 @@ export function DraggableElement({
   focused,
   focusing,
   deleting,
+  height = 400,
+  width = 600,
   windowIcon = fileIcon,
   windowName = 'Portfolio',
 }: {
   top: number;
   left: number;
+  height?: number;
+  width?: number;
   children?: React.ReactNode;
   focused: boolean;
   windowIcon?: string;
@@ -38,10 +42,10 @@ export function DraggableElement({
       className={classes.windowOuter}
       onClick={focusing}
       style={{
-        height: minimized ? undefined : 400,
+        height: minimized ? undefined : height,
         paddingBottom: minimized ? 0 : undefined,
         zIndex: focused ? 2 : 1,
-        width: 600,
+        width,
         top,
         left,
         transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
