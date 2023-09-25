@@ -7,7 +7,9 @@ import DraggableShortcut from '../DraggableShortcut/DraggableShortcut';
 export default function Desktop({ openWindow }: { openWindow: (windowId: string) => void }) {
   const [shortcutsPositions, setShortcutPositions] = useState([
     { id: '1', position: { x: 0, y: 50 }, windowId: '1', text: 'One for tree' },
-    { id: '2', position: { x: 0, y: 30 }, windowId: '2', text: 'Projet Iota' },
+    { id: '2', position: { x: 0, y: 30 }, windowId: '2', text: 'Projet Iota ' },
+    { id: '3', position: { x: 0, y: 30 }, link: 'http://projet-iota.fr', text: 'Projet Iota' },
+    { id: '4', position: { x: 0, y: 30 }, link: 'https://oft.pages.dev/game', text: 'One for tree' },
   ]);
 
   const sensors = useSensors(

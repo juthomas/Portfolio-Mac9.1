@@ -9,11 +9,13 @@ export default function DraggableShortcut({
   windowId,
   openWindow,
   text,
+  link,
   textHighlight = true,
   id,
 }: {
   position?: { x: number; y: number };
   windowId?: string;
+  link?: string;
   id: string;
   text?: string;
   textHighlight?: boolean;
@@ -28,7 +30,7 @@ export default function DraggableShortcut({
     <Box
       onClick={(event) => {
         event.stopPropagation();
-
+        link && window.open(link, '_blank', 'noreferrer');
         windowId && openWindow(windowId);
       }}
       className={classes.draggableShortcut}
