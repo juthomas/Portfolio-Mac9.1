@@ -5,6 +5,31 @@ import { DraggableWindow } from '../DraggableWindow/DraggableWindow';
 import Desktop from '../Desktop/Desktop';
 
 export default function WindowsManager() {
+  const windowsList = [
+    {
+      id: '1',
+      content: <>One for tree mdr</>,
+      title: 'OTF',
+      // icon: '',
+      maximized: false,
+      size: { height: 400, width: 400 },
+      coordinates: { x: 0, y: 30 },
+    },
+    {
+      id: '2',
+      content: <>Iota mdr</>,
+      maximized: false,
+      coordinates: { x: 100, y: 130 },
+    },
+    {
+      id: '3',
+      content: <>cc 3</>,
+      title: '',
+      maximized: false,
+      coordinates: { x: 130, y: 100 },
+    },
+  ];
+
   const [windowsState, setWindowsState] = useState([
     {
       id: '1',
@@ -31,6 +56,20 @@ export default function WindowsManager() {
   ]);
 
   function SetWindowFocus(id: string) {
+    const elementAdeplacer = windowsState.find((item) => item.id === id);
+
+    if (elementAdeplacer) {
+      const index = windowsState.indexOf(elementAdeplacer);
+      if (index !== -1) {
+        windowsState.splice(index, 1);
+      }
+      windowsState.push(elementAdeplacer);
+    }
+
+    setWindowsState([...windowsState]);
+  }
+
+  function OpenWindow(id: string) {
     const tmpList = [...windowsState];
 
     const elementAdeplacer = tmpList.find((item) => item.id === id);
@@ -41,6 +80,9 @@ export default function WindowsManager() {
         tmpList.splice(index, 1);
       }
       tmpList.push(elementAdeplacer);
+    } else {
+      const elementACopier = windowsList.find((item) => item.id === id);
+      elementACopier && tmpList.push(elementACopier);
     }
 
     setWindowsState(tmpList);
@@ -100,6 +142,7 @@ export default function WindowsManager() {
       <Desktop
         openWindow={(windowId) => {
           console.log('Shortcut clicked', windowId);
+          OpenWindow(windowId);
         }}
       />
     </>
