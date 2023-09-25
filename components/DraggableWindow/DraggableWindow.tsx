@@ -21,6 +21,8 @@ export function DraggableWindow({
   children,
   maximized = false,
   setMaximized,
+  windowTitle,
+  windowIcon,
   coordinates = { x: 0, y: 30 },
   height = 400,
   width = 600,
@@ -31,9 +33,11 @@ export function DraggableWindow({
   height?: number;
   width?: number;
   maximized?: boolean;
+  windowTitle?: React.ReactNode;
+  windowIcon?: string;
   focusing: () => void;
   deleting: () => void;
-  setMaximized: () => void
+  setMaximized: () => void;
   children?: React.ReactNode;
 }) {
   const [{ x, y }, setCoordinates] = useState<Coordinates>(coordinates);
@@ -69,11 +73,13 @@ export function DraggableWindow({
       }}
     >
       <DraggableElement
+        windowTitle={windowTitle}
         top={maximized ? 30 : y}
         left={maximized ? 0 : x}
         height={maximized ? windowHeight - 30 : height}
         width={maximized ? windowWidth : width}
         zIndex={zIndex}
+        windowIcon={windowIcon}
         maximized={maximized}
         setMaximized={setMaximized}
         deleting={deleting}

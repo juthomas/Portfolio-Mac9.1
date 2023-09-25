@@ -2,12 +2,32 @@
 
 import { useState } from 'react';
 import { DraggableWindow } from '../DraggableWindow/DraggableWindow';
+import Desktop from '../Desktop/Desktop';
 
 export default function WindowsManager() {
   const [windowsState, setWindowsState] = useState([
-    { id: '1', maximized: false, coordinates: { x: 0, y: 30 } },
-    { id: '2', maximized: false, coordinates: { x: 100, y: 130 } },
-    { id: '3', maximized: false, coordinates: { x: 130, y: 100 } },
+    {
+      id: '1',
+      content: <>cc 1</>,
+      title: '',
+      icon: '',
+      maximized: false,
+      size: { height: 400, width: 400 },
+      coordinates: { x: 0, y: 30 },
+    },
+    {
+      id: '2',
+      content: <>cc 2</>,
+      maximized: false,
+      coordinates: { x: 100, y: 130 },
+    },
+    {
+      id: '3',
+      content: <>cc 3</>,
+      title: '',
+      maximized: false,
+      coordinates: { x: 130, y: 100 },
+    },
   ]);
 
   function SetWindowFocus(id: string) {
@@ -59,9 +79,13 @@ export default function WindowsManager() {
         <DraggableWindow
           key={elem.id}
           id={elem.id}
+          height={elem?.size?.height}
+          width={elem?.size?.width}
           maximized={elem.maximized}
+          windowTitle={elem?.title}
           coordinates={elem.coordinates}
-          zIndex={index}
+          windowIcon={elem.icon}
+          zIndex={index + 1}
           setMaximized={() => SetWindowMaximized(elem.id)}
           focusing={() => {
             SetWindowFocus(elem.id);
@@ -70,9 +94,14 @@ export default function WindowsManager() {
             setWindowsState(windowsState.filter((item) => item.id !== elem.id));
           }}
         >
-          {elem.id}
+          {elem.content}
         </DraggableWindow>
       ))}
+      <Desktop
+        openWindow={(windowId) => {
+          console.log('Shortcut clicked', windowId);
+        }}
+      />
     </>
   );
 }

@@ -19,7 +19,7 @@ export function DraggableElement({
   setMaximized,
   maximized,
   windowIcon = fileIcon,
-  windowName = 'Portfolio',
+  windowTitle = 'Portfolio',
 }: {
   top: number;
   left: number;
@@ -28,7 +28,7 @@ export function DraggableElement({
   zIndex?: number;
   children?: React.ReactNode;
   windowIcon?: string;
-  windowName?: React.ReactNode;
+  windowTitle?: React.ReactNode;
   maximized?: boolean;
   setMaximized: () => void;
   focusing: () => void;
@@ -48,7 +48,6 @@ export function DraggableElement({
       style={{
         height: minimized ? undefined : height,
         paddingBottom: minimized ? 0 : undefined,
-        // zIndex: focused ? 2 : 1,
         zIndex,
         width,
         top,
@@ -85,7 +84,7 @@ export function DraggableElement({
               height={0}
               style={{ width: 'auto', height: '70%' }}
             />
-            {windowName}
+            {windowTitle}
           </Group>
           <Box className={classes.stripes}>
             <Box className={classes.stripe} />
