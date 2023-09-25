@@ -15,7 +15,6 @@ import useWindowDimensions from '@/hooks/useWindowDImensions';
 
 export function DraggableWindow({
   id = 'default',
-  zIndex = 1,
   focusing,
   deleting,
   children,
@@ -23,15 +22,16 @@ export function DraggableWindow({
   setMaximized,
   windowTitle,
   windowIcon,
+  focused,
   coordinates = { x: 0, y: 30 },
   height = 400,
   width = 600,
 }: {
   id?: string;
   coordinates?: { x: number; y: number };
-  zIndex?: number;
   height?: number;
   width?: number;
+  focused?: boolean;
   maximized?: boolean;
   windowTitle?: React.ReactNode;
   windowIcon?: string;
@@ -78,9 +78,9 @@ export function DraggableWindow({
         left={maximized ? 0 : x}
         height={maximized ? windowHeight - 30 : height}
         width={maximized ? windowWidth : width}
-        zIndex={zIndex}
         windowIcon={windowIcon}
         maximized={maximized}
+        focused={focused}
         setMaximized={setMaximized}
         deleting={deleting}
         focusing={focusing}

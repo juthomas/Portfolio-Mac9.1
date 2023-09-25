@@ -18,12 +18,14 @@ export function DraggableElement({
   zIndex = 1,
   setMaximized,
   maximized,
+  focused,
   windowIcon = fileIcon,
   windowTitle = 'Portfolio',
 }: {
   top: number;
   left: number;
   height?: number;
+  focused?: boolean;
   width?: number;
   zIndex?: number;
   children?: React.ReactNode;
@@ -46,6 +48,7 @@ export function DraggableElement({
       className={classes.windowOuter}
       onClick={focusing}
       style={{
+        backgroundColor: focused ? undefined : '#bcbcbc',
         height: minimized ? undefined : height,
         paddingBottom: minimized ? 0 : undefined,
         zIndex,
@@ -71,10 +74,14 @@ export function DraggableElement({
           {...attributes}
         >
           <Box className={classes.stripes}>
-            <Box className={classes.stripe} />
-            <Box className={classes.stripe} />
-            <Box className={classes.stripe} />
-            <Box className={classes.stripe} />
+            {focused && (
+              <>
+                <Box className={classes.stripe} />
+                <Box className={classes.stripe} />
+                <Box className={classes.stripe} />
+                <Box className={classes.stripe} />
+              </>
+            )}
           </Box>
           <Group gap={5} px={10}>
             <Image
@@ -87,10 +94,14 @@ export function DraggableElement({
             {windowTitle}
           </Group>
           <Box className={classes.stripes}>
-            <Box className={classes.stripe} />
-            <Box className={classes.stripe} />
-            <Box className={classes.stripe} />
-            <Box className={classes.stripe} />
+            {focused && (
+              <>
+                <Box className={classes.stripe} />
+                <Box className={classes.stripe} />
+                <Box className={classes.stripe} />
+                <Box className={classes.stripe} />
+              </>
+            )}
           </Box>
         </Box>
         <Group gap={3}>

@@ -137,7 +137,7 @@ export default function WindowsManager() {
           windowTitle={elem?.title}
           coordinates={elem.coordinates}
           windowIcon={elem.icon}
-          zIndex={index + 1}
+          focused={index === windowsState.length - 1}
           setMaximized={() => SetWindowMaximized(elem.id)}
           focusing={() => {
             SetWindowFocus(elem.id);
