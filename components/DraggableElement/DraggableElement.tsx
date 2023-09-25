@@ -122,6 +122,7 @@ export function DraggableElement({
               setMinimized((value) => !value);
               event.stopPropagation();
               if (!minimized && maximized) setMaximized();
+              else focusing();
             }}
           >
             <Box className={classes.minimizeButtonBox} />
