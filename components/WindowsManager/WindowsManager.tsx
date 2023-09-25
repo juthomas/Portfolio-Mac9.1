@@ -4,8 +4,18 @@ import { useState } from 'react';
 import { DraggableWindow } from '../DraggableWindow/DraggableWindow';
 import Desktop from '../Desktop/Desktop';
 
+interface windowsType {
+  id: string;
+  content: React.ReactNode;
+  title?: string;
+  icon?: string;
+  maximized: boolean;
+  size?: { height: number; width: number };
+  coordinates: { x: number; y: number };
+}
+
 export default function WindowsManager() {
-  const windowsList = [
+  const windowsList: windowsType[] = [
     {
       id: '1',
       content: <>One for tree mdr</>,
@@ -30,7 +40,7 @@ export default function WindowsManager() {
     },
   ];
 
-  const [windowsState, setWindowsState] = useState([
+  const [windowsState, setWindowsState] = useState<windowsType[]>([
     {
       id: '1',
       content: <>cc 1</>,
