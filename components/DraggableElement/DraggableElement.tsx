@@ -16,6 +16,8 @@ export function DraggableElement({
   height = 400,
   width = 600,
   zIndex = 1,
+  setMaximized,
+  maximized,
   windowIcon = fileIcon,
   windowName = 'Portfolio',
 }: {
@@ -27,12 +29,14 @@ export function DraggableElement({
   children?: React.ReactNode;
   windowIcon?: string;
   windowName?: React.ReactNode;
+  maximized?: boolean;
+  setMaximized: () => void;
   focusing: () => void;
   deleting: () => void;
 }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: 'default',
-    disabled: false,
+    disabled: maximized,
   });
 
   const [minimized, setMinimized] = useState(false);
@@ -60,7 +64,13 @@ export function DraggableElement({
             deleting();
           }}
         />
-        <Box className={classes.dragHandle} ref={setNodeRef} {...listeners} {...attributes}>
+        <Box
+          style={{ cursor: maximized ? 'default' : undefined }}
+          className={classes.dragHandle}
+          ref={setNodeRef}
+          {...listeners}
+          {...attributes}
+        >
           <Box className={classes.stripes}>
             <Box className={classes.stripe} />
             <Box className={classes.stripe} />
@@ -85,14 +95,23 @@ export function DraggableElement({
           </Box>
         </Box>
         <Group gap={3}>
-          <Box className={classes.button}>
+          <Box
+            className={classes.button}
+            onClick={(event) => {
+              if (minimized) setMinimized((value) => !value);
+              event.stopPropagation();
+              setMaximized();
+            }}
+          >
             <Box className={classes.maximizeButtonBox} />
           </Box>
           <Box
             style={{ display: 'flex', alignItems: 'center' }}
             className={classes.button}
-            onClick={() => {
+            onClick={(event) => {
               setMinimized((value) => !value);
+              event.stopPropagation();
+              if (!minimized && maximized) setMaximized();
             }}
           >
             <Box className={classes.minimizeButtonBox} />

@@ -82,7 +82,6 @@ export function Header() {
     );
   });
 
-
   const [time, setTime] = useState('12:00 PM');
 
   useEffect(() => {
