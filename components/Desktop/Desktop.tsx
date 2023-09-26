@@ -3,13 +3,21 @@
 import { useState } from 'react';
 import { DndContext, useSensors, useSensor, PointerSensor } from '@dnd-kit/core';
 import DraggableShortcut from '../DraggableShortcut/DraggableShortcut';
+import onefortreeIcon from '@/assets/onefortree.png';
+import iotaIcon from '@/assets/iota.png';
 
 export default function Desktop({ openWindow }: { openWindow: (windowId: string) => void }) {
   const [shortcutsPositions, setShortcutPositions] = useState([
     { id: '1', position: { x: 0, y: 50 }, windowId: '1', text: 'One for tree' },
     { id: '2', position: { x: 0, y: 30 }, windowId: '2', text: 'Projet Iota ' },
-    { id: '3', position: { x: 0, y: 30 }, link: 'http://projet-iota.fr', text: 'Projet Iota' },
-    { id: '4', position: { x: 0, y: 30 }, link: 'https://oft.pages.dev/game', text: 'One for tree' },
+    { id: '3', position: { x: 0, y: 30 }, link: 'http://projet-iota.fr', text: 'Projet Iota', icon: iotaIcon },
+    {
+      id: '4',
+      position: { x: 0, y: 30 },
+      link: 'https://oft.pages.dev/game',
+      text: 'One for tree',
+      icon: onefortreeIcon,
+    },
   ]);
 
   const sensors = useSensors(

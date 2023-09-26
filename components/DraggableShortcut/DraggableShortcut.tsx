@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import type { StaticImageData } from 'next/image';
 import { useDraggable } from '@dnd-kit/core';
 import { Box, Text } from '@mantine/core';
 import folderIcon from '@/assets/folder.png';
@@ -10,10 +11,12 @@ export default function DraggableShortcut({
   openWindow,
   text,
   link,
+  icon,
   textHighlight = true,
   id,
 }: {
   position?: { x: number; y: number };
+  icon?: StaticImageData;
   windowId?: string;
   link?: string;
   id: string;
@@ -43,7 +46,7 @@ export default function DraggableShortcut({
       {...listeners}
       {...attributes}
     >
-      <Image alt="Shortcut Image" src={folderIcon} />
+      <Image alt="Shortcut Image" src={icon || folderIcon} />
       <Text
         px={10}
         py={3}
