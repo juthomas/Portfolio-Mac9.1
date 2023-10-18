@@ -62,7 +62,7 @@ export default function WindowsManager() {
 
   useEffect(() => {
     const updatedWindowsList = windowsList
-      .filter((elem) => ['1', '2'].includes(elem.id))
+      .filter((elem) => ['1'].includes(elem.id))
       .map((elem) => {
         const tmp = { ...elem };
         if (tmp.coordinates.x === 'center') {

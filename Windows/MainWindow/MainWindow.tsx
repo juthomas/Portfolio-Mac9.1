@@ -13,7 +13,12 @@ export default function MainWindow(): JSX.Element {
         <List.Item>Creation of mobile applications</List.Item>
         <List.Item>Project management</List.Item>
       </List>
-      <DraggableShortcut draggable={false} windowId="3" />
+      <Space h="lg" />
+      <Flex>
+        <DraggableShortcut draggable={false} windowId="3" text="My Profile" />
+        <DraggableShortcut draggable={false} windowId="3" text="My Projects" />
+        <DraggableShortcut draggable={false} windowId="3" text="Contact Me" />
+      </Flex>
     </Flex>
   );
 }
