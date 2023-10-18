@@ -34,4 +34,5 @@ export const theme = createTheme({
     purple,
     macBlue,
   },
+  headings: { fontFamily: "'VT323', monospace" },
 });

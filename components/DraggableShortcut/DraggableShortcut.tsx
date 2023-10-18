@@ -2,31 +2,38 @@ import Image from 'next/image';
 import type { StaticImageData } from 'next/image';
 import { useDraggable } from '@dnd-kit/core';
 import { Box, Text } from '@mantine/core';
+import { useContext } from 'react';
 import folderIcon from '@/assets/folder.png';
 import classes from './DraggableShortcut.module.css';
+// eslint-disable-next-line import/no-cycle
+import { WindowManagerContext } from '../WindowsManager/WindowsManager';
 
 export default function DraggableShortcut({
   position,
   windowId,
-  openWindow,
-  text,
+  // openWindow,
+  text = 'Default Text',
   link,
   icon,
+  id = '1',
   textHighlight = true,
-  id,
+  draggable = true,
 }: {
   position?: { left?: number; top?: number; right?: number; bottom?: number };
   icon?: StaticImageData;
   windowId?: string;
   link?: string;
-  id: string;
+  id?: string;
   text?: string;
   textHighlight?: boolean;
-  openWindow: (windowId: string) => void;
+  draggable?: boolean;
+  // openWindow: (windowId: string) => void;
 }) {
+  const openWindow = useContext(WindowManagerContext);
+
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id,
-    disabled: false,
+    disabled: !draggable,
   });
 
   return (
@@ -34,10 +41,11 @@ export default function DraggableShortcut({
       onClick={(event) => {
         event.stopPropagation();
         link && window.open(link, '_blank', 'noreferrer');
-        windowId && openWindow(windowId);
+        windowId && openWindow && openWindow(windowId);
       }}
       className={classes.draggableShortcut}
       style={{
+        position: draggable ? 'absolute' : undefined,
         top: position?.top || undefined,
         left: position?.left || undefined,
         right: position?.right || undefined,

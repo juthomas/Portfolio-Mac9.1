@@ -1,8 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState, createContext } from 'react';
 import { DraggableWindow } from '../DraggableWindow/DraggableWindow';
+// eslint-disable-next-line import/no-cycle
 import Desktop from '../Desktop/Desktop';
+import useWindowDimensions from '@/hooks/useWindowDImensions';
+import MainWindow from '@/Windows/MainWindow/MainWindow';
 
 interface windowsType {
   id: string;
@@ -11,10 +14,13 @@ interface windowsType {
   icon?: string;
   maximized: boolean;
   size?: { height: number; width: number };
-  coordinates: { x: number; y: number };
+  coordinates: { x: number | 'center'; y: number | 'center' };
 }
+export const WindowManagerContext = createContext<((id: string) => void) | undefined>(undefined);
 
 export default function WindowsManager() {
+  const { height: windowHeight, width: windowWidth } = useWindowDimensions();
+
   const windowsList: windowsType[] = [
     {
       id: '2',
@@ -34,15 +40,42 @@ export default function WindowsManager() {
     },
     {
       id: '1',
-      content: <>Iota mdr</>,
+      content: <MainWindow />,
       maximized: false,
-      coordinates: { x: 100, y: 130 },
+      coordinates: { x: 'center', y: 130 },
     },
   ];
 
   const [windowsState, setWindowsState] = useState<windowsType[]>(
-    windowsList.filter((elem) => ['1', '2'].includes(elem.id))//Fenetres qui vont etre ouvertes au demarrage
+    []
+    // windowsList
+    //   .filter((elem) => ['1', '2'].includes(elem.id))
+    //   .map((elem) => {
+    //     const tmp = { ...elem };
+    //     if (tmp.coordinates.x === 'center' && typeof window !== 'undefined') {
+    //       tmp.coordinates.x = window.innerWidth / 2;
+    //     }
+    //     console.log('TEST 2');
+    //     return { ...tmp };
+    //   }) //Fenetres qui vont etre ouvertes au demarrage
   );
+
+  useEffect(() => {
+    const updatedWindowsList = windowsList
+      .filter((elem) => ['1', '2'].includes(elem.id))
+      .map((elem) => {
+        const tmp = { ...elem };
+        if (tmp.coordinates.x === 'center') {
+          tmp.coordinates.x = windowWidth / 2 - (elem?.size?.width || 600) / 2;
+        }
+        if (tmp.coordinates.y === 'center') {
+          tmp.coordinates.y = windowHeight / 2 - (elem?.size?.height || 300) / 2;
+        }
+        return { ...tmp };
+      });
+
+    setWindowsState(updatedWindowsList);
+  }, [windowWidth]);
 
   function SetWindowFocus(id: string) {
     const elementAdeplacer = windowsState.find((item) => item.id === id);
@@ -105,7 +138,7 @@ export default function WindowsManager() {
   }
 
   return (
-    <>
+    <WindowManagerContext.Provider value={OpenWindow}>
       {windowsState.map((elem, index) => (
         <DraggableWindow
           key={elem.id}
@@ -133,6 +166,6 @@ export default function WindowsManager() {
           OpenWindow(windowId);
         }}
       />
-    </>
+    </WindowManagerContext.Provider>
   );
 }
