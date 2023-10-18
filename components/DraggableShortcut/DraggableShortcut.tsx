@@ -6,7 +6,7 @@ import folderIcon from '@/assets/folder.png';
 import classes from './DraggableShortcut.module.css';
 
 export default function DraggableShortcut({
-  position = { x: 30, y: 0 },
+  position,
   windowId,
   openWindow,
   text,
@@ -15,7 +15,7 @@ export default function DraggableShortcut({
   textHighlight = true,
   id,
 }: {
-  position?: { x: number; y: number };
+  position?: { left?: number; top?: number; right?: number; bottom?: number };
   icon?: StaticImageData;
   windowId?: string;
   link?: string;
@@ -38,8 +38,10 @@ export default function DraggableShortcut({
       }}
       className={classes.draggableShortcut}
       style={{
-        top: position.y,
-        left: position.x,
+        top: position?.top || undefined,
+        left: position?.left || undefined,
+        right: position?.right || undefined,
+        bottom: position?.bottom || undefined,
         transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
       }}
       ref={setNodeRef}

@@ -17,7 +17,7 @@ interface windowsType {
 export default function WindowsManager() {
   const windowsList: windowsType[] = [
     {
-      id: '1',
+      id: '2',
       content: <>One for tree mdr</>,
       title: 'OTF',
       // icon: '',
@@ -26,17 +26,17 @@ export default function WindowsManager() {
       coordinates: { x: 0, y: 30 },
     },
     {
-      id: '2',
-      content: <>Iota mdr</>,
-      maximized: false,
-      coordinates: { x: 100, y: 130 },
-    },
-    {
       id: '3',
       content: <>cc 3</>,
       title: '',
       maximized: false,
       coordinates: { x: 130, y: 100 },
+    },
+    {
+      id: '1',
+      content: <>Iota mdr</>,
+      maximized: false,
+      coordinates: { x: 100, y: 130 },
     },
   ];
 
