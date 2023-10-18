@@ -147,7 +147,7 @@ export default function WindowsManager() {
           width={elem?.size?.width}
           maximized={elem.maximized}
           windowTitle={elem?.title}
-          coordinates={elem.coordinates}
+          coordinates={elem.coordinates as { x: number; y: number; }}
           windowIcon={elem.icon}
           focused={index === windowsState.length - 1}
           setMaximized={() => SetWindowMaximized(elem.id)}
@@ -161,11 +161,7 @@ export default function WindowsManager() {
           {elem.content}
         </DraggableWindow>
       ))}
-      <Desktop
-        openWindow={(windowId) => {
-          OpenWindow(windowId);
-        }}
-      />
+      <Desktop />
     </WindowManagerContext.Provider>
   );
 }
