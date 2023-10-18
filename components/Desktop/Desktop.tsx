@@ -26,8 +26,8 @@ interface shortcutType {
 export default function Desktop() {
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
   const [shortcutsPositions, setShortcutPositions] = useState<shortcutType[]>([
-    { id: '1', position: { left: 0, top: 50 }, windowId: '1', text: 'Portfolio' },
-    { id: '2', position: { left: 0, top: 30 }, windowId: '2', text: 'Projet Iota ' },
+    { id: '1', position: { right: 0.1, top: 50 }, windowId: '1', text: 'Portfolio' },
+    { id: '2', position: { right: 0.1, top: 175 }, windowId: '2', text: 'Projet Iota ' },
     {
       id: '3',
       position: { right: 0.1, bottom: 50 },
@@ -37,7 +37,7 @@ export default function Desktop() {
     },
     {
       id: '4',
-      position: { right: 0.1, top: 180 },
+      position: { right: 0.1, top: 300 },
       link: 'https://oft.pages.dev/game',
       text: 'One for tree',
       icon: onefortreeIcon,
