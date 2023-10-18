@@ -104,6 +104,12 @@ export default function WindowsManager() {
       tmpList.push(elementAdeplacer);
     } else {
       const elementACopier = windowsList.find((item) => item.id === id);
+      if (elementACopier?.coordinates.x === 'center') {
+        elementACopier.coordinates.x = windowWidth / 2 - (elementACopier?.size?.width || 600) / 2;
+      }
+      if (elementACopier?.coordinates.y === 'center') {
+        elementACopier.coordinates.y = windowHeight / 2 - (elementACopier?.size?.height || 300) / 2;
+      }
       elementACopier && tmpList.push(elementACopier);
     }
 
