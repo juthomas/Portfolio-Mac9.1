@@ -8,10 +8,10 @@ import {
   KeyboardSensor,
   useSensors,
 } from '@dnd-kit/core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Coordinates } from '@dnd-kit/utilities';
 import { DraggableElement } from '../DraggableElement/DraggableElement';
-import useWindowDimensions from '@/hooks/useWindowDImensions';
+import useWindowDimensions, { WindowDimensions } from '@/hooks/useWindowDImensions';
 
 export function DraggableWindow({
   id = 'default',
@@ -42,7 +42,21 @@ export function DraggableWindow({
 }) {
   const [{ x, y }, setCoordinates] = useState<Coordinates>(coordinates);
 
-  const { height: windowHeight, width: windowWidth } = useWindowDimensions();
+  const handleDimensionChange = ({ width: wWidth, height: wHeight }: WindowDimensions) => {
+    setCoordinates((prev) => ({
+      x: wWidth < width ? 0 : prev.x + width > wWidth ? wWidth - width : prev.x < 0 ? 0 : prev.x,
+      y:
+        wHeight < height
+          ? 0
+          : prev.y + height > wHeight
+          ? wHeight - height
+          : prev.y < 30
+          ? 30
+          : prev.y,
+    }));
+  };
+
+  const { height: windowHeight, width: windowWidth } = useWindowDimensions(handleDimensionChange);
   const mouseSensor = useSensor(MouseSensor, {});
   const touchSensor = useSensor(TouchSensor, {});
   const keyboardSensor = useSensor(KeyboardSensor, {});

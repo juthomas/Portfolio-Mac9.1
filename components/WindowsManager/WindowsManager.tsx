@@ -4,7 +4,7 @@ import { useEffect, useState, createContext } from 'react';
 import { DraggableWindow } from '../DraggableWindow/DraggableWindow';
 // eslint-disable-next-line import/no-cycle
 import Desktop from '../Desktop/Desktop';
-import useWindowDimensions, { WindowDimensions } from '@/hooks/useWindowDImensions';
+import useWindowDimensions from '@/hooks/useWindowDImensions';
 import MainWindow from '@/Windows/MainWindow/MainWindow';
 
 interface windowsType {
@@ -19,11 +19,7 @@ interface windowsType {
 export const WindowManagerContext = createContext<((id: string) => void) | undefined>(undefined);
 
 export default function WindowsManager() {
-  const handleDimensionChange = ({ width, height }: WindowDimensions) => {
-    console.log(`Dimensions changed to: ${width}x${height}`);
-  };
-
-  const { height: windowHeight, width: windowWidth } = useWindowDimensions(handleDimensionChange);
+  const { height: windowHeight, width: windowWidth } = useWindowDimensions();
 
   const windowsList: windowsType[] = [
     {
