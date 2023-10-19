@@ -43,7 +43,7 @@ export default function WindowsManager() {
       content: <ProfileWindow />,
       title: 'My Profile',
       maximized: false,
-      size: { height: 900, width: 800 },
+      size: { height: 700, width: 800 },
       coordinates: { x: 'center', y: 100 },
     },
     {
