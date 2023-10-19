@@ -8,7 +8,7 @@ import {
   KeyboardSensor,
   useSensors,
 } from '@dnd-kit/core';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { Coordinates } from '@dnd-kit/utilities';
 import { DraggableElement } from '../DraggableElement/DraggableElement';
 import useWindowDimensions, { WindowDimensions } from '@/hooks/useWindowDImensions';
