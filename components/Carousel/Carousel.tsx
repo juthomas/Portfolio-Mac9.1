@@ -1,9 +1,9 @@
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import React, { useCallback } from 'react';
 import useEmblaCarousel, { EmblaOptionsType, EmblaCarouselType } from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
-import { Box, Flex } from '@mantine/core';
-import { PrevButton, NextButton, usePrevNextButtons } from './CarouselButtons';
+import { Box, Button, Flex } from '@mantine/core';
+import { usePrevNextButtons } from './CarouselButtons';
 // import imageByIndex from './imageByIndex';
 import mdma from '@/assets/carousels/mdma.webp';
 import iota from '@/assets/carousels/holy.webp';
@@ -14,7 +14,7 @@ import emblaClasses from './embla.module.css';
 import themeClasses from '@/styles/theme.module.css';
 
 type PropType = {
-  slides: number[];
+  slides: { image?: StaticImageData; alt?: string }[];
   options?: EmblaOptionsType;
 };
 
@@ -32,13 +32,14 @@ export const Carousel: React.FC<PropType> = (props) => {
     usePrevNextButtons(emblaApi, onButtonClick);
 
   return (
-    <Flex gap="xs">
-      <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+    <Flex gap="xs" align="center">
+      <Button onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+
       <Box className={themeClasses.retroBox}>
         <div className={emblaClasses.embla}>
           <div className={emblaClasses.embla__viewport} ref={emblaRef}>
             <div className={emblaClasses.embla__container}>
-              {slides.map((index) => (
+              {slides.map((slide, index) => (
                 <div className={emblaClasses.embla__slide} key={index}>
                   <div className={emblaClasses.embla__slide__number}>
                     <span>{index + 1}</span>
@@ -54,7 +55,7 @@ export const Carousel: React.FC<PropType> = (props) => {
           </div>
         </div>
       </Box>
-      <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+      <Button onClick={onNextButtonClick} disabled={nextBtnDisabled} />
     </Flex>
   );
 };
