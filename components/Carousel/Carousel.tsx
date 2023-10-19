@@ -7,10 +7,13 @@ import { usePrevNextButtons } from './CarouselButtons';
 // import imageByIndex from './imageByIndex';
 import mdma from '@/assets/carousels/mdma.webp';
 import iota from '@/assets/carousels/holy.webp';
+import arrowRight from '@/assets/icons/arrowRight.svg';
+import arrowLeft from '@/assets/icons/arrowLeft.svg';
+
 // import './base.css';
 // import './sandbox.css';
 // import './embla.css';
-import emblaClasses from './embla.module.css';
+import emblaClasses from './Carousel.module.css';
 import themeClasses from '@/styles/theme.module.css';
 
 type PropType = {
@@ -33,7 +36,14 @@ export const Carousel: React.FC<PropType> = (props) => {
 
   return (
     <Flex gap="xs" align="center">
-      <Button onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+      <Button
+        className={emblaClasses.button}
+        onClick={onPrevButtonClick}
+        disabled={prevBtnDisabled}
+        pr={2}
+      >
+        <Image alt="left arrow" src={arrowLeft} />
+      </Button>
 
       <Box className={themeClasses.retroBox}>
         <div className={emblaClasses.embla}>
@@ -55,7 +65,14 @@ export const Carousel: React.FC<PropType> = (props) => {
           </div>
         </div>
       </Box>
-      <Button onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+      <Button
+        className={emblaClasses.button}
+        onClick={onNextButtonClick}
+        disabled={nextBtnDisabled}
+        pl={2}
+      >
+        <Image alt="right arrow" src={arrowRight} />
+      </Button>
     </Flex>
   );
 };

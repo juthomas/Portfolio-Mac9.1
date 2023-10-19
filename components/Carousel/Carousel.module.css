@@ -54,3 +54,12 @@
   right: 0;
   bottom: 0;
 }
+
+.button {
+  border: var(--borders-size) solid black;
+  border-radius: 0;
+  background-color: #f1f1f1;
+  height: 25px;
+  width: 25px;
+  padding: 0;
+}

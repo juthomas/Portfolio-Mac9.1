@@ -14,6 +14,8 @@ export default function ProjectsWindow(): JSX.Element {
     <Flex direction="column" align="center" h="100%">
       <Flex direction="column" align="center" h="100%" w="100%" pt="xl" maw="650px">
         <Carousel slides={slides} options={{ loop: true }} />
+        <Space h="xl" />
+        <Carousel slides={slides} options={{ loop: true }} />
       </Flex>
     </Flex>
   );
