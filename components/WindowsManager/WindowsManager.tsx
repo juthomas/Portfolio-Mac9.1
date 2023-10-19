@@ -7,6 +7,7 @@ import Desktop from '../Desktop/Desktop';
 import useWindowDimensions from '@/hooks/useWindowDImensions';
 import MainWindow from '@/Windows/MainWindow/MainWindow';
 import ProfileWindow from '@/Windows/ProfileWindow/ProfileWindow';
+import ProjectsWindow from '@/Windows/ProjectsWindow/ProjectsWindow';
 
 interface windowsType {
   id: string;
@@ -48,7 +49,7 @@ export default function WindowsManager() {
     },
     {
       id: 'projects',
-      content: <>cc 3</>,
+      content: <ProjectsWindow />,
       title: 'My Projects',
       maximized: false,
       size: { height: 900, width: 800 },
@@ -80,7 +81,7 @@ export default function WindowsManager() {
 
   useEffect(() => {
     const updatedWindowsList = windowsList
-      .filter((elem) => ['main'].includes(elem.id))
+      .filter((elem) => ['main', 'projects'].includes(elem.id))
       .map((elem) => {
         const tmp = { ...elem };
         if (tmp.coordinates.x === 'center') {
