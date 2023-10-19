@@ -1,0 +1,30 @@
+.retroBox {
+  outline: var(--borders-size) solid black;
+  /* background-color: #f50303; */
+  /* display: inline-block; */
+
+  position: relative; /*?????*/
+  /* padding: calc(var(--borders-size) * 3)  */
+}
+
+.retroBox::before,
+.retroBox::after {
+  content: '';
+  position: absolute;
+  /* background-color: aqua; */
+  top: calc(var(--borders-size) * -2);
+  left: calc(var(--borders-size) * -2);
+  bottom: calc(var(--borders-size) * -2);
+  right: calc(var(--borders-size) * -2);
+  pointer-events: none;
+}
+
+.retroBox::before {
+  border-right: var(--borders-size) solid #ffffff;
+  border-bottom: var(--borders-size) solid #ffffff;
+}
+
+.retroBox::after {
+  border-left: var(--borders-size) solid #939393;
+  border-top: var(--borders-size) solid #939393;
+}

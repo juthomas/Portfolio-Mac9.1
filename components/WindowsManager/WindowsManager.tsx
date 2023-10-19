@@ -6,6 +6,7 @@ import { DraggableWindow } from '../DraggableWindow/DraggableWindow';
 import Desktop from '../Desktop/Desktop';
 import useWindowDimensions from '@/hooks/useWindowDImensions';
 import MainWindow from '@/Windows/MainWindow/MainWindow';
+import ProfileWindow from '@/Windows/ProfileWindow/ProfileWindow';
 
 interface windowsType {
   id: string;
@@ -32,17 +33,34 @@ export default function WindowsManager() {
       coordinates: { x: 0, y: 30 },
     },
     {
-      id: '3',
-      content: <>cc 3</>,
-      title: '',
-      maximized: false,
-      coordinates: { x: 130, y: 100 },
-    },
-    {
-      id: '1',
+      id: 'main',
       content: <MainWindow />,
       maximized: false,
       coordinates: { x: 'center', y: 130 },
+    },
+    {
+      id: 'profile',
+      content: <ProfileWindow />,
+      title: 'My Profile',
+      maximized: false,
+      size: { height: 900, width: 800 },
+      coordinates: { x: 'center', y: 100 },
+    },
+    {
+      id: 'projects',
+      content: <>cc 3</>,
+      title: 'My Projects',
+      maximized: false,
+      size: { height: 900, width: 800 },
+      coordinates: { x: 'center', y: 100 },
+    },
+    {
+      id: 'contact',
+      content: <>cc 3</>,
+      title: 'Contact Me',
+      maximized: false,
+      size: { height: 900, width: 800 },
+      coordinates: { x: 'center', y: 100 },
     },
   ];
 
@@ -62,7 +80,7 @@ export default function WindowsManager() {
 
   useEffect(() => {
     const updatedWindowsList = windowsList
-      .filter((elem) => ['1'].includes(elem.id))
+      .filter((elem) => ['main'].includes(elem.id))
       .map((elem) => {
         const tmp = { ...elem };
         if (tmp.coordinates.x === 'center') {

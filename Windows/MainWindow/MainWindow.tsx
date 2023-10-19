@@ -15,9 +15,9 @@ export default function MainWindow(): JSX.Element {
       </List>
       <Space h="lg" />
       <Flex>
-        <DraggableShortcut draggable={false} windowId="3" text="My Profile" />
-        <DraggableShortcut draggable={false} windowId="3" text="My Projects" />
-        <DraggableShortcut draggable={false} windowId="3" text="Contact Me" />
+        <DraggableShortcut draggable={false} windowId="profile" text="My Profile" />
+        <DraggableShortcut draggable={false} windowId="projects" text="My Projects" />
+        <DraggableShortcut draggable={false} windowId="contact" text="Contact Me" />
       </Flex>
     </Flex>
   );

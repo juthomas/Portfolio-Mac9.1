@@ -3,7 +3,7 @@ import type { StaticImageData } from 'next/image';
 import { useDraggable } from '@dnd-kit/core';
 import { Box, Text } from '@mantine/core';
 import { useContext } from 'react';
-import folderIcon from '@/assets/folder.png';
+import folderIcon from '@/assets/icons/folder.png';
 import classes from './DraggableShortcut.module.css';
 // eslint-disable-next-line import/no-cycle
 import { WindowManagerContext } from '../WindowsManager/WindowsManager';

@@ -5,8 +5,8 @@ import { useState } from 'react';
 import { DndContext, useSensors, useSensor, PointerSensor } from '@dnd-kit/core';
 // eslint-disable-next-line import/no-cycle
 import DraggableShortcut from '../DraggableShortcut/DraggableShortcut';
-import onefortreeIcon from '@/assets/onefortree.png';
-import iotaIcon from '@/assets/iota.png';
+import onefortreeIcon from '@/assets/icons/onefortree.png';
+import iotaIcon from '@/assets/icons/iota.png';
 import useWindowDimensions from '@/hooks/useWindowDImensions';
 
 interface shortcutType {
@@ -27,7 +27,7 @@ export default function Desktop() {
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
 
   const [shortcutsPositions, setShortcutPositions] = useState<shortcutType[]>([
-    { id: '1', position: { right: 0.1, top: 50 }, windowId: '1', text: 'Portfolio' },
+    { id: '1', position: { right: 0.1, top: 50 }, windowId: 'main', text: 'Portfolio' },
     { id: '2', position: { right: 0.1, top: 175 }, windowId: '2', text: 'Projet Iota ' },
     {
       id: '3',
