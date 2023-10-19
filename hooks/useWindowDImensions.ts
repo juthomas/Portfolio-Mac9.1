@@ -9,15 +9,26 @@ function getWindowDimensions() {
   };
 }
 
-export default function useWindowDimensions() {
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+type WindowDimensions = {
+  width: number;
+  height: number;
+};
 
+type ResizeCallback = ((dimensions: WindowDimensions) => void) | null;
+
+export default function useWindowDimensions(callback?: ResizeCallback) {
+  const [windowDimensions, setWindowDimensions] = useState<WindowDimensions>(getWindowDimensions());
+
+  function handleResize() {
+    const newDimensions = getWindowDimensions();
+    setWindowDimensions(newDimensions);
+
+    if (callback && typeof callback === 'function') {
+      callback(newDimensions);
+    }
+  }
   if (typeof window !== 'undefined') {
     useEffect(() => {
-      function handleResize() {
-        setWindowDimensions(getWindowDimensions());
-      }
-
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
     }, []);

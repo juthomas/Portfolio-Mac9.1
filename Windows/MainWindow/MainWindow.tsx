@@ -3,7 +3,7 @@ import DraggableShortcut from '@/components/DraggableShortcut/DraggableShortcut'
 
 export default function MainWindow(): JSX.Element {
   return (
-    <Flex direction="column" align="center" justify="center" h="100%">
+    <Flex direction="column" align="center" h="100%" pt="xl">
       <Title>Julien THOMAS</Title>
       <Text size="xl">Freelance Developper</Text>
       <Space h="lg" />
