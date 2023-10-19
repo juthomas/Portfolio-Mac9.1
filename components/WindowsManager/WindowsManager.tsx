@@ -4,7 +4,7 @@ import { useEffect, useState, createContext } from 'react';
 import { DraggableWindow } from '../DraggableWindow/DraggableWindow';
 // eslint-disable-next-line import/no-cycle
 import Desktop from '../Desktop/Desktop';
-import useWindowDimensions from '@/hooks/useWindowDImensions';
+import useWindowDimensions, { WindowDimensions } from '@/hooks/useWindowDImensions';
 import MainWindow from '@/Windows/MainWindow/MainWindow';
 
 interface windowsType {
@@ -19,7 +19,11 @@ interface windowsType {
 export const WindowManagerContext = createContext<((id: string) => void) | undefined>(undefined);
 
 export default function WindowsManager() {
-  const { height: windowHeight, width: windowWidth } = useWindowDimensions();
+  const handleDimensionChange = ({ width, height }: WindowDimensions) => {
+    console.log(`Dimensions changed to: ${width}x${height}`);
+  };
+
+  const { height: windowHeight, width: windowWidth } = useWindowDimensions(handleDimensionChange);
 
   const windowsList: windowsType[] = [
     {
@@ -75,7 +79,7 @@ export default function WindowsManager() {
       });
 
     setWindowsState(updatedWindowsList);
-  }, [windowWidth]);
+  }, []);
 
   function SetWindowFocus(id: string) {
     const elementAdeplacer = windowsState.find((item) => item.id === id);
@@ -153,7 +157,7 @@ export default function WindowsManager() {
           width={elem?.size?.width}
           maximized={elem.maximized}
           windowTitle={elem?.title}
-          coordinates={elem.coordinates as { x: number; y: number; }}
+          coordinates={elem.coordinates as { x: number; y: number }}
           windowIcon={elem.icon}
           focused={index === windowsState.length - 1}
           setMaximized={() => SetWindowMaximized(elem.id)}

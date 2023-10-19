@@ -1,7 +1,7 @@
 'use client';
 
 import type { StaticImageData } from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { DndContext, useSensors, useSensor, PointerSensor } from '@dnd-kit/core';
 // eslint-disable-next-line import/no-cycle
 import DraggableShortcut from '../DraggableShortcut/DraggableShortcut';
@@ -24,10 +24,7 @@ interface shortcutType {
 }
 
 export default function Desktop() {
-  const handleDimensionChange = ({ width, height }) => {
-    console.log(`Dimensions changed to: ${width}x${height}`);
-  };
-  const { height: windowHeight, width: windowWidth } = useWindowDimensions(handleDimensionChange);
+  const { height: windowHeight, width: windowWidth } = useWindowDimensions();
 
   const [shortcutsPositions, setShortcutPositions] = useState<shortcutType[]>([
     { id: '1', position: { right: 0.1, top: 50 }, windowId: '1', text: 'Portfolio' },
@@ -55,11 +52,6 @@ export default function Desktop() {
       },
     })
   );
-
-  // setOnResize &&
-  //   setOnResize(({ width, height }) => {
-  //     console.log("IT's workigiinggg");
-  //   });
 
   return (
     <DndContext

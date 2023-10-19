@@ -9,7 +9,7 @@ function getWindowDimensions() {
   };
 }
 
-type WindowDimensions = {
+export type WindowDimensions = {
   width: number;
   height: number;
 };
