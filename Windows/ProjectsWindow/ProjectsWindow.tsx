@@ -50,12 +50,13 @@ export default function ProjectsWindow(): JSX.Element {
         </Text>
         <Flex gap="xl" align="stretch">
           <Carousel slides={slides} options={{ loop: true }} />
-          <Box p="xs" w="100%" bg="white" className={classes.retroBox}>
+          <Box p="xs" w="100%" bg="white" pos="relative" className={classes.retroBox}>
             <Text ta="left" w="100%">
               {`Jeu gagnant d'une Gamejam de 48h organisé par la Vivatech, One For Tree vous fait
               incarner un robot qui doit coopérer avec ses compères pour reboiser une planète
               poluée. Un jeu mignon, multijoueur avec un message green tech et positif.`}
             </Text>
+            <SeeMoreButton />
           </Box>
         </Flex>
         <Space h="lg" />
@@ -64,13 +65,14 @@ export default function ProjectsWindow(): JSX.Element {
         </Text>
         <Flex gap="xl" align="stretch">
           <Carousel slides={slides} options={{ loop: true }} />
-          <Box p="xs" w="100%" bg="white" className={classes.retroBox}>
+          <Box p="xs" w="100%" bg="white" pos="relative" className={classes.retroBox}>
             <Text ta="left" w="100%">
               {`A travers le projet Mega Drinking Machina Adventure™ nous voulons faire vivre à nos
               très chers futurs utilisateurs une simulation, familiale, de cette aventure hors du
               commun. Une compilation de 11 jeux jouables à 5 joueurs mettront vos amitiés et vos
               nerfs à rudes épreuves.`}
             </Text>
+            <SeeMoreButton />
           </Box>
         </Flex>
         <Space h="lg" />
@@ -86,6 +88,7 @@ export default function ProjectsWindow(): JSX.Element {
               commun. Une compilation de 11 jeux jouables à 5 joueurs mettront vos amitiés et vos
               nerfs à rudes épreuves.`}
             </Text>
+            <SeeMoreButton />
           </Box>
         </Flex>
         <Space h="xl" />

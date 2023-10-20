@@ -9,6 +9,7 @@ export function SeeMoreButton() {
       leftSection={
         <Image style={{ imageRendering: 'pixelated' }} src={crossIcon} alt="crossIcon" />
       }
+      px="xs"
       className={classes.seeMoreButton}
     >
       <Text>See More</Text>
