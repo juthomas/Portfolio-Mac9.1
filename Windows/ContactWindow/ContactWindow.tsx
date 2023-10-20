@@ -14,19 +14,44 @@ export default function ContactWindow(): JSX.Element {
     <Flex direction="column" align="center" h="100%">
       <Flex direction="column" align="center" h="100%" w="100%" pt="xl" maw="600px">
         <Flex align="center" justify="space-around" maw="1000px" w="100%">
-          <DraggableShortcut icon={linkedin} draggable={false} windowId="contact" text="LinkedIn" />
+          <DraggableShortcut
+            icon={linkedin}
+            draggable={false}
+            link="https://www.linkedin.com/in/julien-thomas-942b18162/"
+            text="LinkedIn"
+          />
           <DraggableShortcut
             icon={instagram}
             draggable={false}
-            windowId="contact"
+            link="https://instagram.com/julien_thomas__?igshid=MzNlNGNkZWQ4Mg=="
             text="Instagram"
           />
-          <DraggableShortcut icon={github} draggable={false} windowId="contact" text="GitHub" />
+          <DraggableShortcut
+            icon={github}
+            draggable={false}
+            link="https://github.com/juthomas"
+            text="GitHub"
+          />
         </Flex>
         <Flex align="center" justify="space-around" maw="1000px" w="100%" mt="xl">
-          <DraggableShortcut icon={gitlab} draggable={false} windowId="contact" text="GitLab" />
-          <DraggableShortcut icon={discord} draggable={false} windowId="contact" text="Discord" />
-          <DraggableShortcut icon={gmail} draggable={false} windowId="contact" text="Email" />
+          <DraggableShortcut
+            icon={gitlab}
+            draggable={false}
+            link="https://gitlab.com/Juthomas"
+            text="GitLab"
+          />
+          <DraggableShortcut
+            icon={discord}
+            draggable={false}
+            link="https://discordapp.com/users/189439718654476288"
+            text="Discord"
+          />
+          <DraggableShortcut
+            icon={gmail}
+            draggable={false}
+            link="mailto:contact@juthomas.fr"
+            text="Email"
+          />
         </Flex>
         <Space h="xl" />
         <Text ta="left" ml="lg" w="100%">
