@@ -1,7 +1,5 @@
-import Image from 'next/image';
 import { Box, Flex, List, Space, Text, Title } from '@mantine/core';
 import DraggableShortcut from '@/components/DraggableShortcut/DraggableShortcut';
-import juthomasPicture from '@/assets/juthomas-picture.png';
 import classes from '@/styles/theme.module.css';
 
 import linkedin from '@/assets/icons/linkedin.png';
