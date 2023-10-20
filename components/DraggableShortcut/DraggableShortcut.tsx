@@ -57,7 +57,7 @@ export default function DraggableShortcut({
       {...attributes}
     >
       <Image
-        style={{ imageRendering: 'pixelated' }}
+        style={{ imageRendering: 'pixelated', height: 64, width: 64 }}
         alt="Shortcut Image"
         src={icon || folderIcon}
       />

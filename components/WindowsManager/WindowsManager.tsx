@@ -8,6 +8,7 @@ import useWindowDimensions from '@/hooks/useWindowDImensions';
 import MainWindow from '@/Windows/MainWindow/MainWindow';
 import ProfileWindow from '@/Windows/ProfileWindow/ProfileWindow';
 import ProjectsWindow from '@/Windows/ProjectsWindow/ProjectsWindow';
+import ContactWindow from '@/Windows/ContactWindow/ContactWindow';
 
 interface windowsType {
   id: string;
@@ -59,7 +60,7 @@ export default function WindowsManager() {
     },
     {
       id: 'contact',
-      content: <>cc 3</>,
+      content: <ContactWindow />,
       title: 'Contact Me',
       maximized: false,
       size: { height: 900, width: 800 },
