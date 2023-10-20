@@ -69,7 +69,7 @@ export default function DraggableShortcut({
           backgroundColor: textHighlight ? 'white' : undefined,
           lineHeight: 1.2,
           minWidth: 70,
-          maxWidth: 140,
+          maxWidth: 110,
         }}
       >
         {text}
