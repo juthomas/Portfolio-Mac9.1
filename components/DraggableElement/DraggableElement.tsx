@@ -2,11 +2,14 @@
 
 import Image from 'next/image';
 import { useDraggable } from '@dnd-kit/core';
-import { Box, Group } from '@mantine/core';
-import { useState } from 'react';
+import { Box, Button, Group } from '@mantine/core';
+import { useRef, useState } from 'react';
 import fileIcon from '@/assets/file_icon.svg';
+import arrowUp from '@/assets/icons/arrowUp.svg';
+import arrowDown from '@/assets/icons/arrowDown.svg';
 import classes from './DraggableElement.module.css';
 import { ScrollArea } from '../ScrollArea';
+import { relative } from 'path';
 
 export function DraggableElement({
   top,
@@ -45,6 +48,7 @@ export function DraggableElement({
   });
 
   const [minimized, setMinimized] = useState(false);
+  const viewport = useRef<HTMLDivElement>(null);
 
   return (
     <Box
@@ -142,11 +146,33 @@ export function DraggableElement({
                 corner: classes.corner,
                 thumb: classes.scrollThumb,
               }}
+              style={{ position: 'relative' }}
+              viewportRef={viewport}
               scrollbarSize={20}
               h="100%"
               type="always"
               offsetScrollbars="y"
             >
+              <Box className={classes.scrollButtons}>
+                <Box
+                  className={classes.scrollButton}
+                  onClick={() => {
+                    viewport.current!.scrollBy({ top: -4 });
+                  }}
+                  pb={2}
+                >
+                  <Image src={arrowUp} alt="arrow Up" />
+                </Box>
+                <Box
+                  className={classes.scrollButton}
+                  onClick={() => {
+                    viewport.current!.scrollBy({ top: 4 });
+                  }}
+                  pt={2}
+                >
+                  <Image src={arrowDown} alt="arrow Down" />
+                </Box>
+              </Box>
               {children}
             </ScrollArea>
           ) : (
