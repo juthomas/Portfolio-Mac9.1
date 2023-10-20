@@ -1,0 +1,31 @@
+.seeMoreButton {
+  color: black;
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  border-radius: 0;
+  border: 0;
+  height: 25px;
+  background-color: #d7d7d7;
+}
+
+.seeMoreButton::before,
+.seeMoreButton::after {
+  content: '';
+  position: absolute;
+  /* background-color: aqua; */
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+}
+.seeMoreButton::before {
+  border-left: var(--borders-size) solid #f0f0f0;
+  border-top: var(--borders-size) solid #f0f0f0;
+}
+
+.seeMoreButton::after {
+  border-right: var(--borders-size) solid #ababab;
+  border-bottom: var(--borders-size) solid #ababab;
+}

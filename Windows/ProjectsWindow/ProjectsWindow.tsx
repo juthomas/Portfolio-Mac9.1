@@ -10,6 +10,7 @@ import NSDOS_2 from '@/assets/carousels/NSDOS/NSDOS_app_2.png';
 import NSDOS_3 from '@/assets/carousels/NSDOS/NSDOS_app_3.png';
 import NSDOS_4 from '@/assets/carousels/NSDOS/NSDOS_app_4.png';
 import NSDOS_5 from '@/assets/carousels/NSDOS/NSDOS_app_5.png';
+import { SeeMoreButton } from '@/components/SeeMoreButton/SeeMoreButton';
 
 export default function ProjectsWindow(): JSX.Element {
   const slides = [
@@ -33,13 +34,14 @@ export default function ProjectsWindow(): JSX.Element {
         </Text>
         <Flex gap="xl" align="stretch">
           <Carousel slides={slides} options={{ loop: true }} />
-          <Box p="xs" w="100%" bg="white" className={classes.retroBox}>
+          <Box p="xs" w="100%" bg="white" pos="relative" className={classes.retroBox}>
             <Text ta="left" w="100%">
               {`Bienvenue dans l'univers IOTA, une initiative engagée et à but non lucratif qui se
               donne pour mission d'équiper les jeunes générations des outils indispensables pour
               s'épanouir dans notre monde de plus en plus connecté. Avec IOTA, nous nous donnons
               comme mission de réduire la fracture numérique !`}
             </Text>
+            <SeeMoreButton />
           </Box>
         </Flex>
         <Space h="lg" />
@@ -87,7 +89,6 @@ export default function ProjectsWindow(): JSX.Element {
           </Box>
         </Flex>
         <Space h="xl" />
-
       </Flex>
     </Flex>
   );
