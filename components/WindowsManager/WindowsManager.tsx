@@ -26,7 +26,7 @@ export default function WindowsManager() {
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
 
   const windowsList: windowsType[] = [
-  {
+    {
       id: 'main',
       content: <MainWindow />,
       maximized: false,
@@ -54,7 +54,7 @@ export default function WindowsManager() {
       content: <ContactWindow />,
       title: 'Contact Me',
       maximized: false,
-      size: { height: 900, width: 800 },
+      size: { height: 800, width: 800 },
       coordinates: { x: 'center', y: 100 },
     },
     {
@@ -83,9 +83,7 @@ export default function WindowsManager() {
       maximized: false,
       size: { height: 400, width: 400 },
       coordinates: { x: 0, y: 30 },
-    }
-
-
+    },
   ];
 
   const [windowsState, setWindowsState] = useState<windowsType[]>(

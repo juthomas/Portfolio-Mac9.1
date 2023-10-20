@@ -70,7 +70,7 @@ export default function Desktop() {
       id: '6',
       position: { right: 0.1, bottom: 50 },
       windowId: 'random',
-      text: 'Bin',
+      text: 'Trash',
       icon: binIcon,
     },
   ]);

@@ -61,7 +61,7 @@ export default function ContactWindow(): JSX.Element {
 
   return (
     <Flex direction="column" align="center" h="100%">
-      <Flex direction="column" align="center" h="100%" w="100%" pt="xl" maw="600px">
+      <Flex direction="column" align="center" h="100%" w="100%" pt="xl" mt="lg" maw="600px">
         <Flex align="center" justify="space-around" maw="1000px" w="100%">
           <DraggableShortcut
             icon={linkedin}
