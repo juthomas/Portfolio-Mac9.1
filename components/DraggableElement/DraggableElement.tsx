@@ -2,10 +2,11 @@
 
 import Image from 'next/image';
 import { useDraggable } from '@dnd-kit/core';
-import { Box, Group, ScrollArea } from '@mantine/core';
+import { Box, Group } from '@mantine/core';
 import { useState } from 'react';
 import fileIcon from '@/assets/file_icon.svg';
 import classes from './DraggableElement.module.css';
+import { ScrollArea } from '../ScrollArea';
 
 export function DraggableElement({
   top,
