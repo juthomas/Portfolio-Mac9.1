@@ -31,9 +31,9 @@ export default function ProjectsWindow(): JSX.Element {
         <Text fz="lg" ta="left" ml={70} mb="xs" w="100%">
           Projet IOTA
         </Text>
-        <Flex gap="xl" align="center">
+        <Flex gap="xl" align="stretch">
           <Carousel slides={slides} options={{ loop: true }} />
-          <Box p="xs" w="100%" h="100%" bg="white" className={classes.retroBox}>
+          <Box p="xs" w="100%" bg="white" className={classes.retroBox}>
             <Text ta="left" w="100%">
               {`Bienvenue dans l'univers IOTA, une initiative engagée et à but non lucratif qui se
               donne pour mission d'équiper les jeunes générations des outils indispensables pour
@@ -46,9 +46,9 @@ export default function ProjectsWindow(): JSX.Element {
         <Text fz="lg" ta="left" ml={70} mb="xs" w="100%">
           One For Tree
         </Text>
-        <Flex gap="xl" align="center">
+        <Flex gap="xl" align="stretch">
           <Carousel slides={slides} options={{ loop: true }} />
-          <Box p="xs" w="100%" h="100%" bg="white" className={classes.retroBox}>
+          <Box p="xs" w="100%" bg="white" className={classes.retroBox}>
             <Text ta="left" w="100%">
               {`Jeu gagnant d'une Gamejam de 48h organisé par la Vivatech, One For Tree vous fait
               incarner un robot qui doit coopérer avec ses compères pour reboiser une planète
@@ -60,9 +60,9 @@ export default function ProjectsWindow(): JSX.Element {
         <Text fz="lg" ta="left" ml={70} mb="xs" w="100%">
           Mega Drinking Machina Adventure
         </Text>
-        <Flex gap="xl" align="center">
+        <Flex gap="xl" align="stretch">
           <Carousel slides={slides} options={{ loop: true }} />
-          <Box p="xs" w="100%" h="100%" bg="white" className={classes.retroBox}>
+          <Box p="xs" w="100%" bg="white" className={classes.retroBox}>
             <Text ta="left" w="100%">
               {`A travers le projet Mega Drinking Machina Adventure™ nous voulons faire vivre à nos
               très chers futurs utilisateurs une simulation, familiale, de cette aventure hors du
@@ -75,9 +75,9 @@ export default function ProjectsWindow(): JSX.Element {
         <Text fz="lg" ta="left" ml={70} mb="xs" w="100%">
           NSDOS App
         </Text>
-        <Flex gap="xl" align="center">
+        <Flex gap="xl" align="stretch">
           <Carousel slides={NSDOS_slides} options={{ loop: true }} />
-          <Box p="xs" w="100%" h="100%" bg="white" className={classes.retroBox}>
+          <Box p="xs" w="100%" bg="white" className={classes.retroBox}>
             <Text ta="left" w="100%">
               {`A travers le projet Mega Drinking Machina Adventure™ nous voulons faire vivre à nos
               très chers futurs utilisateurs une simulation, familiale, de cette aventure hors du
@@ -88,7 +88,6 @@ export default function ProjectsWindow(): JSX.Element {
         </Flex>
         <Space h="xl" />
 
-        <Carousel slides={slides} options={{ loop: true }} />
       </Flex>
     </Flex>
   );
