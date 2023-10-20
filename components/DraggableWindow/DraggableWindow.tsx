@@ -9,6 +9,7 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import { useState } from 'react';
+import { ScrollArea } from '@mantine/core';
 import type { Coordinates } from '@dnd-kit/utilities';
 import { DraggableElement } from '../DraggableElement/DraggableElement';
 import useWindowDimensions, { WindowDimensions } from '@/hooks/useWindowDImensions';
@@ -26,6 +27,7 @@ export function DraggableWindow({
   coordinates = { x: 0, y: 30 },
   height = 400,
   width = 600,
+  scrollBar = false,
 }: {
   id?: string;
   coordinates?: { x: number; y: number };
@@ -39,6 +41,7 @@ export function DraggableWindow({
   deleting: () => void;
   setMaximized: () => void;
   children?: React.ReactNode;
+  scrollBar?: boolean;
 }) {
   const [{ x, y }, setCoordinates] = useState<Coordinates>(coordinates);
 
@@ -97,6 +100,7 @@ export function DraggableWindow({
         focused={focused}
         setMaximized={setMaximized}
         deleting={deleting}
+        scrollBar={scrollBar}
         focusing={focusing}
       >
         {children}

@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useDraggable } from '@dnd-kit/core';
-import { Box, Group } from '@mantine/core';
+import { Box, Group, ScrollArea } from '@mantine/core';
 import { useState } from 'react';
 import fileIcon from '@/assets/file_icon.svg';
 import classes from './DraggableElement.module.css';
@@ -19,6 +19,7 @@ export function DraggableElement({
   setMaximized,
   maximized,
   focused,
+  scrollBar = false,
   windowIcon = fileIcon,
   windowTitle = 'Portfolio',
 }: {
@@ -32,6 +33,7 @@ export function DraggableElement({
   windowIcon?: string;
   windowTitle?: React.ReactNode;
   maximized?: boolean;
+  scrollBar?: boolean;
   setMaximized: () => void;
   focusing: () => void;
   deleting: () => void;
@@ -130,7 +132,29 @@ export function DraggableElement({
         </Group>
       </Box>
 
-      {!minimized && <Box className={classes.windowInner}>{children}</Box>}
+      {!minimized && (
+        <Box className={classes.windowInner}>
+          {scrollBar ? (
+            <ScrollArea
+              classNames={{
+                scrollbar: classes.scrollBar,
+                corner: classes.corner,
+                thumb: classes.scrollThumb,
+              }}
+              scrollbarSize={20}
+              h="100%"
+              type="always"
+              offsetScrollbars="y"
+            >
+              {children}
+            </ScrollArea>
+          ) : (
+            <Box h="100%" style={{ overflow: 'hidden' }}>
+              {children}
+            </Box>
+          )}
+        </Box>
+      )}
     </Box>
   );
 }

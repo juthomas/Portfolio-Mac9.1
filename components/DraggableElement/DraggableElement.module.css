@@ -5,7 +5,6 @@
   background-color: #aaaaaa;
   padding: rem(30px) calc(var(--borders-size) * 3) calc(var(--borders-size) * 3)
     calc(var(--borders-size) * 3);
-
   /* transition: all 1s steps(5) TODO: faire un truc dans le genre*/
 }
 
@@ -139,4 +138,66 @@
   width: 100%;
   background-color: #cacaca;
   box-shadow: var(--borders-size) var(--borders-size) #6a6a6a;
+}
+
+.scrollBar[data-orientation='vertical'] {
+  background-color: #aaaaaa;
+  border-left: var(--borders-size) solid #000000;
+  bottom: -8px;
+  /* bottom: 0; */
+}
+
+.scrollBar[data-orientation='vertical']::before,
+.scrollBar[data-orientation='vertical']::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.scrollBar[data-orientation='vertical']::before {
+  border-left: var(--borders-size) solid #555555;
+}
+
+.scrollBar[data-orientation='vertical']::after {
+  border-right: var(--borders-size) solid #d5d5d5;
+}
+
+.scrollBar[data-orientation='horizontal'] {
+  background-color: transparent;
+}
+.corner {
+  background-color: transparent;
+  z-index: -1;
+}
+.scrollThumb {
+  z-index: 1;
+  background-color: #9999BB !important;
+  margin: -4px;
+  border-radius: 0;
+}
+
+.scrollThumb::before,
+.scrollThumb::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+  transform: unset;
+}
+
+.scrollThumb::before {
+  border-left: var(--borders-size) solid #B3B3CC;
+  border-top: var(--borders-size) solid #B3B3CC;
+}
+
+.scrollThumb::after {
+  border-right: var(--borders-size) solid #73738C;
+  border-bottom: var(--borders-size) solid #73738C;
 }

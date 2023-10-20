@@ -14,6 +14,7 @@ interface windowsType {
   content: React.ReactNode;
   title?: string;
   icon?: string;
+  scrollBar?: boolean;
   maximized: boolean;
   size?: { height: number; width: number };
   coordinates: { x: number | 'center'; y: number | 'center' };
@@ -52,6 +53,7 @@ export default function WindowsManager() {
       content: <ProjectsWindow />,
       title: 'My Projects',
       maximized: false,
+      scrollBar: true,
       size: { height: 900, width: 800 },
       coordinates: { x: 'center', y: 100 },
     },
@@ -168,6 +170,7 @@ export default function WindowsManager() {
         <DraggableWindow
           key={elem.id}
           id={elem.id}
+          scrollBar={elem.scrollBar}
           height={elem?.size?.height}
           width={elem?.size?.width}
           maximized={elem.maximized}

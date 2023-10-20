@@ -45,7 +45,7 @@ export const Carousel: React.FC<PropType> = (props) => {
         <Image alt="left arrow" src={arrowLeft} />
       </Button>
 
-      <Box className={themeClasses.retroBox}>
+      <Box className={themeClasses.retroBox} my={0}>
         <div className={emblaClasses.embla}>
           <div className={emblaClasses.embla__viewport} ref={emblaRef}>
             <div className={emblaClasses.embla__container}>
