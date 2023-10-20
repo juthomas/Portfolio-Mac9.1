@@ -35,4 +35,5 @@ export const theme = createTheme({
     macBlue,
   },
   headings: { fontFamily: "'VT323', monospace" },
+  fontFamily: "'VT323', monospace",
 });

@@ -1,4 +1,8 @@
-import { Box, Flex, List, Space, Text, Title } from '@mantine/core';
+import { Box, Button, Flex, Group, List, Space, Text, TextInput, Textarea } from '@mantine/core';
+import { useForm } from '@mantine/form';
+import axios from 'axios';
+import Image from 'next/image';
+
 import DraggableShortcut from '@/components/DraggableShortcut/DraggableShortcut';
 import classes from '@/styles/theme.module.css';
 
@@ -8,8 +12,53 @@ import github from '@/assets/icons/github.png';
 import gitlab from '@/assets/icons/gitlab.png';
 import discord from '@/assets/icons/discord.png';
 import gmail from '@/assets/icons/gmail.png';
+import letter from '@/assets/icons/letter.png';
+
+export interface ContactFormProps {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
 
 export default function ContactWindow(): JSX.Element {
+  const form = useForm({
+    initialValues: {
+      name: '',
+      email: '',
+      subject: '',
+      message: '',
+    },
+    validate: {
+      name: (value) => (value.length < 1 ? 'Name cannot be blank' : null),
+      email: (value) =>
+        /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(value) ? null : 'Invalid mail',
+      subject: (value) => (value.length < 1 ? 'Subject cannot be blank' : null),
+      message: (value) => (value.length < 1 ? 'Message cannot be blank' : null),
+    },
+  });
+
+  const onSubmit = async (values: ContactFormProps) => {
+    try {
+      const response = await axios.post('/api/sendmail', values);
+      console.log(response.data); // Affiche la réponse du serveur dans la console
+      //   notifications.show({
+      //     message: 'Message envoyé !',
+      //     color: 'yellow.9',
+      //     icon: <IconCheck style={{ color: '#1F2024' }} size="1.1rem" />,
+      //   });
+
+      // Faites ce que vous souhaitez avec la réponse du serveur (par exemple, afficher un message à l'utilisateur)
+    } catch (error) {
+      console.error('Error sending email:', error);
+      //   notifications.show({
+      //     message: `Le message n'a pas pu être envoyé...`,
+      //     color: 'red',
+      //     icon: <IconX size="1.1rem" />,
+      //   });
+    }
+  };
+
   return (
     <Flex direction="column" align="center" h="100%">
       <Flex direction="column" align="center" h="100%" w="100%" pt="xl" maw="600px">
@@ -54,54 +103,104 @@ export default function ContactWindow(): JSX.Element {
           />
         </Flex>
         <Space h="xl" />
-        <Text ta="left" ml="lg" w="100%">
-          Who am I
+
+        <Text ta="left" ml="lg" my="xs" w="100%">
+          Contact form
         </Text>
-        <Box my="xs" p="xs" w="100%" bg="white" className={classes.retroBox}>
-          <Text ta="left" w="100%">
-            {`Passionate and curious, I am a developer graduated from school 42 with more than 5 years
-			  of experience. I had the opportunity to work on innovative projects and
-			  interesting like the IOTA Project, a concept car, an ARG, a board game
-			  electronic or even an innovative hotel site. My favorite languages are
-			  TypeScript, React.js, Mantine and Three.js. Do not hesitate to contact me to discuss
-			  of your needs and bring your creative and ambitious ideas to life.`}
-          </Text>
-        </Box>
-        <Space h="lg" />
-        <Text ta="left" ml="lg" w="100%">
-          My Services
-        </Text>
-        <Flex w="100%">
-          <Box w="100%">
-            <Text ta="left" w="100%">
-              Applications creating
-            </Text>
-            <Box my="xs" p="xs" w="100%" bg="white" className={classes.retroBox}>
-              <List>
-                <List.Item>Websites</List.Item>
-                <List.Item>Mobile applications</List.Item>
-                <List.Item>Augmented reality</List.Item>
-                <List.Item>Video games (Windows, Max, Linux, Mobile)</List.Item>
-                <List.Item>Electronic development</List.Item>
-              </List>
-            </Box>
+        <form style={{ width: '100%' }} onSubmit={form.onSubmit(onSubmit)}>
+          <Box style={{ display: 'flex', flexDirection: 'column' }}>
+            <Group grow style={{ alignItems: 'flex-start' }}>
+              <TextInput
+                styles={{
+                  input: {
+                    borderRadius: 0,
+                    border: 0,
+                    fontSize: 'var(--mantine-font-size-md)',
+                  },
+                  root: { height: 70 },
+                  error: {
+                    fontSize: 'var(--mantine-font-size-md)',
+                  },
+                }}
+                classNames={{ wrapper: classes.retroBox }}
+                placeholder="Name..."
+                {...form.getInputProps('name')}
+              />
+              <TextInput
+                styles={{
+                  input: {
+                    borderRadius: 0,
+                    border: 0,
+                    fontSize: 'var(--mantine-font-size-md)',
+                  },
+                  root: { height: 70 },
+                  error: {
+                    fontSize: 'var(--mantine-font-size-md)',
+                  },
+                }}
+                classNames={{ wrapper: classes.retroBox }}
+                placeholder="Mail..."
+                {...form.getInputProps('email')}
+              />
+            </Group>
+            {/* <Space h="lg" /> */}
+            <TextInput
+              styles={{
+                input: {
+                  borderRadius: 0,
+                  border: 0,
+                  fontSize: 'var(--mantine-font-size-md)',
+                },
+                root: { height: 70 },
+                error: {
+                  fontSize: 'var(--mantine-font-size-md)',
+                },
+              }}
+              classNames={{ wrapper: classes.retroBox }}
+              placeholder="Subject..."
+              {...form.getInputProps('subject')}
+            />
+            <Textarea
+              styles={{
+                input: {
+                  borderRadius: 0,
+                  border: 0,
+                  fontSize: 'var(--mantine-font-size-md)',
+                },
+                error: {
+                  fontSize: 'var(--mantine-font-size-md)',
+                  height: 0,
+                },
+                wrapper: {
+                  marginBottom: 5,
+                },
+              }}
+              classNames={{ wrapper: classes.retroBox }}
+              autosize
+              minRows={5}
+              maxRows={12}
+              placeholder="Message..."
+              {...form.getInputProps('message')}
+            />
+            <Group justify="flex-end" mt="md">
+              <Button
+                c="black"
+                h={30}
+                leftSection={
+                  <Image
+                    style={{ imageRendering: 'pixelated', marginBottom: 2 }}
+                    src={letter}
+                    alt="letterIcon"
+                  />
+                }
+                className={classes.retroButton}
+                type="submit"
+              >
+                <Text>Send</Text>
+              </Button>
+            </Group>
           </Box>
-          <Space w="lg" />
-          <Box w="100%">
-            <Text ta="left" w="100%">
-              Support and advice
-            </Text>
-            <Box my="xs" p="xs" w="100%" bg="white" className={classes.retroBox}>
-              <List>
-                <List.Item>UX model</List.Item>
-                <List.Item>Specifications</List.Item>
-                <List.Item>Augmented reality</List.Item>
-                <List.Item>Hosting</List.Item>
-                <List.Item>Server configuration</List.Item>
-              </List>
-            </Box>
-          </Box>
-        </Flex>
+        </form>
       </Flex>
     </Flex>
   );
