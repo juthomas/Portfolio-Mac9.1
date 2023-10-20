@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { Box, Flex, List, Space, Text, Title } from '@mantine/core';
 import DraggableShortcut from '@/components/DraggableShortcut/DraggableShortcut';
 import juthomasPicture from '@/assets/juthomas-picture.png';
+import contactIcon from '@/assets/icons/folderContact.png';
 import classes from '@/styles/theme.module.css';
 
 export default function ProfileWindow(): JSX.Element {
@@ -13,7 +14,7 @@ export default function ProfileWindow(): JSX.Element {
             <Image alt="juthomas picture" src={juthomasPicture} height={130} />
           </Box>
           <Title ml="lg">Julien THOMAS</Title>
-          <DraggableShortcut draggable={false} windowId="contact" text="Contact Me" />
+          <DraggableShortcut draggable={false} icon={contactIcon} windowId="contact" text="Contact Me" />
         </Flex>
         <Space h="xl" />
         <Text ta="left" ml="lg" w="100%">

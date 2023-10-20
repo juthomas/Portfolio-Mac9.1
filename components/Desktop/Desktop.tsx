@@ -8,6 +8,10 @@ import DraggableShortcut from '../DraggableShortcut/DraggableShortcut';
 import onefortreeIcon from '@/assets/icons/onefortree.png';
 import iotaIcon from '@/assets/icons/iota.png';
 import useWindowDimensions from '@/hooks/useWindowDImensions';
+import portfolioIcon from '@/assets/icons/folderPortfolio.png';
+import binIcon from '@/assets/icons/centredBin.png';
+import electronicIcon from '@/assets/icons/folderToolbox.png';
+import webIcon from '@/assets/icons/folderPage.png';
 
 interface shortcutType {
   id: string;
@@ -27,21 +31,47 @@ export default function Desktop() {
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
 
   const [shortcutsPositions, setShortcutPositions] = useState<shortcutType[]>([
-    { id: '1', position: { right: 0.1, top: 50 }, windowId: 'main', text: 'Portfolio' },
-    { id: '2', position: { right: 0.1, top: 175 }, windowId: '2', text: 'Projet Iota ' },
+    {
+      id: '1',
+      position: { right: 0.1, top: 50 },
+      windowId: 'main',
+      text: 'Portfolio',
+      icon: portfolioIcon,
+    },
+    {
+      id: '2',
+      position: { right: 0.1, top: 175 },
+      windowId: 'electronic',
+      text: 'Electronic Creations',
+      icon: electronicIcon,
+    },
     {
       id: '3',
-      position: { right: 0.1, bottom: 50 },
+      position: { right: 0.1, top: 320 },
+      windowId: 'web',
+      text: 'Web Creations',
+      icon: webIcon,
+    },
+    {
+      id: '4',
+      position: { right: 0.1, top: 445 },
+      link: 'https://oft.pages.dev/game',
+      text: 'One for tree',
+      icon: onefortreeIcon,
+    },
+    {
+      id: '5',
+      position: { right: 0.1, top: 580 },
       link: 'http://projet-iota.fr',
       text: 'Projet Iota',
       icon: iotaIcon,
     },
     {
-      id: '4',
-      position: { right: 0.1, top: 300 },
-      link: 'https://oft.pages.dev/game',
-      text: 'One for tree',
-      icon: onefortreeIcon,
+      id: '6',
+      position: { right: 0.1, bottom: 50 },
+      windowId: 'random',
+      text: 'Bin',
+      icon: binIcon,
     },
   ]);
 

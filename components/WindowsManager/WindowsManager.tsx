@@ -26,16 +26,7 @@ export default function WindowsManager() {
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
 
   const windowsList: windowsType[] = [
-    {
-      id: '2',
-      content: <>One for tree mdr</>,
-      title: 'OTF',
-      // icon: '',
-      maximized: false,
-      size: { height: 400, width: 400 },
-      coordinates: { x: 0, y: 30 },
-    },
-    {
+  {
       id: 'main',
       content: <MainWindow />,
       maximized: false,
@@ -66,6 +57,35 @@ export default function WindowsManager() {
       size: { height: 900, width: 800 },
       coordinates: { x: 'center', y: 100 },
     },
+    {
+      id: 'electronic',
+      content: <>Electronic creations</>,
+      title: 'Electronic creations',
+      // icon: '',
+      maximized: false,
+      size: { height: 400, width: 400 },
+      coordinates: { x: 0, y: 30 },
+    },
+    {
+      id: 'web',
+      content: <>Web creations</>,
+      title: 'Web creations',
+      // icon: '',
+      maximized: false,
+      size: { height: 400, width: 400 },
+      coordinates: { x: 0, y: 30 },
+    },
+    {
+      id: 'random',
+      content: <>Random creations</>,
+      title: 'Random creations',
+      // icon: '',
+      maximized: false,
+      size: { height: 400, width: 400 },
+      coordinates: { x: 0, y: 30 },
+    }
+
+
   ];
 
   const [windowsState, setWindowsState] = useState<windowsType[]>(

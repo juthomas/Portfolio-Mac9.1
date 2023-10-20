@@ -1,5 +1,8 @@
 import { Flex, List, Space, Text, Title } from '@mantine/core';
 import DraggableShortcut from '@/components/DraggableShortcut/DraggableShortcut';
+import profileIcon from '@/assets/icons/folderProfile.png';
+import projectsIcon from '@/assets/icons/folderProjects.png';
+import contactIcon from '@/assets/icons/folderContact.png';
 
 export default function MainWindow(): JSX.Element {
   return (
@@ -15,9 +18,9 @@ export default function MainWindow(): JSX.Element {
       </List>
       <Space h="lg" />
       <Flex>
-        <DraggableShortcut draggable={false} windowId="profile" text="My Profile" />
-        <DraggableShortcut draggable={false} windowId="projects" text="My Projects" />
-        <DraggableShortcut draggable={false} windowId="contact" text="Contact Me" />
+        <DraggableShortcut draggable={false} icon={profileIcon} windowId="profile" text="My Profile" />
+        <DraggableShortcut draggable={false} icon={projectsIcon} windowId="projects" text="My Projects" />
+        <DraggableShortcut draggable={false} icon={contactIcon} windowId="contact" text="Contact Me" />
       </Flex>
     </Flex>
   );
