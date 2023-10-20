@@ -3,13 +3,31 @@
 import Image from 'next/image';
 import { useDraggable } from '@dnd-kit/core';
 import { Box, Button, Group } from '@mantine/core';
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import fileIcon from '@/assets/file_icon.svg';
 import arrowUp from '@/assets/icons/arrowUp.svg';
 import arrowDown from '@/assets/icons/arrowDown.svg';
 import classes from './DraggableElement.module.css';
 import { ScrollArea } from '../ScrollArea';
 import { relative } from 'path';
+
+function useRepeater(action: () => void, delay: number) {
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+
+  const start = () => {
+    const id = setInterval(action, delay);
+    setIntervalId(id);
+  };
+
+  const stop = () => {
+    if (intervalId) {
+      clearInterval(intervalId);
+      setIntervalId(null);
+    }
+  };
+
+  return [start, stop] as const;
+}
 
 export function DraggableElement({
   top,
@@ -49,6 +67,14 @@ export function DraggableElement({
 
   const [minimized, setMinimized] = useState(false);
   const viewport = useRef<HTMLDivElement>(null);
+
+  const [startRepeatingUp, stopRepeatingUp] = useRepeater(() => {
+    viewport.current!.scrollBy({ top: -5 });
+  }, 10);
+
+  const [startRepeatingDown, stopRepeatingDown] = useRepeater(() => {
+    viewport.current!.scrollBy({ top: 5 });
+  }, 10);
 
   return (
     <Box
@@ -156,18 +182,18 @@ export function DraggableElement({
               <Box className={classes.scrollButtons}>
                 <Box
                   className={classes.scrollButton}
-                  onClick={() => {
-                    viewport.current!.scrollBy({ top: -4 });
-                  }}
+                  onMouseDown={startRepeatingUp}
+                  onMouseUp={stopRepeatingUp}
+                  onMouseLeave={stopRepeatingUp}
                   pb={2}
                 >
                   <Image src={arrowUp} alt="arrow Up" />
                 </Box>
                 <Box
                   className={classes.scrollButton}
-                  onClick={() => {
-                    viewport.current!.scrollBy({ top: 4 });
-                  }}
+                  onMouseDown={startRepeatingDown}
+                  onMouseUp={stopRepeatingDown}
+                  onMouseLeave={stopRepeatingDown}
                   pt={2}
                 >
                   <Image src={arrowDown} alt="arrow Down" />
