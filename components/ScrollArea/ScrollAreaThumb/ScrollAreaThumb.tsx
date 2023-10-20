@@ -1,8 +1,10 @@
 import React, { forwardRef, useRef, useEffect } from 'react';
+import { Box } from '@mantine/core';
 import { useDebounceCallback, useMergedRef } from '@mantine/hooks';
 import { useScrollbarContext } from '../ScrollAreaScrollbar/Scrollbar.context';
 import { useScrollAreaContext } from '../ScrollArea.context';
 import { addUnlinkedScrollListener, composeEventHandlers } from '../utils';
+import classes from './ScrollAreoThumb.module.css';
 
 interface ThumbProps extends React.ComponentPropsWithoutRef<'div'> {}
 
@@ -45,6 +47,10 @@ export const Thumb = forwardRef<HTMLDivElement, ThumbProps>((props, forwardedRef
       {...others}
       ref={composedRef}
       style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
         width: 'var(--sa-thumb-width)',
         height: 'var(--sa-thumb-height)',
         ...style,
@@ -71,7 +77,13 @@ export const ScrollAreaThumb = React.forwardRef<HTMLDivElement, ScrollAreaThumbP
     const scrollbarContext = useScrollbarContext();
 
     if (forceMount || scrollbarContext.hasThumb) {
-      return <Thumb ref={forwardedRef} {...thumbProps} />;
+      return (
+        <Thumb ref={forwardedRef} {...thumbProps}>
+          <Box className={classes.stripe} />
+          <Box className={classes.stripe} />
+          <Box className={classes.stripe} />
+        </Thumb>
+      );
     }
 
     return null;
