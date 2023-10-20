@@ -15,7 +15,7 @@ import emblaClasses from './Carousel.module.css';
 import themeClasses from '@/styles/theme.module.css';
 
 type PropType = {
-  slides: { image: StaticImageData; alt?: string }[];
+  slides: { image: StaticImageData; alt?: string; background?: string }[];
   options?: EmblaOptionsType;
 };
 
@@ -52,11 +52,16 @@ export const Carousel: React.FC<PropType> = (props) => {
                   <div className={emblaClasses.embla__slide__number}>
                     <span>{index + 1}</span>
                   </div>
-                  <Image
-                    className={emblaClasses.embla__slide__img}
-                    src={slide.image}
-                    alt={slide.alt || 'Image Alt'}
-                  />
+                  <Box
+                    style={{ backgroundColor: slide.background || undefined }}
+                    className={emblaClasses.embla__slide_img_container}
+                  >
+                    <Image
+                      className={emblaClasses.embla__slide__img}
+                      src={slide.image}
+                      alt={slide.alt || 'Image Alt'}
+                    />
+                  </Box>
                 </div>
               ))}
             </div>

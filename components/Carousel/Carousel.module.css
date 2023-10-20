@@ -20,11 +20,26 @@
   padding-left: var(--slide-spacing);
   position: relative;
 }
-.embla__slide__img {
-  display: block;
+
+.embla__slide_img_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: black; */
+  background-color: black;
+  overflow: hidden;
   height: var(--slide-height);
   width: var(--slide-size);
-  object-fit: cover;
+}
+
+.embla__slide__img {
+  /* display: block; */
+  max-width: 100%;
+       /* Assure que l'image ne dépasse pas la largeur du conteneur */
+  max-height: 100%; 
+  /* height: var(--slide-height);
+  width: var(--slide-size); */
+  object-fit: contain;
 }
 .embla__slide__number {
   width: 4.6rem;

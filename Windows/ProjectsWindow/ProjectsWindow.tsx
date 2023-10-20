@@ -1,4 +1,4 @@
-import { Box, Flex, List, Space, Text, Title } from '@mantine/core';
+import { Box, Flex, Space, Text } from '@mantine/core';
 
 import { Carousel } from '@/components/Carousel/Carousel';
 import mdma from '@/assets/carousels/mdma.webp';
