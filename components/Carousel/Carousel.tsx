@@ -5,8 +5,6 @@ import Autoplay from 'embla-carousel-autoplay';
 import { Box, Button, Flex } from '@mantine/core';
 import { usePrevNextButtons } from './CarouselButtons';
 // import imageByIndex from './imageByIndex';
-import mdma from '@/assets/carousels/mdma.webp';
-import iota from '@/assets/carousels/holy.webp';
 import arrowRight from '@/assets/icons/arrowRight.svg';
 import arrowLeft from '@/assets/icons/arrowLeft.svg';
 
@@ -17,7 +15,7 @@ import emblaClasses from './Carousel.module.css';
 import themeClasses from '@/styles/theme.module.css';
 
 type PropType = {
-  slides: { image?: StaticImageData; alt?: string }[];
+  slides: { image: StaticImageData; alt?: string }[];
   options?: EmblaOptionsType;
 };
 
@@ -56,8 +54,8 @@ export const Carousel: React.FC<PropType> = (props) => {
                   </div>
                   <Image
                     className={emblaClasses.embla__slide__img}
-                    src={index % 2 === 0 ? mdma : iota}
-                    alt="Your alt text"
+                    src={slide.image}
+                    alt={slide.alt || 'Image Alt'}
                   />
                 </div>
               ))}

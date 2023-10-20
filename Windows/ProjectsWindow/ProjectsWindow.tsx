@@ -5,10 +5,24 @@ import mdma from '@/assets/carousels/mdma.webp';
 import iota from '@/assets/carousels/holy.webp';
 import classes from '@/styles/theme.module.css';
 
+import NSDOS_1 from '@/assets/carousels/NSDOS/NSDOS_app_1.png';
+import NSDOS_2 from '@/assets/carousels/NSDOS/NSDOS_app_2.png';
+import NSDOS_3 from '@/assets/carousels/NSDOS/NSDOS_app_3.png';
+import NSDOS_4 from '@/assets/carousels/NSDOS/NSDOS_app_4.png';
+import NSDOS_5 from '@/assets/carousels/NSDOS/NSDOS_app_5.png';
+
 export default function ProjectsWindow(): JSX.Element {
   const slides = [
     { image: mdma, alt: 'mdma image' },
     { image: iota, alt: 'iota image' },
+  ];
+
+  const NSDOS_slides = [
+    { image: NSDOS_1, alt: 'NSDOS 1' },
+    { image: NSDOS_2, alt: 'NSDOS 2' },
+    { image: NSDOS_3, alt: 'NSDOS 3' },
+    { image: NSDOS_4, alt: 'NSDOS 4' },
+    { image: NSDOS_5, alt: 'NSDOS 5' },
   ];
 
   return (
@@ -59,10 +73,10 @@ export default function ProjectsWindow(): JSX.Element {
         </Flex>
         <Space h="lg" />
         <Text fz="lg" ta="left" ml={70} mb="xs" w="100%">
-          Mega Drinking Machina Adventure
+          NSDOS App
         </Text>
         <Flex gap="xl" align="center">
-          <Carousel slides={slides} options={{ loop: true }} />
+          <Carousel slides={NSDOS_slides} options={{ loop: true }} />
           <Box p="xs" w="100%" h="100%" bg="white" className={classes.retroBox}>
             <Text ta="left" w="100%">
               {`A travers le projet Mega Drinking Machina Adventure™ nous voulons faire vivre à nos
