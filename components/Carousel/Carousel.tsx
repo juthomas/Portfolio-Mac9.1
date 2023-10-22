@@ -20,7 +20,7 @@ type PropType = {
   size?: string;
 };
 
-export const Carousel: React.FC<PropType> = ({ slides, options, size = '15rem' }: PropType) => {
+export const Carousel: React.FC<PropType> = ({ slides, options }: PropType) => {
   // const { slides, options } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay()]);
 
@@ -34,7 +34,7 @@ export const Carousel: React.FC<PropType> = ({ slides, options, size = '15rem' }
     usePrevNextButtons(emblaApi, onButtonClick);
 
   return (
-    <Flex gap="xs" align="center" style={{ flex: 1 }}>
+    <Flex gap="xs" align="center" justify="center" style={{ flex: 1 }}>
       <Button
         className={emblaClasses.button}
         onClick={onPrevButtonClick}
@@ -47,18 +47,14 @@ export const Carousel: React.FC<PropType> = ({ slides, options, size = '15rem' }
       <Box className={themeClasses.retroBox} my={0}>
         <div className={emblaClasses.embla}>
           <div className={emblaClasses.embla__viewport} ref={emblaRef}>
-            <div className={emblaClasses.embla__container} style={{ width: size }}>
+            <div className={emblaClasses.embla__container}>
               {slides.map((slide, index) => (
-                <div
-                  className={emblaClasses.embla__slide}
-                  style={{ flex: `0 0 ${size}` }}
-                  key={index}
-                >
+                <div className={emblaClasses.embla__slide} key={index}>
                   <div className={emblaClasses.embla__slide__number}>
                     <span>{index + 1}</span>
                   </div>
                   <Box
-                    style={{ backgroundColor: slide.background || undefined, width: size, height: `calc(${size} * 12 / 15)` }}
+                    style={{ backgroundColor: slide.background || undefined }}
                     className={emblaClasses.embla__slide_img_container}
                   >
                     <Image

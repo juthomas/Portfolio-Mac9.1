@@ -1,7 +1,13 @@
 .embla {
   --slide-spacing: 0rem;
-  --slide-size: 15rem;
-  --slide-height: 12rem;
+  --slide-size: 100%;
+  /* --slide-height: 12rem; */
+  --slide-height: calc(var(--slide-size) * 0.5);
+  min-width: 240px;
+  max-width: 340px;
+  width: var(--slide-size);
+  height: var(--slide-height);
+  /* aspect-ratio: 19/9; */
 }
 .embla__viewport {
   overflow: hidden;
@@ -10,12 +16,13 @@
   backface-visibility: hidden;
   display: flex;
   touch-action: pan-y;
-  /* width: var(--slide-size); */
+  width: var(--slide-size);
+  aspect-ratio: 15/12;
 
   margin-left: calc(var(--slide-spacing) * -1);
 }
 .embla__slide {
-  /* flex: 0 0 var(--slide-size); */
+  flex: 0 0 var(--slide-size);
   min-width: 0;
   padding-left: var(--slide-spacing);
   position: relative;
@@ -29,12 +36,14 @@
   background-color: black;
   overflow: hidden;
   /* height: var(--slide-height); */
-  /* width: var(--slide-size); */
+  height: -webkit-fill-available;
+  width: var(--slide-size);
 }
 
 .embla__slide__img {
   /* display: block; */
   max-width: 100%;
+
        /* Assure que l'image ne dépasse pas la largeur du conteneur */
   max-height: 100%; 
   /* height: var(--slide-height);
@@ -75,6 +84,8 @@
   border-radius: 0;
   background-color: #f1f1f1;
   height: 25px;
+  min-height: 25px;
   width: 25px;
+  min-width: 25px;
   padding: 0;
 }
