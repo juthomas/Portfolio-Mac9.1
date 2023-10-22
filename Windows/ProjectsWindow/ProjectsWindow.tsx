@@ -28,14 +28,22 @@ export default function ProjectsWindow(): JSX.Element {
 
   return (
     <Flex direction="column" align="center" h="100%">
-      <Flex direction="column" align="center" h="100%" w="100%" pt="xl" maw="700px">
-        <Text fz="lg" ta="left" ml={70} mb="xs" w="100%">
+      <Flex direction="column" align="center" h="100%" w="100%" pt="xl" maw="calc(700px + 5%)">
+        <Text fz="lg" ta="left" pl={70} mb="xs" w="100%">
           Projet IOTA
         </Text>
-        <Flex gap="xl" align="stretch">
-          <Carousel slides={slides} options={{ loop: true }} />
-          <Box p="xs" w="100%" bg="white" pos="relative" className={classes.retroBox}>
-            <Text ta="left" w="100%">
+        <Flex gap="xl" align="stretch" wrap="wrap" justify="center" px="5%">
+          <Carousel slides={slides} options={{ loop: true }} size='20em'/>
+          <Box
+            p="xs"
+            miw={250}
+            w="100%"
+            bg="white"
+            pos="relative"
+            style={{ flex: 1 }}
+            className={classes.retroBox}
+          >
+            <Text ta="left" w="100%" >
               {`Bienvenue dans l'univers IOTA, une initiative engagée et à but non lucratif qui se
               donne pour mission d'équiper les jeunes générations des outils indispensables pour
               s'épanouir dans notre monde de plus en plus connecté. Avec IOTA, nous nous donnons
@@ -44,7 +52,8 @@ export default function ProjectsWindow(): JSX.Element {
             <SeeMoreButton />
           </Box>
         </Flex>
-        <Space h="lg" />
+
+        {/* <Space h="lg" />
         <Text fz="lg" ta="left" ml={70} mb="xs" w="100%">
           One For Tree
         </Text>
@@ -91,7 +100,7 @@ export default function ProjectsWindow(): JSX.Element {
             <SeeMoreButton />
           </Box>
         </Flex>
-        <Space h="xl" />
+        <Space h="xl" /> */}
       </Flex>
     </Flex>
   );

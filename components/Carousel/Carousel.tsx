@@ -17,10 +17,11 @@ import themeClasses from '@/styles/theme.module.css';
 type PropType = {
   slides: { image: StaticImageData; alt?: string; background?: string }[];
   options?: EmblaOptionsType;
+  size?: string;
 };
 
-export const Carousel: React.FC<PropType> = (props) => {
-  const { slides, options } = props;
+export const Carousel: React.FC<PropType> = ({ slides, options, size = '15rem' }: PropType) => {
+  // const { slides, options } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay()]);
 
   const onButtonClick = useCallback((emblaApiCb: EmblaCarouselType) => {
@@ -33,7 +34,7 @@ export const Carousel: React.FC<PropType> = (props) => {
     usePrevNextButtons(emblaApi, onButtonClick);
 
   return (
-    <Flex gap="xs" align="center">
+    <Flex gap="xs" align="center" style={{ flex: 1 }}>
       <Button
         className={emblaClasses.button}
         onClick={onPrevButtonClick}
@@ -46,14 +47,18 @@ export const Carousel: React.FC<PropType> = (props) => {
       <Box className={themeClasses.retroBox} my={0}>
         <div className={emblaClasses.embla}>
           <div className={emblaClasses.embla__viewport} ref={emblaRef}>
-            <div className={emblaClasses.embla__container}>
+            <div className={emblaClasses.embla__container} style={{ width: size }}>
               {slides.map((slide, index) => (
-                <div className={emblaClasses.embla__slide} key={index}>
+                <div
+                  className={emblaClasses.embla__slide}
+                  style={{ flex: `0 0 ${size}` }}
+                  key={index}
+                >
                   <div className={emblaClasses.embla__slide__number}>
                     <span>{index + 1}</span>
                   </div>
                   <Box
-                    style={{ backgroundColor: slide.background || undefined }}
+                    style={{ backgroundColor: slide.background || undefined, width: size, height: `calc(${size} * 12 / 15)` }}
                     className={emblaClasses.embla__slide_img_container}
                   >
                     <Image

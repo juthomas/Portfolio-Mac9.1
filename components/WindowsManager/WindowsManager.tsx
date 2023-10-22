@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, createContext } from 'react';
+import { useMediaQuery } from '@mantine/hooks';
 import { DraggableWindow } from '../DraggableWindow/DraggableWindow';
 // eslint-disable-next-line import/no-cycle
 import Desktop from '../Desktop/Desktop';
@@ -24,6 +25,8 @@ export const WindowManagerContext = createContext<((id: string) => void) | undef
 
 export default function WindowsManager() {
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
+  const isMobile = useMediaQuery('(max-width: 50em)');
+
 
   const windowsList: windowsType[] = [
     {
@@ -192,7 +195,7 @@ export default function WindowsManager() {
           scrollBar={elem.scrollBar}
           height={elem?.size?.height}
           width={elem?.size?.width}
-          maximized={elem.maximized}
+          maximized={isMobile || elem.maximized}
           windowTitle={elem?.title}
           coordinates={elem.coordinates as { x: number; y: number }}
           windowIcon={elem.icon}
