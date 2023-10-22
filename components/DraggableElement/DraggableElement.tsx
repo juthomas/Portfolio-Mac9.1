@@ -2,14 +2,13 @@
 
 import Image from 'next/image';
 import { useDraggable } from '@dnd-kit/core';
-import { Box, Button, Group } from '@mantine/core';
-import { useCallback, useRef, useState } from 'react';
+import { Box, Group } from '@mantine/core';
+import { useRef, useState } from 'react';
 import fileIcon from '@/assets/file_icon.svg';
 import arrowUp from '@/assets/icons/arrowUp.svg';
 import arrowDown from '@/assets/icons/arrowDown.svg';
 import classes from './DraggableElement.module.css';
 import { ScrollArea } from '../ScrollArea';
-import { relative } from 'path';
 
 function useRepeater(action: () => void, delay: number) {
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
