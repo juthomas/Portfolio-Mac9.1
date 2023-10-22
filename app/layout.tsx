@@ -3,7 +3,10 @@ import './fonts.css';
 import './layout.css';
 import React from 'react';
 import { MantineProvider, ColorSchemeScript } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
 import { theme } from '../theme';
+import '@mantine/notifications/styles.css';
+import notificationClasses from '@/styles/notifications.module.css';
 
 export const metadata = {
   title: 'Julien Thomas',
@@ -23,7 +26,17 @@ export default function RootLayout({ children }: { children: any }) {
         />
       </head>
       <body>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <MantineProvider theme={theme}>
+          <Notifications
+            classNames={{
+              notification: notificationClasses.notification,
+              root: notificationClasses.notificationsRoot,
+            }}
+            position="top-right"
+          />
+
+          {children}
+        </MantineProvider>
       </body>
     </html>
   );

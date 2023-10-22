@@ -1,7 +1,8 @@
-import { Box, Button, Flex, Group, List, Space, Text, TextInput, Textarea } from '@mantine/core';
+import { Box, Button, Flex, Group, Space, Text, TextInput, Textarea } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import axios from 'axios';
 import Image from 'next/image';
+import { notifications } from '@mantine/notifications';
 
 import DraggableShortcut from '@/components/DraggableShortcut/DraggableShortcut';
 import classes from '@/styles/theme.module.css';
@@ -42,20 +43,16 @@ export default function ContactWindow(): JSX.Element {
     try {
       const response = await axios.post('/api/sendmail', values);
       console.log(response.data); // Affiche la réponse du serveur dans la console
-      //   notifications.show({
-      //     message: 'Message envoyé !',
-      //     color: 'yellow.9',
-      //     icon: <IconCheck style={{ color: '#1F2024' }} size="1.1rem" />,
-      //   });
+      notifications.show({
+        message: <Text>{'Message envoyé !'}</Text>,
+      });
 
       // Faites ce que vous souhaitez avec la réponse du serveur (par exemple, afficher un message à l'utilisateur)
     } catch (error) {
       console.error('Error sending email:', error);
-      //   notifications.show({
-      //     message: `Le message n'a pas pu être envoyé...`,
-      //     color: 'red',
-      //     icon: <IconX size="1.1rem" />,
-      //   });
+      notifications.show({
+        message: <Text>{"Le message n'a pas pu être envoyé..."}</Text>,
+      });
     }
   };
 

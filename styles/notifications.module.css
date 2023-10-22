@@ -1,0 +1,87 @@
+.notification {
+  width: fit-content;
+  border: var(--borders-size) solid black;
+  box-shadow: var(--borders-size) var(--borders-size) #000000;
+  position: relative;
+  background-color: #d9d9d9;
+  height: 40px;
+  border-radius: 0;
+  /* transition: all 1s steps(5) TODO: faire un truc dans le genre*/
+}
+
+.notification::before,
+.notification::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+  width: auto;
+  background-color: unset;
+  border-radius: 0;
+}
+
+.notification::before {
+  border-left: var(--borders-size) solid #ffffff;
+  border-top: var(--borders-size) solid #ffffff;
+}
+
+.notification::after {
+  border-right: var(--borders-size) solid #939393;
+  border-bottom: var(--borders-size) solid #939393;
+}
+
+.notification > button {
+  /* styles pour le bouton ici */
+  background-color: blue;
+  cursor: pointer;
+  background: linear-gradient(120deg, #8d8d8d, white);
+  border: var(--borders-size) solid black;
+  margin: var(--borders-size);
+  padding: 0;
+  min-width: 15px;
+  min-height: 15px;
+  height: 15px;
+  width: 15px;
+  border-radius: 0;
+  position: relative;
+}
+
+.notification > button::before,
+.notification > button::after {
+  content: '';
+  position: absolute;
+  top: calc(var(--borders-size) * -2);
+  left: calc(var(--borders-size) * -2);
+  bottom: calc(var(--borders-size) * -2);
+  right: calc(var(--borders-size) * -2);
+  pointer-events: none;
+}
+
+.notification > button::before {
+  border-right: var(--borders-size) solid #f9f9f9;
+  border-bottom: var(--borders-size) solid #f9f9f9;
+}
+
+.notification > button::after {
+  border-top: var(--borders-size) solid #b1b1b1;
+  border-left: var(--borders-size) solid #b1b1b1;
+}
+
+.notification > button > svg {
+  display: none;
+}
+
+.notificationsRoot {
+  top: 43px;
+  right: 10px;
+  width: 'unset';
+}
+
+.notificationsRoot > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
