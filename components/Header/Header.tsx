@@ -104,7 +104,7 @@ export function Header() {
       <div className={classes.inner}>
         {/* <MantineLogo size={28} /> */}
         <Group style={{ height: '100%', width: '100%' }} justify="space-between">
-          <Group style={{ height: '100%' }} gap={15} visibleFrom="sm">
+          <Group style={{ height: '100%' }} gap={15}> {/* visibleFrom="sm"> */}
             {/* <Image
             src={juthomasLogo}
             alt="logo"
@@ -137,7 +137,7 @@ export function Header() {
             {items}
           </Group>
           <Group className={classes.menuBar} style={{ height: '100%' }}>
-            <Group gap={4} style={{ height: '100%' }}>
+            <Group gap={4} style={{ height: '100%' }} visibleFrom="sm">
               <Image
                 src={fileIcon}
                 alt="logo"
@@ -172,7 +172,7 @@ export function Header() {
             {time}
           </Group>
         </Group>
-        <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
+        {/* <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" /> */}
       </div>
       {/* </Container> */}
     </header>

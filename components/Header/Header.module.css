@@ -1,4 +1,5 @@
 .header {
+  width: 100%;
   z-index: 30;
   margin-bottom: var(--borders-size);
   padding: var(--borders-size);
