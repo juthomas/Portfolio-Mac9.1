@@ -54,7 +54,7 @@ export default function ProjectsWindow(): JSX.Element {
         </Flex>
         <Space h="xl" />
         <Text fz="lg" ta="left" pl={70} mb="xs" w="100%">
-          Projet IOTA
+          One For Tree
         </Text>
         <Flex columnGap="xl" rowGap="lg" align="stretch" wrap="wrap" justify="center" px="5%">
           <Carousel slides={slides} options={{ loop: true }} size="20em" />
@@ -68,17 +68,16 @@ export default function ProjectsWindow(): JSX.Element {
             className={classes.retroBox}
           >
             <Text ta="left" w="100%">
-              {`Bienvenue dans l'univers IOTA, une initiative engagée et à but non lucratif qui se
-              donne pour mission d'équiper les jeunes générations des outils indispensables pour
-              s'épanouir dans notre monde de plus en plus connecté. Avec IOTA, nous nous donnons
-              comme mission de réduire la fracture numérique !`}
+              {`Jeu gagnant d'une Gamejam de 48h organisé par la Vivatech, One For Tree vous fait
+              incarner un robot qui doit coopérer avec ses compères pour reboiser une planète
+              poluée. Un jeu mignon, multijoueur avec un message green tech et positif.`}
             </Text>
             <SeeMoreButton />
           </Box>
         </Flex>
         <Space h="xl" />
         <Text fz="lg" ta="left" pl={70} mb="xs" w="100%">
-          Projet IOTA
+          Mega Drinking Machina Adventure
         </Text>
         <Flex columnGap="xl" rowGap="lg" align="stretch" wrap="wrap" justify="center" px="5%">
           <Carousel slides={slides} options={{ loop: true }} size="20em" />
@@ -92,20 +91,20 @@ export default function ProjectsWindow(): JSX.Element {
             className={classes.retroBox}
           >
             <Text ta="left" w="100%">
-              {`Bienvenue dans l'univers IOTA, une initiative engagée et à but non lucratif qui se
-              donne pour mission d'équiper les jeunes générations des outils indispensables pour
-              s'épanouir dans notre monde de plus en plus connecté. Avec IOTA, nous nous donnons
-              comme mission de réduire la fracture numérique !`}
+              {`A travers le projet Mega Drinking Machina Adventure™ nous voulons faire vivre à nos
+              très chers futurs utilisateurs une simulation, familiale, de cette aventure hors du
+              commun. Une compilation de 11 jeux jouables à 5 joueurs mettront vos amitiés et vos
+              nerfs à rudes épreuves.`}
             </Text>
             <SeeMoreButton />
           </Box>
         </Flex>
         <Space h="xl" />
         <Text fz="lg" ta="left" pl={70} mb="xs" w="100%">
-          Projet IOTA
+          NSDOS App
         </Text>
         <Flex columnGap="xl" rowGap="lg" align="stretch" wrap="wrap" justify="center" px="5%">
-          <Carousel slides={slides} options={{ loop: true }} size="20em" />
+          <Carousel slides={NSDOS_slides} options={{ loop: true }} size="20em" />
           <Box
             p="xs"
             miw={250}
@@ -116,18 +115,12 @@ export default function ProjectsWindow(): JSX.Element {
             className={classes.retroBox}
           >
             <Text ta="left" w="100%">
-              {`Bienvenue dans l'univers IOTA, une initiative engagée et à but non lucratif qui se
-              donne pour mission d'équiper les jeunes générations des outils indispensables pour
-              s'épanouir dans notre monde de plus en plus connecté. Avec IOTA, nous nous donnons
-              comme mission de réduire la fracture numérique !`}
+              {`Découvrez une application pour programmer des partitions dans un langage ésotérique ! Personnalisez votre synthé, diffusez sur des appareils connectés au même WiFi, créez autant de canaux audio que souhaité et collaborez en temps réel. Une aventure musicale collaborative inédite !`}
             </Text>
             <SeeMoreButton />
           </Box>
         </Flex>
         <Space h="xl" />
-
-
-
 
         {/* <Space h="lg" />
         <Text fz="lg" ta="left" ml={70} mb="xs" w="100%">
