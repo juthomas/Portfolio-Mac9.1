@@ -8,13 +8,28 @@ import classes from '@/styles/theme.module.css';
 export default function ProfileWindow(): JSX.Element {
   return (
     <Flex direction="column" align="center" h="100%">
-      <Flex direction="column" align="center" h="100%" w="100%" pt="xl" maw="650px">
+      <Flex
+        direction="column"
+        align="center"
+        h="100%"
+        w="100%"
+        pt="xl"
+        px="5%"
+        maw="calc(700px + 5%)"
+      >
         <Flex align="center" justify="space-between" maw="1000px" w="100%">
           <Box h={130} className={classes.retroBox}>
             <Image alt="juthomas picture" src={juthomasPicture} height={130} />
           </Box>
-          <Title ml="lg">Julien THOMAS</Title>
-          <DraggableShortcut draggable={false} icon={contactIcon} windowId="contact" text="Contact Me" />
+          <Title mx="lg" ta="center">
+            Julien THOMAS
+          </Title>
+          <DraggableShortcut
+            draggable={false}
+            icon={contactIcon}
+            windowId="contact"
+            text="Contact Me"
+          />
         </Flex>
         <Space h="xl" />
         <Text ta="left" ml="lg" w="100%">
