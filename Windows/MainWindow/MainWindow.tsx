@@ -6,7 +6,15 @@ import contactIcon from '@/assets/icons/folderContact.png';
 
 export default function MainWindow(): JSX.Element {
   return (
-    <Flex direction="column" align="center" h="100%" pt="xl">
+    <Flex
+      direction="column"
+      align="center"
+      h="100%"
+      w="100%"
+      pt="xl"
+      px="5%"
+      maw="calc(700px + 5%)"
+    >
       <Title>Julien THOMAS</Title>
       <Text size="xl">Freelance Developper</Text>
       <Space h="lg" />
