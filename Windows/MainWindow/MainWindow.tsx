@@ -47,7 +47,7 @@ export default function MainWindow(): JSX.Element {
           />
         </Flex>
         <Space style={{ flex: 1 }} />
-        <Text hiddenFrom="sm">Essayez cette page sur votre ordinateur !</Text>
+        <Text hiddenFrom="sm">Try this page on your computer!</Text>
       </Flex>
     </Flex>
   );
