@@ -32,8 +32,8 @@ export default function ProjectsWindow(): JSX.Element {
         <Text fz="lg" ta="left" pl={70} mb="xs" w="100%">
           Projet IOTA
         </Text>
-        <Flex gap="xl" align="stretch" wrap="wrap" justify="center" px="5%">
-          <Carousel slides={slides} options={{ loop: true }} size='20em'/>
+        <Flex columnGap="xl" rowGap="lg" align="stretch" wrap="wrap" justify="center" px="5%">
+          <Carousel slides={slides} options={{ loop: true }} size="20em" />
           <Box
             p="xs"
             miw={250}
@@ -43,7 +43,7 @@ export default function ProjectsWindow(): JSX.Element {
             style={{ flex: 1 }}
             className={classes.retroBox}
           >
-            <Text ta="left" w="100%" >
+            <Text ta="left" w="100%">
               {`Bienvenue dans l'univers IOTA, une initiative engagée et à but non lucratif qui se
               donne pour mission d'équiper les jeunes générations des outils indispensables pour
               s'épanouir dans notre monde de plus en plus connecté. Avec IOTA, nous nous donnons
@@ -52,6 +52,82 @@ export default function ProjectsWindow(): JSX.Element {
             <SeeMoreButton />
           </Box>
         </Flex>
+        <Space h="xl" />
+        <Text fz="lg" ta="left" pl={70} mb="xs" w="100%">
+          Projet IOTA
+        </Text>
+        <Flex columnGap="xl" rowGap="lg" align="stretch" wrap="wrap" justify="center" px="5%">
+          <Carousel slides={slides} options={{ loop: true }} size="20em" />
+          <Box
+            p="xs"
+            miw={250}
+            w="100%"
+            bg="white"
+            pos="relative"
+            style={{ flex: 1 }}
+            className={classes.retroBox}
+          >
+            <Text ta="left" w="100%">
+              {`Bienvenue dans l'univers IOTA, une initiative engagée et à but non lucratif qui se
+              donne pour mission d'équiper les jeunes générations des outils indispensables pour
+              s'épanouir dans notre monde de plus en plus connecté. Avec IOTA, nous nous donnons
+              comme mission de réduire la fracture numérique !`}
+            </Text>
+            <SeeMoreButton />
+          </Box>
+        </Flex>
+        <Space h="xl" />
+        <Text fz="lg" ta="left" pl={70} mb="xs" w="100%">
+          Projet IOTA
+        </Text>
+        <Flex columnGap="xl" rowGap="lg" align="stretch" wrap="wrap" justify="center" px="5%">
+          <Carousel slides={slides} options={{ loop: true }} size="20em" />
+          <Box
+            p="xs"
+            miw={250}
+            w="100%"
+            bg="white"
+            pos="relative"
+            style={{ flex: 1 }}
+            className={classes.retroBox}
+          >
+            <Text ta="left" w="100%">
+              {`Bienvenue dans l'univers IOTA, une initiative engagée et à but non lucratif qui se
+              donne pour mission d'équiper les jeunes générations des outils indispensables pour
+              s'épanouir dans notre monde de plus en plus connecté. Avec IOTA, nous nous donnons
+              comme mission de réduire la fracture numérique !`}
+            </Text>
+            <SeeMoreButton />
+          </Box>
+        </Flex>
+        <Space h="xl" />
+        <Text fz="lg" ta="left" pl={70} mb="xs" w="100%">
+          Projet IOTA
+        </Text>
+        <Flex columnGap="xl" rowGap="lg" align="stretch" wrap="wrap" justify="center" px="5%">
+          <Carousel slides={slides} options={{ loop: true }} size="20em" />
+          <Box
+            p="xs"
+            miw={250}
+            w="100%"
+            bg="white"
+            pos="relative"
+            style={{ flex: 1 }}
+            className={classes.retroBox}
+          >
+            <Text ta="left" w="100%">
+              {`Bienvenue dans l'univers IOTA, une initiative engagée et à but non lucratif qui se
+              donne pour mission d'équiper les jeunes générations des outils indispensables pour
+              s'épanouir dans notre monde de plus en plus connecté. Avec IOTA, nous nous donnons
+              comme mission de réduire la fracture numérique !`}
+            </Text>
+            <SeeMoreButton />
+          </Box>
+        </Flex>
+        <Space h="xl" />
+
+
+
 
         {/* <Space h="lg" />
         <Text fz="lg" ta="left" ml={70} mb="xs" w="100%">
