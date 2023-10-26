@@ -1,11 +1,14 @@
 import Image from 'next/image';
 import { Box, Flex, List, Space, Text, Title } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import DraggableShortcut from '@/components/DraggableShortcut/DraggableShortcut';
 import juthomasPicture from '@/assets/juthomas-picture.png';
 import contactIcon from '@/assets/icons/folderContact.png';
 import classes from '@/styles/theme.module.css';
 
 export default function ProfileWindow(): JSX.Element {
+  const isMobile = useMediaQuery('(max-width: 50em)');
+
   return (
     <Flex direction="column" align="center" h="100%">
       <Flex
@@ -18,8 +21,8 @@ export default function ProfileWindow(): JSX.Element {
         maw="calc(700px + 5%)"
       >
         <Flex align="center" justify="space-between" maw="1000px" w="100%">
-          <Box h={130} className={classes.retroBox}>
-            <Image alt="juthomas picture" src={juthomasPicture} height={130} />
+          <Box h={isMobile ? 100 : 130} className={classes.retroBox}>
+            <Image alt="juthomas picture" src={juthomasPicture} height={isMobile ? 100 : 130} />
           </Box>
           <Title mx="lg" ta="center">
             Julien THOMAS
