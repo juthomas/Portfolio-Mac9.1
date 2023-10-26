@@ -25,7 +25,7 @@ export const WindowManagerContext = createContext<((id: string) => void) | undef
 
 export default function WindowsManager() {
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
-  const isMobile = useMediaQuery('(max-width: 50em)');
+  const isMobile = useMediaQuery('(max-width: 50em) or (max-height: 55em)');
 
   const windowsList: windowsType[] = [
     {
@@ -49,8 +49,8 @@ export default function WindowsManager() {
       title: 'My Projects',
       maximized: false,
       scrollBar: true,
-      size: { height: 900, width: 800 },
-      coordinates: { x: 'center', y: 100 },
+      size: { height: 800, width: 800 },
+      coordinates: { x: 'center', y: 50 },
     },
     {
       id: 'contact',
@@ -59,7 +59,7 @@ export default function WindowsManager() {
       scrollBar: true,
       maximized: false,
       size: { height: 800, width: 800 },
-      coordinates: { x: 'center', y: 100 },
+      coordinates: { x: 'center', y: 70 },
     },
     {
       id: 'electronic',

@@ -53,11 +53,19 @@ export default function ProfileWindow(): JSX.Element {
           My Services
         </Text>
         <Flex w="100%">
-          <Box w="100%">
+          <Flex w="100%" direction="column">
             <Text ta="left" w="100%">
               Applications creating
             </Text>
-            <Box my="xs" p="xs" w="100%" bg="white" className={classes.retroBox}>
+            <Box
+              style={{ flex: 1 }}
+              my="xs"
+              p="xs"
+              pr="lg"
+              w="100%"
+              bg="white"
+              className={classes.retroBox}
+            >
               <List>
                 <List.Item>Websites</List.Item>
                 <List.Item>Mobile applications</List.Item>
@@ -66,22 +74,29 @@ export default function ProfileWindow(): JSX.Element {
                 <List.Item>Electronic development</List.Item>
               </List>
             </Box>
-          </Box>
+          </Flex>
           <Space w="lg" />
-          <Box w="100%">
+          <Flex w="100%" direction="column">
             <Text ta="left" w="100%">
               Support and advice
             </Text>
-            <Box my="xs" p="xs" w="100%" bg="white" className={classes.retroBox}>
+            <Box
+              style={{ flex: 1 }}
+              my="xs"
+              p="xs"
+              pr="lg"
+              w="100%"
+              bg="white"
+              className={classes.retroBox}
+            >
               <List>
                 <List.Item>UX model</List.Item>
                 <List.Item>Specifications</List.Item>
-                <List.Item>Augmented reality</List.Item>
                 <List.Item>Hosting</List.Item>
                 <List.Item>Server configuration</List.Item>
               </List>
             </Box>
-          </Box>
+          </Flex>
         </Flex>
       </Flex>
     </Flex>

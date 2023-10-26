@@ -1,14 +1,15 @@
 'use client';
 
 import Image from 'next/image';
-import { Menu, Group, Burger, Flex } from '@mantine/core';
+import { Menu, Group, Flex } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
 // import { MantineLogo } from '@mantine/ds';
 import classes from './Header.module.css';
 import juthomasLogo from '@/assets/juthomas_logo.svg';
 import fileIcon from '@/assets/file_icon.svg';
-import frenchFlag from '@/assets/french_flag.svg';
+// import frenchFlag from '@/assets/french_flag.svg';
+import englishFlag from '@/assets/english_flag.svg';
 
 const links = [
   {
@@ -156,7 +157,7 @@ export function Header() {
               <Menu.Target>
                 <Flex align="center" className={classes.link}>
                   <Image
-                    src={frenchFlag}
+                    src={englishFlag}
                     alt="logo"
                     width={0}
                     height={0}
