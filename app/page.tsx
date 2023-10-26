@@ -20,10 +20,10 @@ export default function HomePage() {
       }}
     >
       <Header />
-      <Footer />
+      <WindowsManager />
       {/* <Welcome /> */}
       {/* <ColorSchemeToggle /> */}
-      <WindowsManager />
+      <Footer />
     </Box>
   );
 }

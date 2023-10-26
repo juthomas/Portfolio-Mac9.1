@@ -169,6 +169,11 @@
 .scrollBar[data-orientation='horizontal'] {
   background-color: transparent;
 }
+
+.scrollBar[data-orientation='horizontal'] > div{
+  display: none !important;
+}
+
 .corner {
   background-color: transparent;
   z-index: -1;

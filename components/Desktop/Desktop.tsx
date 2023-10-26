@@ -2,6 +2,8 @@
 
 import type { StaticImageData } from 'next/image';
 import { useState } from 'react';
+import { useMediaQuery } from '@mantine/hooks';
+import { Flex, SimpleGrid } from '@mantine/core';
 import { DndContext, useSensors, useSensor, PointerSensor } from '@dnd-kit/core';
 // eslint-disable-next-line import/no-cycle
 import DraggableShortcut from '../DraggableShortcut/DraggableShortcut';
@@ -28,6 +30,8 @@ interface shortcutType {
 }
 
 export default function Desktop() {
+  const isMobile = useMediaQuery('(max-height: 55em)');
+
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
 
   const [shortcutsPositions, setShortcutPositions] = useState<shortcutType[]>([
@@ -84,64 +88,85 @@ export default function Desktop() {
   );
 
   return (
-    <DndContext
-      sensors={sensors}
-      id="Desktop"
-      onDragStart={({ active }) => {
-        const elementAdeplacer = shortcutsPositions.find((item) => item.id === active.id);
+    <>
+      {isMobile ? (
+        <>
+          <SimpleGrid cols={2} pos="absolute" top={50} right={10} mah="100%">
+            {shortcutsPositions
+              .filter((item) => item.position.right && item.position.top)
+              .map((elem) => (
+                <DraggableShortcut draggable={false} key={elem.id} {...elem} />
+              ))}
+          </SimpleGrid>
+          <Flex pos="absolute" direction="column" bottom={30} right={10} mah="100%">
+            {shortcutsPositions
+              .filter((item) => item.position.right && item.position.bottom)
+              .map((elem) => (
+                <DraggableShortcut draggable={false} key={elem.id} {...elem} />
+              ))}
+          </Flex>
+        </>
+      ) : (
+        <DndContext
+          sensors={sensors}
+          id="Desktop"
+          onDragStart={({ active }) => {
+            const elementAdeplacer = shortcutsPositions.find((item) => item.id === active.id);
 
-        if (elementAdeplacer) {
-          const index = shortcutsPositions.indexOf(elementAdeplacer);
-          if (index !== -1) {
-            shortcutsPositions.splice(index, 1);
-          }
-          shortcutsPositions.push(elementAdeplacer);
-        }
-        setShortcutPositions([...shortcutsPositions]);
-      }}
-      onDragEnd={({ delta, active }) => {
-        const shortcutIndex = shortcutsPositions.findIndex((x) => x.id === active.id);
-        const { top, left, right, bottom } = shortcutsPositions[shortcutIndex].position;
-        shortcutsPositions[shortcutIndex].position = {
-          left:
-            left !== undefined
-              ? left + delta.x + 140 > windowWidth
-                ? windowWidth - 140
-                : left + delta.x < 0
-                ? 0
-                : left + delta.x
-              : undefined,
-          top:
-            top !== undefined
-              ? top + delta.y + 120 > windowHeight
-                ? windowHeight - 120
-                : top + delta.y < 35
-                ? 35
-                : top + delta.y
-              : undefined,
-          right:
-            right !== undefined
-              ? right - delta.x + 140 > windowWidth
-                ? windowWidth - 140
-                : right - delta.x < 0
-                ? 0.1
-                : right - delta.x
-              : undefined,
-          bottom:
-            bottom !== undefined
-              ? bottom - delta.y + 145 > windowHeight
-                ? windowHeight - 145
-                : bottom - delta.y < 15
-                ? 15
-                : bottom - delta.y
-              : undefined,
-        };
-        setShortcutPositions([...shortcutsPositions]);
-      }}
-    >
-      {shortcutsPositions.map((elem) => (
-        <DraggableShortcut key={elem.id} {...elem} />
-      ))}
-    </DndContext>
+            if (elementAdeplacer) {
+              const index = shortcutsPositions.indexOf(elementAdeplacer);
+              if (index !== -1) {
+                shortcutsPositions.splice(index, 1);
+              }
+              shortcutsPositions.push(elementAdeplacer);
+            }
+            setShortcutPositions([...shortcutsPositions]);
+          }}
+          onDragEnd={({ delta, active }) => {
+            const shortcutIndex = shortcutsPositions.findIndex((x) => x.id === active.id);
+            const { top, left, right, bottom } = shortcutsPositions[shortcutIndex].position;
+            shortcutsPositions[shortcutIndex].position = {
+              left:
+                left !== undefined
+                  ? left + delta.x + 140 > windowWidth
+                    ? windowWidth - 140
+                    : left + delta.x < 0
+                    ? 0
+                    : left + delta.x
+                  : undefined,
+              top:
+                top !== undefined
+                  ? top + delta.y + 120 > windowHeight
+                    ? windowHeight - 120
+                    : top + delta.y < 35
+                    ? 35
+                    : top + delta.y
+                  : undefined,
+              right:
+                right !== undefined
+                  ? right - delta.x + 140 > windowWidth
+                    ? windowWidth - 140
+                    : right - delta.x < 0
+                    ? 0.1
+                    : right - delta.x
+                  : undefined,
+              bottom:
+                bottom !== undefined
+                  ? bottom - delta.y + 145 > windowHeight
+                    ? windowHeight - 145
+                    : bottom - delta.y < 15
+                    ? 15
+                    : bottom - delta.y
+                  : undefined,
+            };
+            setShortcutPositions([...shortcutsPositions]);
+          }}
+        >
+          {shortcutsPositions.map((elem) => (
+            <DraggableShortcut key={elem.id} {...elem} />
+          ))}
+        </DndContext>
+      )}
+    </>
   );
 }
