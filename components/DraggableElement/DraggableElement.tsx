@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useDraggable } from '@dnd-kit/core';
 import { Box, Group } from '@mantine/core';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import fileIcon from '@/assets/file_icon.svg';
 import arrowUp from '@/assets/icons/arrowUp.svg';
 import arrowDown from '@/assets/icons/arrowDown.svg';
@@ -66,6 +66,8 @@ export function DraggableElement({
 
   const [minimized, setMinimized] = useState(false);
   const viewport = useRef<HTMLDivElement>(null);
+  const mainContainer = useRef<HTMLDivElement>(null);
+  const [scrollBarHidden, setScrollBarHidden] = useState(false);
 
   const [startRepeatingUp, stopRepeatingUp] = useRepeater(() => {
     viewport.current!.scrollBy({ top: -5 });
@@ -74,6 +76,15 @@ export function DraggableElement({
   const [startRepeatingDown, stopRepeatingDown] = useRepeater(() => {
     viewport.current!.scrollBy({ top: 5 });
   }, 10);
+
+  useEffect(() => {
+    setScrollBarHidden(
+      (viewport.current &&
+        mainContainer.current &&
+        viewport.current.scrollHeight + 2 < mainContainer.current.offsetHeight) ||
+        false
+    );
+  }, [maximized, viewport.current?.scrollHeight, mainContainer.current?.offsetHeight]);
 
   return (
     <Box
@@ -163,7 +174,7 @@ export function DraggableElement({
       </Box>
 
       {!minimized && (
-        <Box className={classes.windowInner}>
+        <Box className={classes.windowInner} ref={mainContainer}>
           {scrollBar ? (
             <ScrollArea
               classNames={{
@@ -171,14 +182,28 @@ export function DraggableElement({
                 corner: classes.corner,
                 thumb: classes.scrollThumb,
               }}
+              styles={{
+                scrollbar: {
+                  visibility: scrollBarHidden ? 'collapse' : undefined, //hide
+                },
+                viewport: {
+                  paddingRight: scrollBarHidden ? 0 : undefined, //hide
+                },
+              }}
               style={{ position: 'relative' }}
               viewportRef={viewport}
               scrollbarSize={20}
+              mah="100%"
               h="100%"
               type="always"
               offsetScrollbars="y"
             >
-              <Box className={classes.scrollButtons}>
+              <Box
+                className={classes.scrollButtons}
+                style={{
+                  visibility: scrollBarHidden ? 'collapse' : undefined, //hide
+                }}
+              >
                 <Box
                   className={classes.scrollButton}
                   onMouseDown={startRepeatingUp}
