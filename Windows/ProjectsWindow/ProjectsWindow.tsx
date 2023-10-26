@@ -115,7 +115,10 @@ export default function ProjectsWindow(): JSX.Element {
             className={classes.retroBox}
           >
             <Text ta="left" w="100%">
-              {`Découvrez une application pour programmer des partitions dans un langage ésotérique ! Personnalisez votre synthé, diffusez sur des appareils connectés au même WiFi, créez autant de canaux audio que souhaité et collaborez en temps réel. Une aventure musicale collaborative inédite !`}
+              {`Découvrez une application pour programmer des partitions dans un langage ésotérique !
+               Personnalisez votre synthé, diffusez sur des appareils connectés au même WiFi, 
+               créez autant de canaux audio que souhaité et collaborez en temps réel. 
+               Une aventure musicale collaborative inédite !`}
             </Text>
             <SeeMoreButton />
           </Box>

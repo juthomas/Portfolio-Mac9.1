@@ -27,7 +27,6 @@ export default function WindowsManager() {
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
   const isMobile = useMediaQuery('(max-width: 50em)');
 
-
   const windowsList: windowsType[] = [
     {
       id: 'main',
@@ -39,6 +38,7 @@ export default function WindowsManager() {
       id: 'profile',
       content: <ProfileWindow />,
       title: 'My Profile',
+      scrollBar: true,
       maximized: false,
       size: { height: 700, width: 800 },
       coordinates: { x: 'center', y: 100 },
@@ -56,6 +56,7 @@ export default function WindowsManager() {
       id: 'contact',
       content: <ContactWindow />,
       title: 'Contact Me',
+      scrollBar: true,
       maximized: false,
       size: { height: 800, width: 800 },
       coordinates: { x: 'center', y: 100 },

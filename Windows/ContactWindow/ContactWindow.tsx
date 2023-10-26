@@ -44,14 +44,14 @@ export default function ContactWindow(): JSX.Element {
       const response = await axios.post('/api/sendmail', values);
       console.log(response.data); // Affiche la réponse du serveur dans la console
       notifications.show({
-        message: <Text>{'Message envoyé !'}</Text>,
+        message: <Text>Message envoyé !</Text>,
       });
 
       // Faites ce que vous souhaitez avec la réponse du serveur (par exemple, afficher un message à l'utilisateur)
     } catch (error) {
       console.error('Error sending email:', error);
       notifications.show({
-        message: <Text>{"Le message n'a pas pu être envoyé..."}</Text>,
+        message: <Text>{'Le message n\'a pas pu être envoyé...'}</Text>,
       });
     }
   };
@@ -63,7 +63,7 @@ export default function ContactWindow(): JSX.Element {
         align="center"
         h="100%"
         w="100%"
-        pt="xl"
+        py="xl"
         px="5%"
         maw="calc(700px + 5%)"
       >
