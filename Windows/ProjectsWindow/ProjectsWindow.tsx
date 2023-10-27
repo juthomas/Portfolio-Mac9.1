@@ -4,7 +4,6 @@ import { Carousel } from '@/components/Carousel/Carousel';
 import mdma from '@/assets/carousels/mdma.webp';
 import classes from '@/styles/theme.module.css';
 
-
 import OFT_1 from '@/assets/carousels/OFT/oft-1.webp';
 import OFT_2 from '@/assets/carousels/OFT/oft-2.webp';
 import OFT_3 from '@/assets/carousels/OFT/oft-3.webp';
@@ -20,9 +19,7 @@ import NSDOS_5 from '@/assets/carousels/NSDOS/NSDOS_app_5.png';
 import { SeeMoreButton } from '@/components/SeeMoreButton/SeeMoreButton';
 
 export default function ProjectsWindow(): JSX.Element {
-  const MDMA_slides = [
-    { image: mdma, alt: 'mdma image' },
-  ];
+  const MDMA_slides = [{ image: mdma, alt: 'mdma image' }];
 
   const OFT_slides = [
     { image: OFT_1, alt: 'OFT 1' },
@@ -62,10 +59,9 @@ export default function ProjectsWindow(): JSX.Element {
             className={classes.retroBox}
           >
             <Text ta="left" w="100%">
-              {`Bienvenue dans l'univers IOTA, une initiative engagée et à but non lucratif qui se
-              donne pour mission d'équiper les jeunes générations des outils indispensables pour
-              s'épanouir dans notre monde de plus en plus connecté. Avec IOTA, nous nous donnons
-              comme mission de réduire la fracture numérique !`}
+              {`Welcome to the IOTA universe, a committed and non-profit initiative whose mission is
+              to equip the younger generations with the essential tools to thrive in our
+              increasingly connected world. With IOTA, our mission is to bridge the digital divide!`}
             </Text>
             <SeeMoreButton />
           </Box>
@@ -86,9 +82,10 @@ export default function ProjectsWindow(): JSX.Element {
             className={classes.retroBox}
           >
             <Text ta="left" w="100%">
-              {`Jeu gagnant d'une Gamejam de 48h organisé par la Vivatech, One For Tree vous fait
-              incarner un robot qui doit coopérer avec ses compères pour reboiser une planète
-              poluée. Un jeu mignon, multijoueur avec un message green tech et positif.`}
+              {`Triumphant winner of a 48-hour Gamejam hosted by Vivatech, One For Tree immerses you
+              in the world of captivating little robots! Join forces with your allies to reforest a
+              planet ravaged by pollution. An absolutely adorable multiplayer game, proudly carrying
+              an inspiring and positive green tech message!`}
             </Text>
             <SeeMoreButton />
           </Box>
@@ -109,10 +106,10 @@ export default function ProjectsWindow(): JSX.Element {
             className={classes.retroBox}
           >
             <Text ta="left" w="100%">
-              {`A travers le projet Mega Drinking Machina Adventure™ nous voulons faire vivre à nos
-              très chers futurs utilisateurs une simulation, familiale, de cette aventure hors du
-              commun. Une compilation de 11 jeux jouables à 5 joueurs mettront vos amitiés et vos
-              nerfs à rudes épreuves.`}
+              {`Through the Mega Drinking Machina Adventure™ project, we aim to provide our dear
+              future users with a family-friendly simulation of this extraordinary adventure. A
+              compilation of 11 games playable by 5 players will put your friendships and nerves to
+              the ultimate test.`}
             </Text>
             <SeeMoreButton />
           </Box>
@@ -133,10 +130,10 @@ export default function ProjectsWindow(): JSX.Element {
             className={classes.retroBox}
           >
             <Text ta="left" w="100%">
-              {`Découvrez une application pour programmer des partitions dans un langage ésotérique !
-               Personnalisez votre synthé, diffusez sur des appareils connectés au même WiFi, 
-               créez autant de canaux audio que souhaité et collaborez en temps réel. 
-               Une aventure musicale collaborative inédite !`}
+              {`Discover an application for composing scores in an esoteric language! Customize your
+              synthesizer, broadcast to devices connected to the same WiFi, create as many audio
+              channels as desired, and collaborate in real-time. An unprecedented collaborative
+              musical adventure!`}
             </Text>
             <SeeMoreButton />
           </Box>
