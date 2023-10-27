@@ -50,9 +50,6 @@ export const Carousel: React.FC<PropType> = ({ slides, options }: PropType) => {
             <div className={emblaClasses.embla__container}>
               {slides.map((slide, index) => (
                 <div className={emblaClasses.embla__slide} key={index}>
-                  <div className={emblaClasses.embla__slide__number}>
-                    <span>{index + 1}</span>
-                  </div>
                   <Box
                     style={{ backgroundColor: slide.background || undefined }}
                     className={emblaClasses.embla__slide_img_container}
