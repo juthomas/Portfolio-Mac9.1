@@ -61,7 +61,8 @@ export default function ProjectsWindow(): JSX.Element {
             <Text ta="left" w="100%">
               {`Welcome to the IOTA universe, a committed and non-profit initiative whose mission is
               to equip the younger generations with the essential tools to thrive in our
-              increasingly connected world. With IOTA, our mission is to bridge the digital divide!`}
+              increasingly connected world. With IOTA, our mission is to bridge the digital divide! `}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </Text>
             <SeeMoreButton />
           </Box>
@@ -85,7 +86,8 @@ export default function ProjectsWindow(): JSX.Element {
               {`Triumphant winner of a 48-hour Gamejam hosted by Vivatech, One For Tree immerses you
               in the world of captivating little robots! Join forces with your allies to reforest a
               planet ravaged by pollution. An absolutely adorable multiplayer game, proudly carrying
-              an inspiring and positive green tech message!`}
+              an inspiring and positive green tech message! `}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </Text>
             <SeeMoreButton />
           </Box>
@@ -109,7 +111,8 @@ export default function ProjectsWindow(): JSX.Element {
               {`Through the Mega Drinking Machina Adventure™ project, we aim to provide our dear
               future users with a family-friendly simulation of this extraordinary adventure. A
               compilation of 11 games playable by 5 players will put your friendships and nerves to
-              the ultimate test.`}
+              the ultimate test. `}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </Text>
             <SeeMoreButton />
           </Box>
@@ -133,7 +136,8 @@ export default function ProjectsWindow(): JSX.Element {
               {`Discover an application for composing scores in an esoteric language! Customize your
               synthesizer, broadcast to devices connected to the same WiFi, create as many audio
               channels as desired, and collaborate in real-time. An unprecedented collaborative
-              musical adventure!`}
+              musical adventure! `}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </Text>
             <SeeMoreButton />
           </Box>
