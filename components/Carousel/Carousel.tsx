@@ -4,13 +4,9 @@ import useEmblaCarousel, { EmblaOptionsType, EmblaCarouselType } from 'embla-car
 import Autoplay from 'embla-carousel-autoplay';
 import { Box, Button, Flex } from '@mantine/core';
 import { usePrevNextButtons } from './CarouselButtons';
-// import imageByIndex from './imageByIndex';
 import arrowRight from '@/assets/icons/arrowRight.svg';
 import arrowLeft from '@/assets/icons/arrowLeft.svg';
 
-// import './base.css';
-// import './sandbox.css';
-// import './embla.css';
 import emblaClasses from './Carousel.module.css';
 import themeClasses from '@/styles/theme.module.css';
 
