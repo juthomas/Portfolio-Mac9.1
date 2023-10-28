@@ -2,13 +2,10 @@
 
 import Image from 'next/image';
 import { Menu, Group, Flex } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
-// import { MantineLogo } from '@mantine/ds';
 import classes from './Header.module.css';
 import juthomasLogo from '@/assets/juthomas_logo.svg';
 import fileIcon from '@/assets/file_icon.svg';
-// import frenchFlag from '@/assets/french_flag.svg';
 import englishFlag from '@/assets/english_flag.svg';
 
 const links = [
@@ -34,8 +31,6 @@ const links = [
 ];
 
 export function Header() {
-  const [opened, { toggle }] = useDisclosure(false);
-
   const items = links.map((link) => {
     const menuItems = link.links?.map((item) => (
       <Menu.Item key={item.link}>{item.label}</Menu.Item>
