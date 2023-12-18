@@ -8,8 +8,7 @@ import {
   KeyboardSensor,
   useSensors,
 } from '@dnd-kit/core';
-import { useState } from 'react';
-import { ScrollArea } from '@mantine/core';
+import { useEffect, useState } from 'react';
 import type { Coordinates } from '@dnd-kit/utilities';
 import { DraggableElement } from '../DraggableElement/DraggableElement';
 import useWindowDimensions, { WindowDimensions } from '@/hooks/useWindowDImensions';
@@ -48,14 +47,7 @@ export function DraggableWindow({
   const handleDimensionChange = ({ width: wWidth, height: wHeight }: WindowDimensions) => {
     setCoordinates((prev) => ({
       x: wWidth < width ? 0 : prev.x + width > wWidth ? wWidth - width : prev.x < 0 ? 0 : prev.x,
-      y:
-        wHeight < height
-          ? 0
-          : prev.y + height > wHeight
-          ? wHeight - height
-          : prev.y < 30
-          ? 30
-          : prev.y,
+      y: wHeight < height + 30 ? 30 : prev.y + height > wHeight ? wHeight - height : prev.y,
     }));
   };
 
@@ -64,6 +56,25 @@ export function DraggableWindow({
   const touchSensor = useSensor(TouchSensor, {});
   const keyboardSensor = useSensor(KeyboardSensor, {});
   const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
+
+  useEffect(() => {
+    setCoordinates((prev) => ({
+      x:
+        windowWidth < width
+          ? 0
+          : prev.x + width > windowWidth
+          ? windowWidth - width
+          : prev.x < 0
+          ? 0
+          : prev.x,
+      y:
+        windowHeight < height + 30
+          ? 30
+          : prev.y + height > windowHeight
+          ? windowHeight - height
+          : prev.y,
+    }));
+  }, []);
 
   return (
     <DndContext
@@ -81,8 +92,8 @@ export function DraggableWindow({
 
           // y: y + delta.y,
           y:
-            y + delta.y + height > windowHeight
-              ? windowHeight - height
+            y + delta.y + (height > windowHeight - 30 ? windowHeight - 30 : height) > windowHeight
+              ? windowHeight - (height > windowHeight - 30 ? windowHeight - 30 : height)
               : y + delta.y < 30
               ? 30
               : y + delta.y,
@@ -93,7 +104,9 @@ export function DraggableWindow({
         windowTitle={windowTitle}
         top={maximized ? 30 : y}
         left={maximized ? 0 : x}
-        height={maximized ? windowHeight - 30 : height}
+        height={
+          maximized ? windowHeight - 30 : height > windowHeight - 30 ? windowHeight - 30 : height
+        }
         width={maximized ? windowWidth : width}
         windowIcon={windowIcon}
         maximized={maximized}
