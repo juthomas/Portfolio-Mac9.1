@@ -126,7 +126,7 @@ export function DraggableElement({
               </>
             )}
           </Box>
-          <Group gap={5} px={10}>
+          <Group gap={5} px={10} wrap="nowrap">
             <Image
               src={windowIcon}
               alt="logo"

@@ -3,7 +3,7 @@
   box-shadow: var(--borders-size) var(--borders-size) #000000;
   position: absolute;
   background-color: #aaaaaa;
-  padding: rem(30px) calc(var(--borders-size) * 3) calc(var(--borders-size) * 3)
+  padding: 30px calc(var(--borders-size) * 3) calc(var(--borders-size) * 3)
     calc(var(--borders-size) * 3);
   /* transition: all 1s steps(5) TODO: faire un truc dans le genre*/
 }

@@ -75,7 +75,7 @@ const defaultProps: Partial<ScrollAreaProps> = {
 
 const varsResolver = createVarsResolver<ScrollAreaFactory>((_, { scrollbarSize }) => ({
   root: {
-    '--scrollarea-scrollbar-size': rem(scrollbarSize),
+    '--scrollarea-scrollbar-size': `${scrollbarSize}px`,
   },
 }));
 
