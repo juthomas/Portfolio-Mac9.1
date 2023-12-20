@@ -25,6 +25,7 @@
   min-width: 0;
   padding-left: var(--slide-spacing);
   position: relative;
+  height: 100%;
 }
 
 .embla__slide_img_container {
@@ -42,7 +43,6 @@
 .embla__slide__img {
   /* display: block; */
   max-width: 100%;
-
        /* Assure que l'image ne dépasse pas la largeur du conteneur */
   max-height: 100%; 
   /* height: var(--slide-height);
