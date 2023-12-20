@@ -18,7 +18,6 @@
   touch-action: pan-y;
   width: var(--slide-size);
   aspect-ratio: 15/12;
-
   margin-left: calc(var(--slide-spacing) * -1);
 }
 .embla__slide {
@@ -36,7 +35,7 @@
   background-color: black;
   overflow: hidden;
   /* height: var(--slide-height); */
-  height: -webkit-fill-available;
+  height: 100%;
   width: var(--slide-size);
 }
 
