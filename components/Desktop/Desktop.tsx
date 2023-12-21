@@ -59,7 +59,7 @@ export default function Desktop() {
     {
       id: '4',
       position: { right: 0.1, top: 445 },
-      link: 'https://oft.pages.dev/game',
+      link: 'https://onefortree.juthomas.fr/login',
       text: 'One for tree',
       icon: onefortreeIcon,
     },
