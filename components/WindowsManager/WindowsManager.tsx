@@ -10,6 +10,7 @@ import MainWindow from '@/Windows/MainWindow/MainWindow';
 import ProfileWindow from '@/Windows/ProfileWindow/ProfileWindow';
 import ProjectsWindow from '@/Windows/ProjectsWindow/ProjectsWindow';
 import ContactWindow from '@/Windows/ContactWindow/ContactWindow';
+import ProjectsWindowV2 from '@/Windows/ProjectsWindowV2/ProjectsWindowV2';
 
 interface windowsType {
   id: string;
@@ -32,6 +33,7 @@ export default function WindowsManager() {
       id: 'main',
       content: <MainWindow />,
       maximized: false,
+      scrollBar: true,
       coordinates: { x: 'center', y: 130 },
     },
     {
@@ -88,6 +90,16 @@ export default function WindowsManager() {
       size: { height: 400, width: 400 },
       coordinates: { x: 0, y: 30 },
     },
+    {
+      id: 'projectsV2',
+      content: <ProjectsWindowV2 />,
+      title: 'Projects',
+      // icon: '',
+      maximized: true,
+      scrollBar: true,
+      size: { height: 400, width: 400 },
+      coordinates: { x: 0, y: 30 },
+    },
   ];
 
   const [windowsState, setWindowsState] = useState<windowsType[]>(
@@ -106,7 +118,7 @@ export default function WindowsManager() {
 
   useEffect(() => {
     const updatedWindowsList = windowsList
-      .filter((elem) => ['main'].includes(elem.id))
+      .filter((elem) => ['main'/* , 'projectsV2' */].includes(elem.id))
       .map((elem) => {
         const tmp = { ...elem };
         if (tmp.coordinates.x === 'center') {

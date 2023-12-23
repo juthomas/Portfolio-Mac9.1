@@ -1,0 +1,50 @@
+.th {
+	/* margin: 1px; */
+	/* outline-offset: -1px; */
+	/* outline: 2px solid black; */
+	font-weight: normal;
+	line-height: 18px;
+	background: #d9d9d9;
+	border: 2px solid black;
+	border-left: 0px;
+	border-top: 0px;
+	position: relative;
+}
+.th::before,
+.th::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.th::before {
+  border-left: var(--borders-size) solid #ffffff;
+  border-top: var(--borders-size) solid #ffffff;
+}
+
+.th::after {
+  border-right: var(--borders-size) solid #939393;
+  border-bottom: var(--borders-size) solid #939393;
+}
+
+
+.td {
+	padding: 0;
+	height: 4x;
+	max-height: 4px;
+	border-bottom: 2px solid black;
+	line-height: 18px;
+
+}
+
+
+
+.thtd {
+	/* border-collapse: collapse; */
+
+	/* margin-right: 1px; */
+}

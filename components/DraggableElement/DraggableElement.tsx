@@ -181,6 +181,7 @@ export function DraggableElement({
                 scrollbar: classes.scrollBar,
                 corner: classes.corner,
                 thumb: classes.scrollThumb,
+                viewport: classes.viewportInner,
               }}
               styles={{
                 scrollbar: {
@@ -188,7 +189,12 @@ export function DraggableElement({
                 },
                 viewport: {
                   paddingRight: scrollBarHidden ? 0 : undefined, //hide
+                  // '& > div:first-child': {
+                  //   // Styles pour le premier enfant
+                  //   color: 'red',
+                  // },
                 },
+
               }}
               style={{ position: 'relative' }}
               viewportRef={viewport}
