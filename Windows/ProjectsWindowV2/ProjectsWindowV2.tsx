@@ -18,6 +18,7 @@ import NSDOS_4 from '@/assets/carousels/NSDOS/NSDOS_app_4.png';
 import NSDOS_5 from '@/assets/carousels/NSDOS/NSDOS_app_5.png';
 
 import { SeeMoreButton } from '@/components/SeeMoreButton/SeeMoreButton';
+import { useState } from 'react';
 
 export default function ProjectsWindowV2(): JSX.Element {
   const MDMA_slides = [{ image: mdma, alt: 'mdma image' }];
@@ -40,6 +41,19 @@ export default function ProjectsWindowV2(): JSX.Element {
     { image: NSDOS_3, alt: 'NSDOS 3' },
     { image: NSDOS_4, alt: 'NSDOS 4' },
     { image: NSDOS_5, alt: 'NSDOS 5' },
+  ];
+
+  const [selected, setSelected] = useState(0);
+
+  const data = [
+    { projectName: 'test1', beginDate: 'test2', endDate: 'test3', type: 'test4' },
+    { projectName: 'test1', beginDate: 'test2', endDate: 'test3', type: 'test4' },
+    { projectName: 'test1', beginDate: 'test2', endDate: 'test3', type: 'test4' },
+    { projectName: 'test1', beginDate: 'test2', endDate: 'test3', type: 'test4' },
+    { projectName: 'test1', beginDate: 'test2', endDate: 'test3', type: 'test4' },
+    { projectName: 'test1', beginDate: 'test2', endDate: 'test3', type: 'test4' },
+    { projectName: 'test1', beginDate: 'test2', endDate: 'test3', type: 'test4' },
+    { projectName: 'test1', beginDate: 'test2', endDate: 'test3', type: 'test4' },
   ];
 
   return (
@@ -65,24 +79,17 @@ export default function ProjectsWindowV2(): JSX.Element {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className={`${classes.td} ${classes.thtd}`}>test1</td>
-                <td className={`${classes.td} ${classes.thtd}`}>test2</td>
-                <td className={`${classes.td} ${classes.thtd}`}>test3</td>
-                <td className={`${classes.td} ${classes.thtd}`}>test4</td>
-              </tr>
-              <tr>
-              <td className={`${classes.td} ${classes.thtd}`}>test1</td>
-                <td className={`${classes.td} ${classes.thtd}`}>test2</td>
-                <td className={`${classes.td} ${classes.thtd}`}>test3</td>
-                <td className={`${classes.td} ${classes.thtd}`}>test4</td>
-              </tr>
-              <tr>
-              <td className={`${classes.td} ${classes.thtd}`}>test1</td>
-                <td className={`${classes.td} ${classes.thtd}`}>test2</td>
-                <td className={`${classes.td} ${classes.thtd}`}>test3</td>
-                <td className={`${classes.td} ${classes.thtd}`}>test4</td>
-              </tr>
+              {data.map((elem, index) => (
+                <tr
+                  onClick={() => setSelected(index)}
+                  style={{ backgroundColor: index === selected ? '#CECEE2' : undefined }}
+                >
+                  <td className={`${classes.td} ${classes.thtd}`}>{elem.projectName}</td>
+                  <td className={`${classes.td} ${classes.thtd}`}>{elem.beginDate}</td>
+                  <td className={`${classes.td} ${classes.thtd}`}>{elem.endDate}</td>
+                  <td className={`${classes.td} ${classes.thtd}`}>{elem.type}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </Box>
