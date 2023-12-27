@@ -57,8 +57,8 @@ export default function ProjectsWindowV2(): JSX.Element {
   ];
 
   return (
-    <Flex align="center" h="100%">
-      <div style={{ height: '100%', flex: 1, padding: 20 }}>
+    <Flex align="stretch" h="100%">
+      <div style={{ flex: 1, padding: 20, backgroundColor: 'red' }}>
         <Box
           // p="xs"
           miw={250}
@@ -75,7 +75,9 @@ export default function ProjectsWindowV2(): JSX.Element {
                 <th className={`${classes.th} ${classes.thtd}`}>Project Name</th>
                 <th className={`${classes.th} ${classes.thtd}`}>Begin Date</th>
                 <th className={`${classes.th} ${classes.thtd}`}>End Date</th>
-                <th className={`${classes.th} ${classes.thtd}`}>Type</th>
+                <th className={`${classes.th} ${classes.thtd}`} style={{ borderRight: 0 }}>
+                  Type
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -94,7 +96,9 @@ export default function ProjectsWindowV2(): JSX.Element {
           </table>
         </Box>
       </div>
-      <div style={{ backgroundColor: 'blue', height: '100%', flex: 1 }}>test</div>
+      <div style={{ backgroundColor: 'blue', flex: 1, padding: 10 }}>
+        <Carousel slides={OFT_slides} options={{ loop: true }} size="20em" />
+      </div>
     </Flex>
   );
 }
