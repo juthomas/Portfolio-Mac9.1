@@ -1,0 +1,31 @@
+.OpenButton {
+  color: black;
+  /* position: absolute; */
+  /* right: 5px; */
+  /* bottom: 5px; */
+  border-radius: 0;
+  border: 0;
+  height: 25px;
+  background-color: #C7C7C7;
+}
+
+.OpenButton::before,
+.OpenButton::after {
+  content: '';
+  position: absolute;
+  /* background-color: aqua; */
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+}
+.OpenButton::before {
+  border-left: var(--borders-size) solid #f0f0f0;
+  border-top: var(--borders-size) solid #f0f0f0;
+}
+
+.OpenButton::after {
+  border-right: var(--borders-size) solid #ababab;
+  border-bottom: var(--borders-size) solid #ababab;
+}

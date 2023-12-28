@@ -19,6 +19,7 @@ import NSDOS_5 from '@/assets/carousels/NSDOS/NSDOS_app_5.png';
 
 import { SeeMoreButton } from '@/components/SeeMoreButton/SeeMoreButton';
 import { useState } from 'react';
+import { OpenButton } from '@/components/OpenButton/OpenButton';
 
 export default function ProjectsWindowV2(): JSX.Element {
   const MDMA_slides = [{ image: mdma, alt: 'mdma image' }];
@@ -46,14 +47,78 @@ export default function ProjectsWindowV2(): JSX.Element {
   const [selected, setSelected] = useState(0);
 
   const data = [
-    { projectName: 'test1', beginDate: 'test2', endDate: 'test3', type: 'test4' },
-    { projectName: 'test1', beginDate: 'test2', endDate: 'test3', type: 'test4' },
-    { projectName: 'test1', beginDate: 'test2', endDate: 'test3', type: 'test4' },
-    { projectName: 'test1', beginDate: 'test2', endDate: 'test3', type: 'test4' },
-    { projectName: 'test1', beginDate: 'test2', endDate: 'test3', type: 'test4' },
-    { projectName: 'test1', beginDate: 'test2', endDate: 'test3', type: 'test4' },
-    { projectName: 'test1', beginDate: 'test2', endDate: 'test3', type: 'test4' },
-    { projectName: 'test1', beginDate: 'test2', endDate: 'test3', type: 'test4' },
+    {
+      projectName: 'test1',
+      beginDate: 'test2',
+      endDate: 'test3',
+      type: 'test4',
+      slides: OFT_slides,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
+    },
+    {
+      projectName: 'test1',
+      beginDate: 'test2',
+      endDate: 'test3',
+      type: 'test4',
+      slides: NSDOS_slides,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
+    },
+    {
+      projectName: 'test1',
+      beginDate: 'test2',
+      endDate: 'test3',
+      type: 'test4',
+      slides: IOTA_slides,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
+    },
+    {
+      projectName: 'test1',
+      beginDate: 'test2',
+      endDate: 'test3',
+      type: 'test4',
+      slides: NSDOS_slides,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
+    },
+    {
+      projectName: 'test1',
+      beginDate: 'test2',
+      endDate: 'test3',
+      type: 'test4',
+      slides: IOTA_slides,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
+    },
+    {
+      projectName: 'test1',
+      beginDate: 'test2',
+      endDate: 'test3',
+      type: 'test4',
+      slides: OFT_slides,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
+    },
+    {
+      projectName: 'test1',
+      beginDate: 'test2',
+      endDate: 'test3',
+      type: 'test4',
+      slides: NSDOS_slides,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
+    },
+    {
+      projectName: 'test1',
+      beginDate: 'test2',
+      endDate: 'test3',
+      type: 'test4',
+      slides: OFT_slides,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
+    },
   ];
 
   return (
@@ -103,33 +168,30 @@ export default function ProjectsWindowV2(): JSX.Element {
         gap={10}
         style={{ flex: 1, padding: 10 }}
       >
-        <Carousel slides={OFT_slides} options={{ loop: true }} size="20em" />
-        <Stack px={60}>
+        <Carousel slides={data[selected].slides} options={{ loop: true }} size="20em" />
+        <Stack px={60} gap={10}>
           <Text ta="center" fz={20}>
-            Title
+            {data[selected].projectName}
           </Text>
           <Group justify="space-between">
             <Text>Kind</Text>
-            <Text c="#4B4B4B">Default</Text>
+            <Text c="#4B4B4B">{data[selected].type}</Text>
           </Group>
           <Group justify="space-between">
             <Text>Begin Date</Text>
-            <Text c="#4B4B4B">Default</Text>
+            <Text c="#4B4B4B">{data[selected].beginDate}</Text>
           </Group>
           <Group justify="space-between">
             <Text>End Date</Text>
-            <Text c="#4B4B4B">Default</Text>
+            <Text c="#4B4B4B">{data[selected].endDate}</Text>
           </Group>
           <Stack gap={0}>
             <Text>Description</Text>
-            <Text c="#4B4B4B">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet,
-              pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada
-              velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.
-            </Text>
+            <Text c="#4B4B4B">{data[selected].description}</Text>
           </Stack>
-          <SeeMoreButton />
-
+          <Group justify="center">
+            <OpenButton />
+          </Group>
         </Stack>
       </Flex>
     </Flex>
