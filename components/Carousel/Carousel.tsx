@@ -2,7 +2,7 @@ import Image, { StaticImageData } from 'next/image';
 import React, { useCallback } from 'react';
 import useEmblaCarousel, { EmblaOptionsType, EmblaCarouselType } from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
-import { Box, Button, Flex } from '@mantine/core';
+import { Box, Button, Flex, MantineStyleProp } from '@mantine/core';
 import { usePrevNextButtons } from './CarouselButtons';
 import arrowRight from '@/assets/icons/arrowRight.svg';
 import arrowLeft from '@/assets/icons/arrowLeft.svg';
@@ -13,10 +13,11 @@ import themeClasses from '@/styles/theme.module.css';
 type PropType = {
   slides: { image: StaticImageData; alt?: string; background?: string }[];
   options?: EmblaOptionsType;
+  style?: MantineStyleProp
   size?: string;
 };
 
-export const Carousel: React.FC<PropType> = ({ slides, options }: PropType) => {
+export const Carousel: React.FC<PropType> = ({ slides, options, style }: PropType) => {
   // const { slides, options } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay()]);
 
@@ -30,7 +31,7 @@ export const Carousel: React.FC<PropType> = ({ slides, options }: PropType) => {
     usePrevNextButtons(emblaApi, onButtonClick);
 
   return (
-    <Flex gap="xs" align="center" justify="center" style={{ flex: 1 }}>
+    <Flex gap="xs" align="center" justify="center" style={style}>
       <Button
         className={emblaClasses.button}
         onClick={onPrevButtonClick}

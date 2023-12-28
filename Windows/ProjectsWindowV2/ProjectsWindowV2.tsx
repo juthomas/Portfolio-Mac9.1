@@ -1,4 +1,4 @@
-import { Box, Flex, Space, Text } from '@mantine/core';
+import { Box, Flex, Group, Space, Stack, Text } from '@mantine/core';
 
 import { Carousel } from '@/components/Carousel/Carousel';
 import mdma from '@/assets/carousels/mdma.webp';
@@ -96,9 +96,42 @@ export default function ProjectsWindowV2(): JSX.Element {
           </table>
         </Box>
       </div>
-      <div style={{ backgroundColor: 'blue', flex: 1, padding: 10 }}>
+      <Flex
+        direction="column"
+        align="stretch"
+        justify="center"
+        gap={10}
+        style={{ flex: 1, padding: 10 }}
+      >
         <Carousel slides={OFT_slides} options={{ loop: true }} size="20em" />
-      </div>
+        <Stack px={60}>
+          <Text ta="center" fz={20}>
+            Title
+          </Text>
+          <Group justify="space-between">
+            <Text>Kind</Text>
+            <Text c="#4B4B4B">Default</Text>
+          </Group>
+          <Group justify="space-between">
+            <Text>Begin Date</Text>
+            <Text c="#4B4B4B">Default</Text>
+          </Group>
+          <Group justify="space-between">
+            <Text>End Date</Text>
+            <Text c="#4B4B4B">Default</Text>
+          </Group>
+          <Stack gap={0}>
+            <Text>Description</Text>
+            <Text c="#4B4B4B">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet,
+              pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada
+              velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.
+            </Text>
+          </Stack>
+          <SeeMoreButton />
+
+        </Stack>
+      </Flex>
     </Flex>
   );
 }

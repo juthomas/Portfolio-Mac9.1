@@ -48,7 +48,7 @@ export default function ProjectsWindow(): JSX.Element {
           Projet IOTA
         </Text>
         <Flex columnGap="xl" rowGap="lg" align="stretch" wrap="wrap" justify="center" px="5%">
-          <Carousel slides={IOTA_slides} options={{ loop: true }} size="20em" />
+          <Carousel style={{ flex: 1 }} slides={IOTA_slides} options={{ loop: true }} size="20em" />
           <Box
             p="xs"
             miw={250}
@@ -72,7 +72,7 @@ export default function ProjectsWindow(): JSX.Element {
           One For Tree
         </Text>
         <Flex columnGap="xl" rowGap="lg" align="stretch" wrap="wrap" justify="center" px="5%">
-          <Carousel slides={OFT_slides} options={{ loop: true }} size="20em" />
+          <Carousel style={{ flex: 1 }} slides={OFT_slides} options={{ loop: true }} size="20em" />
           <Box
             p="xs"
             miw={250}
@@ -97,7 +97,7 @@ export default function ProjectsWindow(): JSX.Element {
           Mega Drinking Machina Adventure
         </Text>
         <Flex columnGap="xl" rowGap="lg" align="stretch" wrap="wrap" justify="center" px="5%">
-          <Carousel slides={MDMA_slides} options={{ loop: true }} size="20em" />
+          <Carousel style={{ flex: 1 }} slides={MDMA_slides} options={{ loop: true }} size="20em" />
           <Box
             p="xs"
             miw={250}
@@ -122,7 +122,12 @@ export default function ProjectsWindow(): JSX.Element {
           NSDOS App
         </Text>
         <Flex columnGap="xl" rowGap="lg" align="stretch" wrap="wrap" justify="center" px="5%">
-          <Carousel slides={NSDOS_slides} options={{ loop: true }} size="20em" />
+          <Carousel
+            style={{ flex: 1 }}
+            slides={NSDOS_slides}
+            options={{ loop: true }}
+            size="20em"
+          />
           <Box
             p="xs"
             miw={250}
@@ -149,7 +154,7 @@ export default function ProjectsWindow(): JSX.Element {
           One For Tree
         </Text>
         <Flex gap="xl" align="stretch">
-          <Carousel slides={slides} options={{ loop: true }} />
+          <Carousel style={{flex : 1}} slides={slides} options={{ loop: true }} />
           <Box p="xs" w="100%" bg="white" pos="relative" className={classes.retroBox}>
             <Text ta="left" w="100%">
               {`Jeu gagnant d'une Gamejam de 48h organisé par la Vivatech, One For Tree vous fait
@@ -164,7 +169,7 @@ export default function ProjectsWindow(): JSX.Element {
           Mega Drinking Machina Adventure
         </Text>
         <Flex gap="xl" align="stretch">
-          <Carousel slides={slides} options={{ loop: true }} />
+          <Carousel style={{flex : 1}} slides={slides} options={{ loop: true }} />
           <Box p="xs" w="100%" bg="white" pos="relative" className={classes.retroBox}>
             <Text ta="left" w="100%">
               {`A travers le projet Mega Drinking Machina Adventure™ nous voulons faire vivre à nos
@@ -180,7 +185,7 @@ export default function ProjectsWindow(): JSX.Element {
           NSDOS App
         </Text>
         <Flex gap="xl" align="stretch">
-          <Carousel slides={NSDOS_slides} options={{ loop: true }} />
+          <Carousel style={{flex : 1}} slides={NSDOS_slides} options={{ loop: true }} />
           <Box p="xs" w="100%" bg="white" className={classes.retroBox}>
             <Text ta="left" w="100%">
               {`A travers le projet Mega Drinking Machina Adventure™ nous voulons faire vivre à nos
