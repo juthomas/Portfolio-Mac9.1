@@ -185,7 +185,6 @@ export function DraggableElement({
           bottom: 0,
           right: 0,
           zIndex: 1,
-          backgroundColor: 'red',
           cursor: 'nwse-resize',
         }}
         ref={nwseSetNodeRef}
@@ -200,7 +199,6 @@ export function DraggableElement({
           bottom: 0,
           left: 0,
           zIndex: 1,
-          backgroundColor: 'blue',
           cursor: 'nesw-resize',
         }}
         ref={neswSetNodeRef}
@@ -210,13 +208,11 @@ export function DraggableElement({
       <Box
         style={{
           position: 'absolute',
-          // height: 8,
           width: 8,
           top: 30,
           bottom: 8,
           left: 0,
           zIndex: 1,
-          backgroundColor: 'purple',
           cursor: 'ew-resize',
         }}
         ref={lewSetNodeRef}
@@ -226,13 +222,11 @@ export function DraggableElement({
       <Box
         style={{
           position: 'absolute',
-          // height: 8,
           width: 8,
           top: 30,
           bottom: 8,
           right: 0,
           zIndex: 1,
-          backgroundColor: 'purple',
           cursor: 'ew-resize',
         }}
         ref={rewSetNodeRef}
@@ -247,7 +241,6 @@ export function DraggableElement({
           right: 8,
           left: 8,
           zIndex: 1,
-          backgroundColor: 'purple',
           cursor: 'ns-resize',
         }}
         ref={nsSetNodeRef}
