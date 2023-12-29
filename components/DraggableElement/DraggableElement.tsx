@@ -65,12 +65,22 @@ export function DraggableElement({
   });
 
   const {
-    attributes: attributes2,
-    listeners: listeners2,
-    setNodeRef: setNodeRef2,
-    transform: transform2,
+    attributes: nwseAttributes,
+    listeners: nwseListeners,
+    setNodeRef: nwseSetNodeRef,
+    transform: nwseTransform,
   } = useDraggable({
-    id: 'resize',
+    id: 'resize-nwse',
+    disabled: maximized,
+  });
+
+  const {
+    attributes: neswAttributes,
+    listeners: neswListeners,
+    setNodeRef: neswSetNodeRef,
+    transform: neswTransform,
+  } = useDraggable({
+    id: 'resize-nesw',
     disabled: maximized,
   });
 
@@ -107,28 +117,58 @@ export function DraggableElement({
         backgroundColor: focused ? undefined : '#bcbcbc',
         paddingBottom: minimized ? 0 : undefined,
         zIndex,
-        height: minimized ? undefined : transform2 ? transform2.y + height : height,
-        width: transform2 ? transform2.x + width : width,
+        height: minimized
+          ? undefined
+          : nwseTransform
+          ? nwseTransform.y + height
+          : neswTransform
+          ? neswTransform.y + height
+          : height,
+        width: nwseTransform
+          ? nwseTransform.x + width
+          : neswTransform
+          ? -neswTransform.x + width
+          : width,
         top,
         left,
-        transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+        transform: transform
+          ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+          : neswTransform
+          ? `translate3d(${neswTransform.x}px, 0px, 0)`
+          : undefined,
       }}
     >
+      <Box
+        style={{
+          position: 'absolute',
+          height: 8,
+          width: 8,
+          bottom: 0,
+          right: 0,
+          zIndex: 1,
+          backgroundColor: 'red',
+          cursor: 'nwse-resize',
+        }}
+        ref={nwseSetNodeRef}
+        {...nwseListeners}
+        {...nwseAttributes}
+      />
       <Box
         style={{
           position: 'absolute',
           height: 10,
           width: 10,
           bottom: 0,
-          right: 0,
-          backgroundColor: 'red',
-          cursor: 'nwse-resize',
+          left: 0,
+          zIndex: 1,
+          backgroundColor: 'blue',
+          cursor: 'nesw-resize',
         }}
-        ref={setNodeRef2}
-        {...listeners2}
-        {...attributes2}
-        // onMouse
+        ref={neswSetNodeRef}
+        {...neswListeners}
+        {...neswAttributes}
       />
+
       <Box className={classes.windowBar}>
         <Box
           className={classes.button}

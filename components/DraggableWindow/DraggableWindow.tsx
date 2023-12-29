@@ -84,8 +84,21 @@ export function DraggableWindow({
       sensors={sensors}
       onDragStart={focusing}
       onDragEnd={({ delta, active }) => {
-        if (active.id === 'resize') {
+        if (active.id === 'resize-nwse') {
           setWindowSize((prev) => ({ x: prev.x + delta.x, y: prev.y + delta.y }));
+          return;
+        }
+        if (active.id === 'resize-nesw') {
+          setWindowSize((prev) => ({ x: prev.x - delta.x, y: prev.y + delta.y }));
+          setCoordinates(() => ({
+            x:
+              x + delta.x + width > windowWidth
+                ? windowWidth - width
+                : x + delta.x < 0
+                ? 0
+                : x + delta.x,
+            y,
+          }));
           return;
         }
         setCoordinates(() => ({
