@@ -84,6 +84,37 @@ export function DraggableElement({
     disabled: maximized,
   });
 
+  const {
+    attributes: lewAttributes,
+    listeners: lewListeners,
+    setNodeRef: lewSetNodeRef,
+    transform: lewTransform,
+  } = useDraggable({
+    id: 'resize-lew',
+    disabled: maximized,
+  });
+
+  const {
+    attributes: rewAttributes,
+    listeners: rewListeners,
+    setNodeRef: rewSetNodeRef,
+    transform: rewTransform,
+  } = useDraggable({
+    id: 'resize-rew',
+    disabled: maximized,
+  });
+
+  const {
+    attributes: nsAttributes,
+    listeners: nsListeners,
+    setNodeRef: nsSetNodeRef,
+    transform: nsTransform,
+  } = useDraggable({
+    id: 'resize-ns',
+    disabled: maximized,
+  });
+
+
   const [minimized, setMinimized] = useState(false);
   const viewport = useRef<HTMLDivElement>(null);
   const mainContainer = useRef<HTMLDivElement>(null);
@@ -123,11 +154,17 @@ export function DraggableElement({
           ? nwseTransform.y + height
           : neswTransform
           ? neswTransform.y + height
+          : nsTransform
+          ? nsTransform.y + height
           : height,
         width: nwseTransform
           ? nwseTransform.x + width
           : neswTransform
           ? -neswTransform.x + width
+          : lewTransform
+          ? -lewTransform.x + width
+          : rewTransform
+          ? rewTransform.x + width
           : width,
         top,
         left,
@@ -135,6 +172,8 @@ export function DraggableElement({
           ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
           : neswTransform
           ? `translate3d(${neswTransform.x}px, 0px, 0)`
+          : lewTransform
+          ? `translate3d(${lewTransform.x}px, 0px, 0)`
           : undefined,
       }}
     >
@@ -156,8 +195,8 @@ export function DraggableElement({
       <Box
         style={{
           position: 'absolute',
-          height: 10,
-          width: 10,
+          height: 8,
+          width: 8,
           bottom: 0,
           left: 0,
           zIndex: 1,
@@ -168,6 +207,56 @@ export function DraggableElement({
         {...neswListeners}
         {...neswAttributes}
       />
+      <Box
+        style={{
+          position: 'absolute',
+          // height: 8,
+          width: 8,
+          top: 30,
+          bottom: 8,
+          left: 0,
+          zIndex: 1,
+          backgroundColor: 'purple',
+          cursor: 'ew-resize',
+        }}
+        ref={lewSetNodeRef}
+        {...lewListeners}
+        {...lewAttributes}
+      />
+      <Box
+        style={{
+          position: 'absolute',
+          // height: 8,
+          width: 8,
+          top: 30,
+          bottom: 8,
+          right: 0,
+          zIndex: 1,
+          backgroundColor: 'purple',
+          cursor: 'ew-resize',
+        }}
+        ref={rewSetNodeRef}
+        {...rewListeners}
+        {...rewAttributes}
+      />
+      <Box
+        style={{
+          position: 'absolute',
+          height: 8,
+          bottom: 0,
+          right: 8,
+          left: 8,
+          zIndex: 1,
+          backgroundColor: 'purple',
+          cursor: 'ns-resize',
+        }}
+        ref={nsSetNodeRef}
+        {...nsListeners}
+        {...nsAttributes}
+      />
+
+
+
 
       <Box className={classes.windowBar}>
         <Box

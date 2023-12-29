@@ -88,8 +88,29 @@ export function DraggableWindow({
           setWindowSize((prev) => ({ x: prev.x + delta.x, y: prev.y + delta.y }));
           return;
         }
+        if (active.id === 'resize-rew') {
+          setWindowSize((prev) => ({ x: prev.x + delta.x, y: prev.y }));
+          return;
+        }
+        if (active.id === 'resize-ns') {
+          setWindowSize((prev) => ({ x: prev.x, y: prev.y + delta.y }));
+          return;
+        }
         if (active.id === 'resize-nesw') {
           setWindowSize((prev) => ({ x: prev.x - delta.x, y: prev.y + delta.y }));
+          setCoordinates(() => ({
+            x:
+              x + delta.x + width > windowWidth
+                ? windowWidth - width
+                : x + delta.x < 0
+                ? 0
+                : x + delta.x,
+            y,
+          }));
+          return;
+        }
+        if (active.id === 'resize-lew') {
+          setWindowSize((prev) => ({ x: prev.x - delta.x, y: prev.y }));
           setCoordinates(() => ({
             x:
               x + delta.x + width > windowWidth
