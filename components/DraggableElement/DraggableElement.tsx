@@ -64,6 +64,16 @@ export function DraggableElement({
     disabled: maximized,
   });
 
+  const {
+    attributes: attributes2,
+    listeners: listeners2,
+    setNodeRef: setNodeRef2,
+    transform: transform2,
+  } = useDraggable({
+    id: 'resize',
+    disabled: maximized,
+  });
+
   const [minimized, setMinimized] = useState(false);
   const viewport = useRef<HTMLDivElement>(null);
   const mainContainer = useRef<HTMLDivElement>(null);
@@ -86,21 +96,39 @@ export function DraggableElement({
     );
   }, [maximized, viewport.current?.scrollHeight, mainContainer.current?.offsetHeight]);
 
+  const windowRef = useRef<HTMLDivElement | null>(null);
+
   return (
     <Box
       className={classes.windowOuter}
       onClick={focusing}
+      ref={windowRef}
       style={{
         backgroundColor: focused ? undefined : '#bcbcbc',
-        height: minimized ? undefined : height,
         paddingBottom: minimized ? 0 : undefined,
         zIndex,
-        width,
+        height: minimized ? undefined : transform2 ? transform2.y + height : height,
+        width: transform2 ? transform2.x + width : width,
         top,
         left,
         transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
       }}
     >
+      <Box
+        style={{
+          position: 'absolute',
+          height: 10,
+          width: 10,
+          bottom: 0,
+          right: 0,
+          backgroundColor: 'red',
+          cursor: 'nwse-resize',
+        }}
+        ref={setNodeRef2}
+        {...listeners2}
+        {...attributes2}
+        // onMouse
+      />
       <Box className={classes.windowBar}>
         <Box
           className={classes.button}
@@ -194,7 +222,6 @@ export function DraggableElement({
                   //   color: 'red',
                   // },
                 },
-
               }}
               style={{ position: 'relative' }}
               viewportRef={viewport}

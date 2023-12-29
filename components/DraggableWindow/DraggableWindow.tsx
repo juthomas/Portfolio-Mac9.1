@@ -44,6 +44,8 @@ export function DraggableWindow({
 }) {
   const [{ x, y }, setCoordinates] = useState<Coordinates>(coordinates);
 
+  const [windowSize, setWindowSize] = useState<Coordinates>({ x: width, y: height });
+
   const handleDimensionChange = ({ width: wWidth, height: wHeight }: WindowDimensions) => {
     setCoordinates((prev) => ({
       x: wWidth < width ? 0 : prev.x + width > wWidth ? wWidth - width : prev.x < 0 ? 0 : prev.x,
@@ -81,7 +83,11 @@ export function DraggableWindow({
       id={id}
       sensors={sensors}
       onDragStart={focusing}
-      onDragEnd={({ delta }) => {
+      onDragEnd={({ delta, active }) => {
+        if (active.id === 'resize') {
+          setWindowSize((prev) => ({ x: prev.x + delta.x, y: prev.y + delta.y }));
+          return;
+        }
         setCoordinates(() => ({
           x:
             x + delta.x + width > windowWidth
@@ -105,9 +111,13 @@ export function DraggableWindow({
         top={maximized ? 30 : y}
         left={maximized ? 0 : x}
         height={
-          maximized ? windowHeight - 30 : height > windowHeight - 30 ? windowHeight - 30 : height
+          maximized
+            ? windowHeight - 30
+            : windowSize.y > windowHeight - 30
+            ? windowHeight - 30
+            : windowSize.y
         }
-        width={maximized ? windowWidth : width}
+        width={maximized ? windowWidth : windowSize.x}
         windowIcon={windowIcon}
         maximized={maximized}
         focused={focused}
