@@ -27,6 +27,7 @@ export function DraggableWindow({
   height = 400,
   width = 600,
   scrollBar = false,
+  minimumWindowSize = { width: 400, height: 300 },
 }: {
   id?: string;
   coordinates?: { x: number; y: number };
@@ -41,6 +42,7 @@ export function DraggableWindow({
   setMaximized: () => void;
   children?: React.ReactNode;
   scrollBar?: boolean;
+  minimumWindowSize?: { width: number; height: number };
 }) {
   const [{ x, y }, setCoordinates] = useState<Coordinates>(coordinates);
 
@@ -103,14 +105,23 @@ export function DraggableWindow({
       onDragEnd={({ delta, active }) => {
         if (active.id === 'resize-nwse') {
           setWindowSize((prev) => ({
-            x: prev.x + delta.x < 300 ? 300 : prev.x + delta.x,
-            y: prev.y + delta.y < 300 ? 300 : prev.y + delta.y,
+            x:
+              prev.x + delta.x < minimumWindowSize.width
+                ? minimumWindowSize.width
+                : prev.x + delta.x,
+            y:
+              prev.y + delta.y < minimumWindowSize.height
+                ? minimumWindowSize.height
+                : prev.y + delta.y,
           }));
           return;
         }
         if (active.id === 'resize-rew') {
           setWindowSize((prev) => ({
-            x: prev.x + delta.x < 300 ? 300 : prev.x + delta.x,
+            x:
+              prev.x + delta.x < minimumWindowSize.width
+                ? minimumWindowSize.width
+                : prev.x + delta.x,
             y: prev.y,
           }));
           return;
@@ -118,18 +129,31 @@ export function DraggableWindow({
         if (active.id === 'resize-ns') {
           setWindowSize((prev) => ({
             x: prev.x,
-            y: prev.y + delta.y < 300 ? 300 : prev.y + delta.y,
+            y:
+              prev.y + delta.y < minimumWindowSize.height
+                ? minimumWindowSize.height
+                : prev.y + delta.y,
           }));
           return;
         }
         if (active.id === 'resize-nesw') {
           setWindowSize((prev) => {
             setCoordinates(() => {
-              const transformX = prev.x - delta.x < 300 ? x + (prev.x - 300) : x + delta.x;
+              const transformX =
+                prev.x - delta.x < minimumWindowSize.width
+                  ? x + (prev.x - minimumWindowSize.width)
+                  : x + delta.x;
               return {
                 x:
-                  transformX + (prev.x - delta.x < 300 ? 300 : prev.x - delta.x) > windowWidth
-                    ? windowWidth - (prev.x - delta.x < 300 ? 300 : prev.x - delta.x)
+                  transformX +
+                    (prev.x - delta.x < minimumWindowSize.width
+                      ? minimumWindowSize.width
+                      : prev.x - delta.x) >
+                  windowWidth
+                    ? windowWidth -
+                      (prev.x - delta.x < minimumWindowSize.width
+                        ? minimumWindowSize.width
+                        : prev.x - delta.x)
                     : transformX < 0
                     ? 0
                     : transformX,
@@ -137,8 +161,14 @@ export function DraggableWindow({
               };
             });
             return {
-              x: prev.x - delta.x < 300 ? 300 : prev.x - delta.x,
-              y: prev.y + delta.y < 300 ? 300 : prev.y + delta.y,
+              x:
+                prev.x - delta.x < minimumWindowSize.width
+                  ? minimumWindowSize.width
+                  : prev.x - delta.x,
+              y:
+                prev.y + delta.y < minimumWindowSize.height
+                  ? minimumWindowSize.height
+                  : prev.y + delta.y,
             };
           });
 
@@ -146,19 +176,32 @@ export function DraggableWindow({
         }
         if (active.id === 'resize-lew') {
           setWindowSize((prev) => {
-            const transformX = prev.x - delta.x < 300 ? x + (prev.x - 300) : x + delta.x;
+            const transformX =
+              prev.x - delta.x < minimumWindowSize.width
+                ? x + (prev.x - minimumWindowSize.width)
+                : x + delta.x;
 
             setCoordinates(() => ({
               x:
-                transformX + (prev.x - delta.x < 300 ? 300 : prev.x - delta.x) > windowWidth
-                  ? windowWidth - (prev.x - delta.x < 300 ? 300 : prev.x - delta.x)
+                transformX +
+                  (prev.x - delta.x < minimumWindowSize.width
+                    ? minimumWindowSize.width
+                    : prev.x - delta.x) >
+                windowWidth
+                  ? windowWidth -
+                    (prev.x - delta.x < minimumWindowSize.width
+                      ? minimumWindowSize.width
+                      : prev.x - delta.x)
                   : transformX < 0
                   ? 0
                   : transformX,
               y,
             }));
             return {
-              x: prev.x - delta.x < 300 ? 300 : prev.x - delta.x,
+              x:
+                prev.x - delta.x < minimumWindowSize.width
+                  ? minimumWindowSize.width
+                  : prev.x - delta.x,
               y: prev.y,
             };
           });
@@ -202,6 +245,7 @@ export function DraggableWindow({
         deleting={deleting}
         scrollBar={scrollBar}
         focusing={focusing}
+        minimumWindowSize={minimumWindowSize}
       >
         {children}
       </DraggableElement>

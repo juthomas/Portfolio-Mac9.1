@@ -43,6 +43,7 @@ export function DraggableElement({
   scrollBar = false,
   windowIcon = fileIcon,
   windowTitle = 'Portfolio',
+  minimumWindowSize,
 }: {
   top: number;
   left: number;
@@ -58,6 +59,7 @@ export function DraggableElement({
   setMaximized: () => void;
   focusing: () => void;
   deleting: () => void;
+  minimumWindowSize: { width: number; height: number };
 }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: 'default',
@@ -150,33 +152,33 @@ export function DraggableElement({
         height: minimized
           ? undefined
           : nwseTransform
-          ? nwseTransform.y + height < 300
-            ? 300
+          ? nwseTransform.y + height < minimumWindowSize.height
+            ? minimumWindowSize.height
             : nwseTransform.y + height
           : neswTransform
-          ? neswTransform.y + height < 300
-            ? 300
+          ? neswTransform.y + height < minimumWindowSize.height
+            ? minimumWindowSize.height
             : neswTransform.y + height
           : nsTransform
-          ? nsTransform.y + height < 300
-            ? 300
+          ? nsTransform.y + height < minimumWindowSize.height
+            ? minimumWindowSize.height
             : nsTransform.y + height
           : height,
         width: nwseTransform
-          ? nwseTransform.x + width < 300
-            ? 300
+          ? nwseTransform.x + width < minimumWindowSize.width
+            ? minimumWindowSize.width
             : nwseTransform.x + width
           : neswTransform
-          ? -neswTransform.x + width < 300
-            ? 300
+          ? -neswTransform.x + width < minimumWindowSize.width
+            ? minimumWindowSize.width
             : -neswTransform.x + width
           : lewTransform
-          ? -lewTransform.x + width < 300
-            ? 300
+          ? -lewTransform.x + width < minimumWindowSize.width
+            ? minimumWindowSize.width
             : -lewTransform.x + width
           : rewTransform
-          ? rewTransform.x + width < 300
-            ? 300
+          ? rewTransform.x + width < minimumWindowSize.width
+            ? minimumWindowSize.width
             : rewTransform.x + width
           : width,
         top,
@@ -185,10 +187,16 @@ export function DraggableElement({
           ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
           : neswTransform
           ? `translate3d(${
-              -neswTransform.x + width < 300 ? width - 300 : neswTransform.x
+              -neswTransform.x + width < minimumWindowSize.width
+                ? width - minimumWindowSize.width
+                : neswTransform.x
             }px, 0px, 0)`
           : lewTransform
-          ? `translate3d(${-lewTransform.x + width < 300 ? width - 300 : lewTransform.x}px, 0px, 0)`
+          ? `translate3d(${
+              -lewTransform.x + width < minimumWindowSize.width
+                ? width - minimumWindowSize.width
+                : lewTransform.x
+            }px, 0px, 0)`
           : undefined,
       }}
     >
