@@ -114,7 +114,6 @@ export function DraggableElement({
     disabled: maximized,
   });
 
-
   const [minimized, setMinimized] = useState(false);
   const viewport = useRef<HTMLDivElement>(null);
   const mainContainer = useRef<HTMLDivElement>(null);
@@ -151,29 +150,45 @@ export function DraggableElement({
         height: minimized
           ? undefined
           : nwseTransform
-          ? nwseTransform.y + height
+          ? nwseTransform.y + height < 300
+            ? 300
+            : nwseTransform.y + height
           : neswTransform
-          ? neswTransform.y + height
+          ? neswTransform.y + height < 300
+            ? 300
+            : neswTransform.y + height
           : nsTransform
-          ? nsTransform.y + height
+          ? nsTransform.y + height < 300
+            ? 300
+            : nsTransform.y + height
           : height,
         width: nwseTransform
-          ? nwseTransform.x + width
+          ? nwseTransform.x + width < 300
+            ? 300
+            : nwseTransform.x + width
           : neswTransform
-          ? -neswTransform.x + width
+          ? -neswTransform.x + width < 300
+            ? 300
+            : -neswTransform.x + width
           : lewTransform
-          ? -lewTransform.x + width
+          ? -lewTransform.x + width < 300
+            ? 300
+            : -lewTransform.x + width
           : rewTransform
-          ? rewTransform.x + width
+          ? rewTransform.x + width < 300
+            ? 300
+            : rewTransform.x + width
           : width,
         top,
         left,
         transform: transform
           ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
           : neswTransform
-          ? `translate3d(${neswTransform.x}px, 0px, 0)`
+          ? `translate3d(${
+              -neswTransform.x + width < 300 ? width - 300 : neswTransform.x
+            }px, 0px, 0)`
           : lewTransform
-          ? `translate3d(${lewTransform.x}px, 0px, 0)`
+          ? `translate3d(${-lewTransform.x + width < 300 ? width - 300 : lewTransform.x}px, 0px, 0)`
           : undefined,
       }}
     >
@@ -247,9 +262,6 @@ export function DraggableElement({
         {...nsListeners}
         {...nsAttributes}
       />
-
-
-
 
       <Box className={classes.windowBar}>
         <Box

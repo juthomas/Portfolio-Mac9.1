@@ -93,7 +93,7 @@ export function DraggableWindow({
           ? windowHeight - windowSize.y
           : prev.y,
     }));
-  }, [windowSize]);
+  }, []);
 
   return (
     <DndContext
@@ -102,41 +102,66 @@ export function DraggableWindow({
       onDragStart={focusing}
       onDragEnd={({ delta, active }) => {
         if (active.id === 'resize-nwse') {
-          setWindowSize((prev) => ({ x: prev.x + delta.x, y: prev.y + delta.y }));
+          setWindowSize((prev) => ({
+            x: prev.x + delta.x < 300 ? 300 : prev.x + delta.x,
+            y: prev.y + delta.y < 300 ? 300 : prev.y + delta.y,
+          }));
           return;
         }
         if (active.id === 'resize-rew') {
-          setWindowSize((prev) => ({ x: prev.x + delta.x, y: prev.y }));
+          setWindowSize((prev) => ({
+            x: prev.x + delta.x < 300 ? 300 : prev.x + delta.x,
+            y: prev.y,
+          }));
           return;
         }
         if (active.id === 'resize-ns') {
-          setWindowSize((prev) => ({ x: prev.x, y: prev.y + delta.y }));
+          setWindowSize((prev) => ({
+            x: prev.x,
+            y: prev.y + delta.y < 300 ? 300 : prev.y + delta.y,
+          }));
           return;
         }
         if (active.id === 'resize-nesw') {
-          setWindowSize((prev) => ({ x: prev.x - delta.x, y: prev.y + delta.y }));
-          setCoordinates(() => ({
-            x:
-              x + delta.x + width > windowWidth
-                ? windowWidth - width
-                : x + delta.x < 0
-                ? 0
-                : x + delta.x,
-            y,
-          }));
+          setWindowSize((prev) => {
+            setCoordinates(() => {
+              const transformX = prev.x - delta.x < 300 ? x + (prev.x - 300) : x + delta.x;
+              return {
+                x:
+                  transformX + (prev.x - delta.x < 300 ? 300 : prev.x - delta.x) > windowWidth
+                    ? windowWidth - (prev.x - delta.x < 300 ? 300 : prev.x - delta.x)
+                    : transformX < 0
+                    ? 0
+                    : transformX,
+                y,
+              };
+            });
+            return {
+              x: prev.x - delta.x < 300 ? 300 : prev.x - delta.x,
+              y: prev.y + delta.y < 300 ? 300 : prev.y + delta.y,
+            };
+          });
+
           return;
         }
         if (active.id === 'resize-lew') {
-          setWindowSize((prev) => ({ x: prev.x - delta.x, y: prev.y }));
-          setCoordinates(() => ({
-            x:
-              x + delta.x + width > windowWidth
-                ? windowWidth - width
-                : x + delta.x < 0
-                ? 0
-                : x + delta.x,
-            y,
-          }));
+          setWindowSize((prev) => {
+            const transformX = prev.x - delta.x < 300 ? x + (prev.x - 300) : x + delta.x;
+
+            setCoordinates(() => ({
+              x:
+                transformX + (prev.x - delta.x < 300 ? 300 : prev.x - delta.x) > windowWidth
+                  ? windowWidth - (prev.x - delta.x < 300 ? 300 : prev.x - delta.x)
+                  : transformX < 0
+                  ? 0
+                  : transformX,
+              y,
+            }));
+            return {
+              x: prev.x - delta.x < 300 ? 300 : prev.x - delta.x,
+              y: prev.y,
+            };
+          });
           return;
         }
         setCoordinates(() => ({
