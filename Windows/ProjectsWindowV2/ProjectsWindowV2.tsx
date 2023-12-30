@@ -148,6 +148,7 @@ export default function ProjectsWindowV2(): JSX.Element {
             <tbody>
               {data.map((elem, index) => (
                 <tr
+                  key={`tr-${index}`}
                   onClick={() => setSelected(index)}
                   style={{ backgroundColor: index === selected ? '#CECEE2' : undefined }}
                 >
