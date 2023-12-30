@@ -1,0 +1,42 @@
+.exterior {
+  border: var(--borders-size) solid black;
+  box-shadow: var(--borders-size) var(--borders-size) #000000;
+  position: absolute;
+  background-color: #aaaaaa;
+  padding: 20px 30px 5px 30px 
+  /* transition: all 1s steps(5) TODO: faire un truc dans le genre*/
+}
+
+.exterior::before,
+.exterior::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.exterior::before {
+  border-left: var(--borders-size) solid #ffffff;
+  border-top: var(--borders-size) solid #ffffff;
+}
+
+.exterior::after {
+  border-right: var(--borders-size) solid #939393;
+  border-bottom: var(--borders-size) solid #939393;
+}
+
+.loadingBar {
+	animation: loading 3s forwards;
+}
+
+@keyframes loading { 
+	from {
+		width: 0px;
+	}
+	to {
+		width: 200px;
+	}
+}

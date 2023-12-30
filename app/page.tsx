@@ -4,6 +4,7 @@ import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeTo
 import { Header } from '@/components/Header/Header';
 import WindowsManager from '@/components/WindowsManager/WindowsManager';
 import Footer from '@/components/Footer/Footer';
+import { LoadingScreen } from '@/components/LoadingScreen/LoadingScreen';
 
 export default function HomePage() {
   return (
@@ -19,6 +20,7 @@ export default function HomePage() {
         alignItems: 'center',
       }}
     >
+      <LoadingScreen />
       <Header />
       <WindowsManager />
       {/* <Welcome /> */}
