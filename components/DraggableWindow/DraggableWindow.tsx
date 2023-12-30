@@ -8,7 +8,7 @@ import {
   KeyboardSensor,
   useSensors,
 } from '@dnd-kit/core';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Coordinates } from '@dnd-kit/utilities';
 import { DraggableElement } from '../DraggableElement/DraggableElement';
 import useWindowDimensions, { WindowDimensions } from '@/hooks/useWindowDImensions';
@@ -46,10 +46,27 @@ export function DraggableWindow({
 
   const [windowSize, setWindowSize] = useState<Coordinates>({ x: width, y: height });
 
+  const windowSizeRef = useRef(windowSize);
+  useEffect(() => {
+    windowSizeRef.current = windowSize;
+  }, [windowSize]);
+
   const handleDimensionChange = ({ width: wWidth, height: wHeight }: WindowDimensions) => {
     setCoordinates((prev) => ({
-      x: wWidth < width ? 0 : prev.x + width > wWidth ? wWidth - width : prev.x < 0 ? 0 : prev.x,
-      y: wHeight < height + 30 ? 30 : prev.y + height > wHeight ? wHeight - height : prev.y,
+      x:
+        wWidth < windowSizeRef.current.x
+          ? 0
+          : prev.x + windowSizeRef.current.x > wWidth
+          ? wWidth - windowSizeRef.current.x
+          : prev.x < 0
+          ? 0
+          : prev.x,
+      y:
+        wHeight < windowSizeRef.current.y + 30
+          ? 30
+          : prev.y + windowSizeRef.current.y > wHeight
+          ? wHeight - windowSizeRef.current.y
+          : prev.y,
     }));
   };
 
@@ -62,21 +79,21 @@ export function DraggableWindow({
   useEffect(() => {
     setCoordinates((prev) => ({
       x:
-        windowWidth < width
+        windowWidth < windowSize.x
           ? 0
-          : prev.x + width > windowWidth
-          ? windowWidth - width
+          : prev.x + windowSize.x > windowWidth
+          ? windowWidth - windowSize.x
           : prev.x < 0
           ? 0
           : prev.x,
       y:
-        windowHeight < height + 30
+        windowHeight < windowSize.y + 30
           ? 30
-          : prev.y + height > windowHeight
-          ? windowHeight - height
+          : prev.y + windowSize.y > windowHeight
+          ? windowHeight - windowSize.y
           : prev.y,
     }));
-  }, []);
+  }, [windowSize]);
 
   return (
     <DndContext
@@ -124,16 +141,17 @@ export function DraggableWindow({
         }
         setCoordinates(() => ({
           x:
-            x + delta.x + width > windowWidth
-              ? windowWidth - width
+            x + delta.x + windowSize.x > windowWidth
+              ? windowWidth - windowSize.x
               : x + delta.x < 0
               ? 0
               : x + delta.x,
 
           // y: y + delta.y,
           y:
-            y + delta.y + (height > windowHeight - 30 ? windowHeight - 30 : height) > windowHeight
-              ? windowHeight - (height > windowHeight - 30 ? windowHeight - 30 : height)
+            y + delta.y + (windowSize.y > windowHeight - 30 ? windowHeight - 30 : windowSize.y) >
+            windowHeight
+              ? windowHeight - (windowSize.y > windowHeight - 30 ? windowHeight - 30 : windowSize.y)
               : y + delta.y < 30
               ? 30
               : y + delta.y,
