@@ -1,8 +1,11 @@
 'use client';
 
-import { Flex } from '@mantine/core';
+import { Flex, Text } from '@mantine/core';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import macLogo from '@/assets/mac_logo_purple.png';
 import classes from './LoadingScreen.module.css';
+
 export function LoadingScreen() {
   const [active, setActive] = useState(true);
 
@@ -13,7 +16,7 @@ export function LoadingScreen() {
     return () => clearTimeout(timer);
   }, []);
 
-    if (!active) return null;
+  if (!active) return null;
 
   return (
     <Flex
@@ -27,25 +30,25 @@ export function LoadingScreen() {
       }}
     >
       <Flex direction={'column'} className={classes.exterior} style={{ width: 400, height: 300 }}>
-        <div style={{ backgroundColor: 'white', flex: 1 }}></div>
         <Flex
           direction={'column'}
+          justify={'space-evenly'}
           align={'center'}
-          justify={'center'}
-          style={{ backgroundColor: 'red', height: 40 }}
+          style={{ backgroundColor: 'white', height: 210, border: '2px solid black' }}
         >
-          <div style={{ height: 10, width: 200, backgroundColor: 'blue', position: 'relative' }}>
-            <div
-			className={classes.loadingBar}
-              style={{
-                position: 'absolute',
-                left: 0,
-                top: 0,
-                bottom: 0,
-                backgroundColor: 'black',
-                width: 100,
-              }}
-            ></div>
+          <Image
+            alt="macImage"
+            src={macLogo}
+            height={130}
+            style={{ objectFit: 'contain', imageRendering: 'pixelated' }}
+          />
+          <Text fz={20}>Julien Thomas</Text>
+        </Flex>
+
+        <Flex direction={'column'} align={'center'} justify={'center'} style={{ height: 40 }}>
+          <Text>Starting Up...</Text>
+          <div className={classes.loadingBar} style={{ position: 'relative' }}>
+            <div className={classes.loadingBarInner}></div>
           </div>
         </Flex>
       </Flex>

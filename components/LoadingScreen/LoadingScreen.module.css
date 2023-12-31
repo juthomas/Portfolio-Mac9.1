@@ -3,8 +3,9 @@
   box-shadow: var(--borders-size) var(--borders-size) #000000;
   position: absolute;
   background-color: #aaaaaa;
-  padding: 20px 30px 5px 30px 
+  padding: 20px 30px 14px 30px; 
   /* transition: all 1s steps(5) TODO: faire un truc dans le genre*/
+  gap: 10px
 }
 
 .exterior::before,
@@ -29,6 +30,20 @@
 }
 
 .loadingBar {
+	border: 2px solid black;
+	height: 16px;
+	width: 204px;
+	background-color:#9999BB ;
+}
+
+.loadingBarInner {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 100px;
+	background-color: rgb(55, 55, 55);
+
 	animation: loading 3s forwards;
 }
 
