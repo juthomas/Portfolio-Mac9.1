@@ -40,6 +40,7 @@ export function LoadingScreen() {
             alt="macImage"
             src={macLogo}
             height={130}
+            priority
             style={{ objectFit: 'contain', imageRendering: 'pixelated' }}
           />
           <Text fz={20}>Julien Thomas</Text>
