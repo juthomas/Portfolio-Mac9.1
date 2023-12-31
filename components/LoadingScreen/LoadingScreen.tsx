@@ -3,7 +3,6 @@
 import { Flex, Text } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import macLogo from '@/assets/mac_logo_purple.png';
 import classes from './LoadingScreen.module.css';
 
 export function LoadingScreen() {
@@ -38,8 +37,9 @@ export function LoadingScreen() {
         >
           <Image
             alt="macImage"
-            src={macLogo}
+            src="/mac_logo_purple.png"
             height={130}
+            width={150}
             priority
             style={{ objectFit: 'contain', imageRendering: 'pixelated' }}
           />
