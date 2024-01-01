@@ -3,6 +3,7 @@
 import { Flex, Text } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useMediaQuery } from '@mantine/hooks';
 import classes from './LoadingScreen.module.css';
 
 export function LoadingScreen() {
@@ -15,7 +16,9 @@ export function LoadingScreen() {
     return () => clearTimeout(timer);
   }, []);
 
-  if (!active) return null;
+  const isMobile = useMediaQuery('(max-width: 30em)');
+
+  //   if (!active) return null;
 
   return (
     <Flex
@@ -28,11 +31,15 @@ export function LoadingScreen() {
         backgroundColor: 'var(--mantine-color-macBlue-6)',
       }}
     >
-      <Flex direction={'column'} className={classes.exterior} style={{ width: 400, height: 300 }}>
+      <Flex
+        direction="column"
+        className={classes.exterior}
+        style={{ minWidth: 250, width: isMobile ? '90vw' : 400, height: 300 }}
+      >
         <Flex
-          direction={'column'}
-          justify={'space-evenly'}
-          align={'center'}
+          direction="column"
+          justify="space-evenly"
+          align="center"
           style={{ backgroundColor: 'white', height: 210, border: '2px solid black' }}
         >
           <Image
@@ -46,10 +53,10 @@ export function LoadingScreen() {
           <Text fz={20}>Julien Thomas</Text>
         </Flex>
 
-        <Flex direction={'column'} align={'center'} justify={'center'} style={{ height: 40 }}>
+        <Flex direction="column" align="center" justify="center" style={{ height: 40 }}>
           <Text>Starting Up...</Text>
           <div className={classes.loadingBar} style={{ position: 'relative' }}>
-            <div className={classes.loadingBarInner}></div>
+            <div className={classes.loadingBarInner} />
           </div>
         </Flex>
       </Flex>
