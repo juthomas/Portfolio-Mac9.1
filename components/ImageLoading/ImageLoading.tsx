@@ -3,12 +3,13 @@ import classes from './ImageLoading.module.css';
 
 export default function ImageLoading() {
   return (
-    <Flex h={64} w={64} justify="center" align="center" >
+    <Box h={0} w={64} pos="relative">
       <SimpleGrid
+        pos="absolute"
         h={32}
         w={32}
         cols={4}
-        style={{ alignItems: 'center', justifyItems: 'center' }}
+        style={{ top: 26, left: 16, alignItems: 'center', justifyItems: 'center' }}
         spacing={0}
       >
         <Box className={classes.animatedSquare} h={8} w={8} />
@@ -28,6 +29,6 @@ export default function ImageLoading() {
         <Box className={classes.animatedSquare} h={8} w={8} />
         <Box className={classes.animatedSquare} h={8} w={8} />
       </SimpleGrid>
-    </Flex>
+    </Box>
   );
 }

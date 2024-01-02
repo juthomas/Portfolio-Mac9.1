@@ -60,9 +60,8 @@ export default function DraggableShortcut({
     >
       {isLoading && <ImageLoading />}
       <Image
-        onLoadingComplete={() => setIsLoading(false)}
+        onLoad={() => setIsLoading(false)}
         style={{
-          visibility: isLoading ? 'collapse' : 'visible',
           imageRendering: 'pixelated',
           height: 64,
           width: 64,
