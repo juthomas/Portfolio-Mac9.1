@@ -1,8 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { Menu, Group, Flex } from '@mantine/core';
+import { Menu, Group, Flex, Text } from '@mantine/core';
 import { useEffect, useState } from 'react';
+import { useMediaQuery } from '@mantine/hooks';
 import classes from './Header.module.css';
 import juthomasLogo from '@/assets/juthomas_logo.svg';
 import fileIcon from '@/assets/file_icon.svg';
@@ -13,27 +14,45 @@ const links = [
     link: '#1',
     label: 'File',
     links: [
-      { link: '/docs', label: 'Documentation' },
-      { link: '/resources', label: 'Resources' },
-      { link: '/community', label: 'Community' },
-      { link: '/blog', label: 'Blog' },
+      { link: '/community', label: 'Download My CV' },
+      { link: '/blog', label: 'Close Window' },
     ],
   },
   {
     link: '#2',
     label: 'Edit',
     links: [
-      { link: '/faq', label: 'FAQ' },
-      { link: '/demo', label: 'Book a demo' },
-      { link: '/forums', label: 'Forums' },
+      { link: '/faq', label: 'Show Source Code' },
+      { link: '/demo', label: 'Show Clipboard' },
+      { link: '/forums', label: 'Preferences...' },
+    ],
+  },
+  {
+    link: '#3',
+    label: 'Special',
+    links: [
+      { link: '/faq', label: 'Restart' },
+      { link: '/demo', label: 'Shut Down' },
+    ],
+  },
+  {
+    link: '#3',
+    label: 'Help',
+    links: [
+      { link: '/faq', label: 'Help' },
     ],
   },
 ];
 
 export function Header() {
-  const items = links.map((link) => {
+  const isTooSmall = useMediaQuery('(max-width: 28em)');
+
+  const items = links.map((link, index) => {
+    if (isTooSmall && index >= 2) return null;
     const menuItems = link.links?.map((item) => (
-      <Menu.Item key={item.link}>{item.label}</Menu.Item>
+      <Menu.Item key={item.link} className={classes.linkItem}>
+        <Text>{item.label}</Text>
+      </Menu.Item>
     ));
 
     if (menuItems) {
@@ -100,7 +119,9 @@ export function Header() {
       <div className={classes.inner}>
         {/* <MantineLogo size={28} /> */}
         <Group style={{ height: '100%', width: '100%' }} justify="space-between">
-          <Group style={{ height: '100%' }} gap={15}> {/* visibleFrom="sm"> */}
+          <Group style={{ height: '100%' }} gap={0}>
+            {' '}
+            {/* visibleFrom="sm"> */}
             {/* <Image
             src={juthomasLogo}
             alt="logo"
@@ -126,10 +147,14 @@ export function Header() {
                 </Flex>
               </Menu.Target>
               <Menu.Dropdown className={classes.linkMenu}>
-                <Menu.Item>À propos de cette page</Menu.Item>
+                <Menu.Item className={classes.linkItem}>
+                  <Text>About This Page...</Text>
+                </Menu.Item>
+                {/* <Menu.Item className={classes.linkItem}>
+                  <Text>Calculator</Text>
+                </Menu.Item> */}
               </Menu.Dropdown>
             </Menu>
-
             {items}
           </Group>
           <Group className={classes.menuBar} style={{ height: '100%' }}>
@@ -162,7 +187,18 @@ export function Header() {
               </Menu.Target>
 
               <Menu.Dropdown className={classes.linkMenu}>
-                <Menu.Item>À propos de cette page</Menu.Item>
+                <Menu.Item className={classes.linkItem}>
+                  <Group>
+                    <Image
+                      src={englishFlag}
+                      alt="logo"
+                      width={30}
+                      height={20}
+                      // style={{ width: 'auto' }}
+                    />
+                    <Text>English</Text>
+                  </Group>
+                </Menu.Item>
               </Menu.Dropdown>
             </Menu>
             {time}

@@ -47,8 +47,8 @@
 }
 
 .link {
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
   height: 100%;
   text-decoration: none;
   color: light-dark(var(--mantine-color-dark-9), var(--mantine-color-dark-0));
@@ -59,11 +59,28 @@
   }
 }
 
+.link[data-expanded='true'] {
+  background-color: light-dark(var(--mantine-color-purple-8), var(--mantine-color-dark-0));
+  color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-0));
+}
+
 .linkMenu {
+  padding: 0;
   top: calc(30px + var(--borders-size)) !important;
   border-radius: 0;
   border: var(--borders-size) solid #000000;
+  border-top: 0px;
   box-shadow: var(--borders-size) var(--borders-size) #000000;
+}
+
+.linkItem {
+  background-color: #d9d9d9;
+  border-radius: 0;
+  padding: 2px 20px 2px 20px;
+  @mixin hover {
+    background-color: light-dark(var(--mantine-color-purple-8), var(--mantine-color-dark-0));
+    color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-0));
+  }
 }
 
 .menuBar {
