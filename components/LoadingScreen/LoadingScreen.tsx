@@ -19,6 +19,12 @@ export function LoadingScreen() {
 
   const isMobile = useMediaQuery('(max-width: 30em)');
 
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  useEffect(() => {
+    setWindowWidth(window.innerWidth);
+  }, []);
+
   if (!active) return null;
 
   return [
@@ -65,7 +71,7 @@ export function LoadingScreen() {
         <Flex direction="column" align="center" justify="center" style={{ height: 40 }}>
           <Text>Starting Up...</Text>
           <div className={classes.loadingBar} style={{ position: 'relative' }}>
-            <div className={classes.loadingBarInner} />
+            {windowWidth !== 0 && <div className={classes.loadingBarInner} />}
           </div>
         </Flex>
       </Flex>
@@ -77,25 +83,22 @@ export function LoadingScreen() {
       pb={14}
       style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}
     >
-      {Array.from(
-        { length: (typeof window !== 'undefined' ? window.innerWidth : 300 - 28) / 80 },
-        (elem, index) => (
-          <Image
-            key={`puzzle-${index}`}
-            alt="puzzle_piece"
-            src={index % 6 > 3 ? '/puzzle_1.png' : '/puzzle_2.png'}
-            height={64}
-            width={64}
-            className={classes.puzzle}
-            style={{
-              animationDelay: ` ${(index / ((window.innerWidth - 28) / 80)) * 3}s`,
-              zIndex: 40,
-              objectFit: 'contain',
-              imageRendering: 'pixelated',
-            }}
-          />
-        )
-      )}
+      {Array.from({ length: (windowWidth - 28) / 80 }, (elem, index) => (
+        <Image
+          key={`puzzle-${index}`}
+          alt="puzzle_piece"
+          src={index % 6 > 3 ? '/puzzle_1.png' : '/puzzle_2.png'}
+          height={64}
+          width={64}
+          className={classes.puzzle}
+          style={{
+            animationDelay: ` ${(index / ((windowWidth - 28) / 80)) * 3}s`,
+            zIndex: 40,
+            objectFit: 'contain',
+            imageRendering: 'pixelated',
+          }}
+        />
+      ))}
     </Flex>,
   ];
 }
