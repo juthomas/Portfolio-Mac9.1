@@ -2,11 +2,12 @@ import Image from 'next/image';
 import type { StaticImageData } from 'next/image';
 import { useDraggable } from '@dnd-kit/core';
 import { Box, Text } from '@mantine/core';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import folderIcon from '@/assets/icons/folder.png';
 import classes from './DraggableShortcut.module.css';
 // eslint-disable-next-line import/no-cycle
 import { WindowManagerContext } from '../WindowsManager/WindowsManager';
+import ImageLoading from '../ImageLoading/ImageLoading';
 
 export default function DraggableShortcut({
   position,
@@ -35,6 +36,7 @@ export default function DraggableShortcut({
     id,
     disabled: !draggable,
   });
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
     <Box
@@ -56,7 +58,9 @@ export default function DraggableShortcut({
       {...listeners}
       {...attributes}
     >
+      {isLoading && <ImageLoading />}
       <Image
+        onLoadingComplete={() => setIsLoading(false)}
         style={{ imageRendering: 'pixelated', height: 64, width: 64 }}
         alt="Shortcut Image"
         src={icon || folderIcon}
