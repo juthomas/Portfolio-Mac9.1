@@ -3,9 +3,9 @@
   box-shadow: var(--borders-size) var(--borders-size) #000000;
   position: absolute;
   background-color: #aaaaaa;
-  padding: 20px 30px 14px 30px; 
+  padding: 20px 30px 14px 30px;
   /* transition: all 1s steps(5) TODO: faire un truc dans le genre*/
-  gap: 10px
+  gap: 10px;
 }
 
 .exterior::before,
@@ -30,28 +30,44 @@
 }
 
 .loadingBar {
-	border: 2px solid black;
-	height: 16px;
-	width: 204px;
-	background-color:#9999BB ;
+  border: 2px solid black;
+  height: 16px;
+  width: 204px;
+  background-color: #9999bb;
 }
 
 .loadingBarInner {
-	position: absolute;
-	left: 0;
-	top: 0;
-	bottom: 0;
-	width: 100px;
-	background-color: rgb(55, 55, 55);
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  background-color: #444444;
 
-	animation: loading 3s forwards;
+  animation: loading 3s forwards;
 }
 
-@keyframes loading { 
-	from {
-		width: 0px;
-	}
-	to {
-		width: 200px;
-	}
+@keyframes loading {
+  from {
+    width: 0px;
+  }
+  to {
+    width: 200px;
+  }
+}
+
+.puzzle {
+	visibility: hidden;
+	animation-name: appear;
+	animation-duration: 0.01s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes appear {
+  from {
+    visibility: hidden;
+  }
+  to {
+    visibility: visible;
+  }
 }

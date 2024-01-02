@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useMediaQuery } from '@mantine/hooks';
 import classes from './LoadingScreen.module.css';
+import mainClasses from '@/styles/theme.module.css';
 
 export function LoadingScreen() {
   const [active, setActive] = useState(true);
@@ -12,18 +13,19 @@ export function LoadingScreen() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setActive(false);
-    }, 3000);
+    }, 3500);
     return () => clearTimeout(timer);
   }, []);
 
   const isMobile = useMediaQuery('(max-width: 30em)');
 
-    if (!active) return null;
+  if (!active) return null;
 
-  return (
+  return [
     <Flex
       align="center"
       justify="center"
+      pb="10%"
       style={{
         position: 'absolute',
         zIndex: 31,
@@ -40,7 +42,8 @@ export function LoadingScreen() {
           direction="column"
           justify="space-evenly"
           align="center"
-          style={{ backgroundColor: 'white', height: 210, border: '2px solid black' }}
+          className={mainClasses.retroBox}
+          style={{ backgroundColor: 'white', height: 210 }}
         >
           <Image
             alt="macImage"
@@ -51,7 +54,9 @@ export function LoadingScreen() {
             style={{ objectFit: 'contain', imageRendering: 'pixelated' }}
           />
           <Stack align="center" justify="center" gap={0}>
-            <Text lh={1} fz={24}>Portfolio</Text>
+            <Text lh={1} fz={24}>
+              Portfolio
+            </Text>
             <Text fz={20}>Julien Thomas</Text>
           </Stack>
         </Flex>
@@ -63,6 +68,29 @@ export function LoadingScreen() {
           </div>
         </Flex>
       </Flex>
-    </Flex>
-  );
+    </Flex>,
+    <Flex
+      justify="space-between"
+      px={14}
+      pb={14}
+      style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}
+    >
+      {Array.from({ length: (window.innerWidth - 28) / 80 }, (elem, index) => (
+        <Image
+          key={index}
+          alt="puzzle_piece"
+          src={index % 6 > 3 ? '/puzzle_1.png' : '/puzzle_2.png'}
+          height={64}
+          width={64}
+          className={classes.puzzle}
+          style={{
+            animationDelay: ` ${(index / ((window.innerWidth - 28) / 80)) * 3}s`,
+            zIndex: 40,
+            objectFit: 'contain',
+            imageRendering: 'pixelated',
+          }}
+        />
+      ))}
+    </Flex>,
+  ];
 }
