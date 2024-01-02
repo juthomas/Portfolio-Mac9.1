@@ -9,7 +9,7 @@ export default function ImageLoading() {
         h={32}
         w={32}
         cols={4}
-        style={{ top: 26, left: 16, alignItems: 'center', justifyItems: 'center' }}
+        style={{ top: 16, left: 16, alignItems: 'center', justifyItems: 'center' }}
         spacing={0}
       >
         <Box className={classes.animatedSquare} h={8} w={8} />

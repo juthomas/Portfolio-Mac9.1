@@ -58,17 +58,19 @@ export default function DraggableShortcut({
       {...listeners}
       {...attributes}
     >
-      {isLoading && <ImageLoading />}
-      <Image
-        onLoad={() => setIsLoading(false)}
-        style={{
-          imageRendering: 'pixelated',
-          height: 64,
-          width: 64,
-        }}
-        alt="Shortcut Image"
-        src={icon || folderIcon}
-      />
+      <Box>
+        {isLoading && <ImageLoading />}
+        <Image
+          onLoad={() => setIsLoading(false)}
+          style={{
+            imageRendering: 'pixelated',
+            height: 64,
+            width: 64,
+          }}
+          alt="Shortcut Image"
+          src={icon || folderIcon}
+          />
+      </Box>
       <Text
         px={10}
         py={3}
