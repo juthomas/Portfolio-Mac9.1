@@ -23,6 +23,7 @@ export function LoadingScreen() {
 
   return [
     <Flex
+      key="first-item"
       align="center"
       justify="center"
       pb="10%"
@@ -70,27 +71,31 @@ export function LoadingScreen() {
       </Flex>
     </Flex>,
     <Flex
+      key="second-item"
       justify="space-between"
       px={14}
       pb={14}
       style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}
     >
-      {Array.from({ length: (window.innerWidth - 28) / 80 }, (elem, index) => (
-        <Image
-          key={index}
-          alt="puzzle_piece"
-          src={index % 6 > 3 ? '/puzzle_1.png' : '/puzzle_2.png'}
-          height={64}
-          width={64}
-          className={classes.puzzle}
-          style={{
-            animationDelay: ` ${(index / ((window.innerWidth - 28) / 80)) * 3}s`,
-            zIndex: 40,
-            objectFit: 'contain',
-            imageRendering: 'pixelated',
-          }}
-        />
-      ))}
+      {Array.from(
+        { length: (typeof window !== 'undefined' ? window.innerWidth : 300 - 28) / 80 },
+        (elem, index) => (
+          <Image
+            key={`puzzle-${index}`}
+            alt="puzzle_piece"
+            src={index % 6 > 3 ? '/puzzle_1.png' : '/puzzle_2.png'}
+            height={64}
+            width={64}
+            className={classes.puzzle}
+            style={{
+              animationDelay: ` ${(index / ((window.innerWidth - 28) / 80)) * 3}s`,
+              zIndex: 40,
+              objectFit: 'contain',
+              imageRendering: 'pixelated',
+            }}
+          />
+        )
+      )}
     </Flex>,
   ];
 }
