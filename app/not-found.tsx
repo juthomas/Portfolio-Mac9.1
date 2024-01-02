@@ -21,6 +21,7 @@ export default function NotFound() {
           src="/bootingFolder.png"
           height={64}
           width={64}
+          priority
           style={{
             zIndex: 40,
             objectFit: 'contain',
