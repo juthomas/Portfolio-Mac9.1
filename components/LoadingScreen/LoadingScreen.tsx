@@ -1,6 +1,6 @@
 'use client';
 
-import { Flex, Text } from '@mantine/core';
+import { Flex, Stack, Text } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useMediaQuery } from '@mantine/hooks';
@@ -18,7 +18,7 @@ export function LoadingScreen() {
 
   const isMobile = useMediaQuery('(max-width: 30em)');
 
-  //   if (!active) return null;
+    if (!active) return null;
 
   return (
     <Flex
@@ -50,7 +50,10 @@ export function LoadingScreen() {
             priority
             style={{ objectFit: 'contain', imageRendering: 'pixelated' }}
           />
-          <Text fz={20}>Julien Thomas</Text>
+          <Stack align="center" justify="center" gap={0}>
+            <Text lh={1} fz={24}>Portfolio</Text>
+            <Text fz={20}>Julien Thomas</Text>
+          </Stack>
         </Flex>
 
         <Flex direction="column" align="center" justify="center" style={{ height: 40 }}>
