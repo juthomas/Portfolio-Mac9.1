@@ -59,7 +59,7 @@ export default function DraggableShortcut({
       {...attributes}
     >
       <Box>
-        {isLoading && <ImageLoading />}
+        {!isLoading && <ImageLoading />}
         <Image
           onLoad={() => setIsLoading(false)}
           style={{
@@ -69,7 +69,7 @@ export default function DraggableShortcut({
           }}
           alt="Shortcut Image"
           src={icon || folderIcon}
-          />
+        />
       </Box>
       <Text
         px={10}

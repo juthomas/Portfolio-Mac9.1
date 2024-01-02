@@ -1,4 +1,4 @@
-import { Box, Flex, SimpleGrid } from '@mantine/core';
+import { Box, SimpleGrid } from '@mantine/core';
 import classes from './ImageLoading.module.css';
 
 export default function ImageLoading() {

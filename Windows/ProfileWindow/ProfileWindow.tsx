@@ -22,7 +22,12 @@ export default function ProfileWindow(): JSX.Element {
       >
         <Flex align="center" justify="space-between" maw="1000px" w="100%">
           <Box h={isMobile ? 100 : 130} className={classes.retroBox}>
-            <Image alt="juthomas picture" src={juthomasPicture} height={isMobile ? 100 : 130} />
+            <Image
+              alt="juthomas picture"
+              placeholder="blur"
+              src={juthomasPicture}
+              height={isMobile ? 100 : 130}
+            />
           </Box>
           <Title mx="lg" ta="center">
             Julien THOMAS
