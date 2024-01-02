@@ -61,7 +61,12 @@ export default function DraggableShortcut({
       {isLoading && <ImageLoading />}
       <Image
         onLoadingComplete={() => setIsLoading(false)}
-        style={{ imageRendering: 'pixelated', height: 64, width: 64 }}
+        style={{
+          visibility: isLoading ? 'collapse' : 'visible',
+          imageRendering: 'pixelated',
+          height: 64,
+          width: 64,
+        }}
         alt="Shortcut Image"
         src={icon || folderIcon}
       />
