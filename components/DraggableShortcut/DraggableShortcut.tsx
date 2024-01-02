@@ -59,7 +59,7 @@ export default function DraggableShortcut({
       {...attributes}
     >
       <Box>
-        {!isLoading && <ImageLoading />}
+        {isLoading && <ImageLoading />}
         <Image
           onLoad={() => setIsLoading(false)}
           style={{

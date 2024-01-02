@@ -13,7 +13,7 @@ import themeClasses from '@/styles/theme.module.css';
 type PropType = {
   slides: { image: StaticImageData; alt?: string; background?: string }[];
   options?: EmblaOptionsType;
-  style?: MantineStyleProp
+  style?: MantineStyleProp;
   size?: string;
 };
 
@@ -52,6 +52,7 @@ export const Carousel: React.FC<PropType> = ({ slides, options, style }: PropTyp
                     className={emblaClasses.embla__slide_img_container}
                   >
                     <Image
+                      placeholder="blur"
                       className={emblaClasses.embla__slide__img}
                       src={slide.image}
                       alt={slide.alt || 'Image Alt'}
