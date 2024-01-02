@@ -1,6 +1,4 @@
 import { Box } from '@mantine/core';
-import { Welcome } from '../components/Welcome/Welcome';
-import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeToggle';
 import { Header } from '@/components/Header/Header';
 import WindowsManager from '@/components/WindowsManager/WindowsManager';
 import Footer from '@/components/Footer/Footer';
@@ -23,8 +21,6 @@ export default function HomePage() {
       <LoadingScreen />
       <Header />
       <WindowsManager />
-      {/* <Welcome /> */}
-      {/* <ColorSchemeToggle /> */}
       <Footer />
     </Box>
   );
