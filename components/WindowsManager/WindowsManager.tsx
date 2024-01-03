@@ -93,9 +93,10 @@ export default function WindowsManager() {
     {
       id: 'projectsV2',
       content: <ProjectsWindowV2 />,
+      // content: <>WTF</>,
       title: 'Projects',
       // icon: '',
-      maximized: true,
+      maximized: false,
       scrollBar: true,
       size: { height: 400, width: 400 },
       coordinates: { x: 0, y: 30 },
@@ -118,7 +119,7 @@ export default function WindowsManager() {
 
   useEffect(() => {
     const updatedWindowsList = windowsList
-      .filter((elem) => ['main'/* , 'projectsV2' */].includes(elem.id))
+      .filter((elem) => ['main', 'projectsV2'].includes(elem.id))
       .map((elem) => {
         const tmp = { ...elem };
         if (tmp.coordinates.x === 'center') {

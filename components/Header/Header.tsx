@@ -8,6 +8,7 @@ import classes from './Header.module.css';
 import juthomasLogo from '@/assets/juthomas_logo.svg';
 import fileIcon from '@/assets/file_icon.svg';
 import englishFlag from '@/assets/english_flag.svg';
+import { redirect, useRouter } from 'next/navigation';
 
 const links = [
   {
@@ -31,26 +32,29 @@ const links = [
     link: '#3',
     label: 'Special',
     links: [
-      { link: '/faq', label: 'Restart' },
-      { link: '/demo', label: 'Shut Down' },
+      { link: '/shutdown', label: 'Restart' },
+      { link: '/shutdown', label: 'Shut Down' },
     ],
   },
   {
     link: '#3',
     label: 'Help',
-    links: [
-      { link: '/faq', label: 'Help' },
-    ],
+    links: [{ link: '/faq', label: 'Help' }],
   },
 ];
 
 export function Header() {
   const isTooSmall = useMediaQuery('(max-width: 28em)');
+  const router = useRouter();
 
   const items = links.map((link, index) => {
     if (isTooSmall && index >= 2) return null;
-    const menuItems = link.links?.map((item) => (
-      <Menu.Item key={item.link} className={classes.linkItem}>
+    const menuItems = link.links?.map((item, itemIndex) => (
+      <Menu.Item
+        key={`${item.link}-${itemIndex}`}
+        className={classes.linkItem}
+        onClick={() => router.push(item.link)}
+      >
         <Text>{item.label}</Text>
       </Menu.Item>
     ));
@@ -60,7 +64,7 @@ export function Header() {
         <Menu
           // className={classes.linkMenu}
           position="bottom-start"
-          key={link.label}
+          key={`${link.label}-${index}`}
           trigger="click"
           transitionProps={{ exitDuration: 0 }}
           withinPortal

@@ -1,5 +1,8 @@
+// 'use client';
+
 import { Box, Flex, Group, Space, Stack, Text } from '@mantine/core';
 
+import { useState } from 'react';
 import { Carousel } from '@/components/Carousel/Carousel';
 import mdma from '@/assets/carousels/mdma.webp';
 import globalClasses from '@/styles/theme.module.css';
@@ -17,8 +20,6 @@ import NSDOS_3 from '@/assets/carousels/NSDOS/NSDOS_app_3.png';
 import NSDOS_4 from '@/assets/carousels/NSDOS/NSDOS_app_4.png';
 import NSDOS_5 from '@/assets/carousels/NSDOS/NSDOS_app_5.png';
 
-import { SeeMoreButton } from '@/components/SeeMoreButton/SeeMoreButton';
-import { useState } from 'react';
 import { OpenButton } from '@/components/OpenButton/OpenButton';
 
 export default function ProjectsWindowV2(): JSX.Element {
@@ -44,7 +45,10 @@ export default function ProjectsWindowV2(): JSX.Element {
     { image: NSDOS_5, alt: 'NSDOS 5' },
   ];
 
-  const [selected, setSelected] = useState(0);
+  // const [selected, setSelected] = useState(0);
+
+  const selected = 0;
+  const setSelected = (_: number) => {};
 
   const data = [
     {
@@ -123,7 +127,7 @@ export default function ProjectsWindowV2(): JSX.Element {
 
   return (
     <Flex align="stretch" h="100%">
-      <div style={{ flex: 1, padding: 20, backgroundColor: 'red' }}>
+      <div style={{ flex: 1, padding: 20 }}>
         <Box
           // p="xs"
           miw={250}
@@ -149,7 +153,7 @@ export default function ProjectsWindowV2(): JSX.Element {
               {data.map((elem, index) => (
                 <tr
                   key={`tr-${index}`}
-                  onClick={() => setSelected(index)}
+                  // onClick={() => setSelected(index)}
                   style={{ backgroundColor: index === selected ? '#CECEE2' : undefined }}
                 >
                   <td className={`${classes.td} ${classes.thtd}`}>{elem.projectName}</td>
@@ -169,13 +173,13 @@ export default function ProjectsWindowV2(): JSX.Element {
         gap={10}
         style={{ flex: 1, padding: 10 }}
       >
-        <Carousel slides={data[selected].slides} options={{ loop: true }} size="20em" />
+        {/* <Carousel slides={data[selected].slides} options={{ loop: true }} size="20em" /> */}
         <Stack px={60} gap={10}>
           <Text ta="center" fz={20}>
             {data[selected].projectName}
           </Text>
           <Group justify="space-between">
-            <Text>Kind</Text>
+            <Text>Type</Text>
             <Text c="#4B4B4B">{data[selected].type}</Text>
           </Group>
           <Group justify="space-between">
