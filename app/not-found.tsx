@@ -1,5 +1,6 @@
 import { Box, Stack, Text } from '@mantine/core';
 import Image from 'next/image';
+import classes from '@/styles/notFound.module.css';
 
 export default function NotFound() {
   return (
@@ -15,7 +16,7 @@ export default function NotFound() {
         alignItems: 'center',
       }}
     >
-      <Stack align="center" gap={3}>
+      <Stack align="center" gap={3} pos="relative">
         <Image
           alt="puzzle_piece"
           src="/bootingFolder.png"
@@ -28,7 +29,12 @@ export default function NotFound() {
             imageRendering: 'pixelated',
           }}
         />
-        <Text px={10} style={{ backgroundColor: 'white' }}>Not Found</Text>
+        <Text className={classes.text} pos="absolute" top={0} fz={45} style={{ zIndex: 50 }}>
+          ?
+        </Text>
+        <Text px={10} style={{ backgroundColor: 'white' }}>
+          Not Found
+        </Text>
       </Stack>
     </Box>
   );

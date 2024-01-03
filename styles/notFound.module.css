@@ -1,0 +1,15 @@
+.text {
+	animation: appear 3s infinite;
+}
+
+@keyframes appear {
+  0% {
+    visibility: hidden;
+  }
+  39.9% {
+    visibility: hidden;
+  }
+  40% {
+	visibility: visible;
+  }
+}
