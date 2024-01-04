@@ -32,7 +32,7 @@ const links = [
     link: '#3',
     label: 'Special',
     links: [
-      { link: '/shutdown', label: 'Restart' },
+      { link: '/restart', label: 'Restart' },
       { link: '/shutdown', label: 'Shut Down' },
     ],
   },
