@@ -1,8 +1,7 @@
 // 'use client';
 
-import { Box, Flex, Group, Space, Stack, Text } from '@mantine/core';
+import { Box, Flex, Group, Stack, Text } from '@mantine/core';
 
-import { useState } from 'react';
 import { Carousel } from '@/components/Carousel/Carousel';
 import mdma from '@/assets/carousels/mdma.webp';
 import globalClasses from '@/styles/theme.module.css';
@@ -173,7 +172,7 @@ export default function ProjectsWindowV2(): JSX.Element {
         gap={10}
         style={{ flex: 1, padding: 10 }}
       >
-        {/* <Carousel slides={data[selected].slides} options={{ loop: true }} size="20em" /> */}
+        <Carousel slides={OFT_slides} options={{ loop: true }} size="20em" />
         <Stack px={60} gap={10}>
           <Text ta="center" fz={20}>
             {data[selected].projectName}
