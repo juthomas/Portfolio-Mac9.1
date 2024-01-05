@@ -5,14 +5,13 @@ import { Box, Text } from '@mantine/core';
 import { useContext, useState } from 'react';
 import folderIcon from '@/assets/icons/folder.png';
 import classes from './DraggableShortcut.module.css';
-// eslint-disable-next-line import/no-cycle
-import { WindowManagerContext } from '../WindowsManager/WindowsManager';
+import { WindowManagerContext } from '@/app/page';
+
 import ImageLoading from '../ImageLoading/ImageLoading';
 
 export default function DraggableShortcut({
   position,
   windowId,
-  // openWindow,
   text = 'Default Text',
   link,
   icon,
@@ -28,9 +27,8 @@ export default function DraggableShortcut({
   text?: string;
   textHighlight?: boolean;
   draggable?: boolean;
-  // openWindow: (windowId: string) => void;
 }) {
-  const openWindow = useContext(WindowManagerContext);
+  const windowContext = useContext(WindowManagerContext);
 
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id,
@@ -43,7 +41,7 @@ export default function DraggableShortcut({
       onClick={(event) => {
         event.stopPropagation();
         link && window.open(link, '_blank', 'noreferrer');
-        windowId && openWindow && openWindow(windowId);
+        windowId && windowContext?.OpenWindow && windowContext?.OpenWindow(windowId);
       }}
       className={classes.draggableShortcut}
       style={{

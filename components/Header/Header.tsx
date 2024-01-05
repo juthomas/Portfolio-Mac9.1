@@ -2,58 +2,70 @@
 
 import Image from 'next/image';
 import { Menu, Group, Flex, Text } from '@mantine/core';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useMediaQuery } from '@mantine/hooks';
+import { useRouter } from 'next/navigation';
 import classes from './Header.module.css';
 import juthomasLogo from '@/assets/juthomas_logo.svg';
 import fileIcon from '@/assets/file_icon.svg';
 import englishFlag from '@/assets/english_flag.svg';
-import { redirect, useRouter } from 'next/navigation';
-
-const links = [
-  {
-    link: '#1',
-    label: 'File',
-    links: [
-      { link: '/community', label: 'Download My CV' },
-      { link: '/blog', label: 'Close Window' },
-    ],
-  },
-  {
-    link: '#2',
-    label: 'Edit',
-    links: [
-      { link: '/faq', label: 'Show Source Code' },
-      { link: '/demo', label: 'Show Clipboard' },
-      { link: '/forums', label: 'Preferences...' },
-    ],
-  },
-  {
-    link: '#3',
-    label: 'Special',
-    links: [
-      { link: '/restart', label: 'Restart' },
-      { link: '/shutdown', label: 'Shut Down' },
-    ],
-  },
-  {
-    link: '#3',
-    label: 'Help',
-    links: [{ link: '/faq', label: 'Help' }],
-  },
-];
+import { WindowManagerContext } from '@/app/page';
 
 export function Header() {
   const isTooSmall = useMediaQuery('(max-width: 28em)');
   const router = useRouter();
 
+  const windowContext = useContext(WindowManagerContext);
+
+  const links = [
+    {
+      link: '#1',
+      label: 'File',
+      links: [
+        { link: '/community', label: 'Download My CV' },
+        {
+          disabled: () => windowContext?.windowsState.length === 0,
+          link: () => windowContext?.setWindowsState([]),
+          label: 'Close Windows',
+        },
+        {
+          disabled: () => windowContext?.windowsState.length === 0,
+          link: () => windowContext?.setWindowsState(windowContext.windowsState.slice(0, -1)),
+          label: 'Close Window',
+        },
+      ],
+    },
+    {
+      link: '#2',
+      label: 'Edit',
+      links: [
+        { link: '/faq', label: 'Show Source Code' },
+        { link: '/demo', label: 'Show Clipboard' },
+        { link: '/forums', label: 'Preferences...' },
+      ],
+    },
+    {
+      link: '#3',
+      label: 'Special',
+      links: [
+        { link: '/restart', label: 'Restart' },
+        { link: '/shutdown', label: 'Shut Down' },
+      ],
+    },
+    {
+      link: '#3',
+      label: 'Help',
+      links: [{ link: '/faq', label: 'Help' }],
+    },
+  ];
   const items = links.map((link, index) => {
     if (isTooSmall && index >= 2) return null;
     const menuItems = link.links?.map((item, itemIndex) => (
       <Menu.Item
+        disabled={item.disabled && item.disabled()}
         key={`${item.link}-${itemIndex}`}
         className={classes.linkItem}
-        onClick={() => router.push(item.link)}
+        onClick={() => (typeof item.link === 'function' ? item.link() : router.push(item.link))}
       >
         <Text>{item.label}</Text>
       </Menu.Item>

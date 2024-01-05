@@ -1,5 +1,4 @@
-// 'use client';
-
+import { useState } from 'react';
 import { Box, Flex, Group, Stack, Text } from '@mantine/core';
 
 import { Carousel } from '@/components/Carousel/Carousel';
@@ -44,10 +43,7 @@ export default function ProjectsWindowV2(): JSX.Element {
     { image: NSDOS_5, alt: 'NSDOS 5' },
   ];
 
-  // const [selected, setSelected] = useState(0);
-
-  const selected = 0;
-  const setSelected = (_: number) => {};
+  const [selected, setSelected] = useState(0);
 
   const data = [
     {
@@ -152,7 +148,7 @@ export default function ProjectsWindowV2(): JSX.Element {
               {data.map((elem, index) => (
                 <tr
                   key={`tr-${index}`}
-                  // onClick={() => setSelected(index)}
+                  onClick={() => setSelected(index)}
                   style={{ backgroundColor: index === selected ? '#CECEE2' : undefined }}
                 >
                   <td className={`${classes.td} ${classes.thtd}`}>{elem.projectName}</td>
