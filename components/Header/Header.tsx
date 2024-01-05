@@ -9,7 +9,7 @@ import classes from './Header.module.css';
 import juthomasLogo from '@/assets/juthomas_logo.svg';
 import fileIcon from '@/assets/file_icon.svg';
 import englishFlag from '@/assets/english_flag.svg';
-import { WindowManagerContext } from '@/app/page';
+import { WindowManagerContext } from '../WindowsManager/WindowManagerProvider';
 
 export function Header() {
   const isTooSmall = useMediaQuery('(max-width: 28em)');
@@ -22,7 +22,7 @@ export function Header() {
       link: '#1',
       label: 'File',
       links: [
-        { link: '/community', label: 'Download My CV' },
+        { link: '/downloadcv', label: 'Download My CV' },
         {
           disabled: () => windowContext?.windowsState.length === 0,
           link: () => windowContext?.setWindowsState([]),
@@ -39,9 +39,9 @@ export function Header() {
       link: '#2',
       label: 'Edit',
       links: [
-        { link: '/faq', label: 'Show Source Code' },
-        { link: '/demo', label: 'Show Clipboard' },
-        { link: '/forums', label: 'Preferences...' },
+        { link: '/sourcecode', label: 'Show Source Code' },
+        { link: '/clipboard', label: 'Show Clipboard' },
+        { link: '/preferences', label: 'Preferences...' },
       ],
     },
     {
@@ -55,7 +55,7 @@ export function Header() {
     {
       link: '#3',
       label: 'Help',
-      links: [{ link: '/faq', label: 'Help' }],
+      links: [{ link: '/help', label: 'Help' }],
     },
   ];
   const items = links.map((link, index) => {

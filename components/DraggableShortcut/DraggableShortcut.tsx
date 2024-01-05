@@ -5,9 +5,9 @@ import { Box, Text } from '@mantine/core';
 import { useContext, useState } from 'react';
 import folderIcon from '@/assets/icons/folder.png';
 import classes from './DraggableShortcut.module.css';
-import { WindowManagerContext } from '@/app/page';
 
 import ImageLoading from '../ImageLoading/ImageLoading';
+import { WindowManagerContext } from '../WindowsManager/WindowManagerProvider';
 
 export default function DraggableShortcut({
   position,

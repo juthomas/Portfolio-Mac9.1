@@ -5,8 +5,8 @@ import { useMediaQuery } from '@mantine/hooks';
 import { DraggableWindow } from '../DraggableWindow/DraggableWindow';
 // eslint-disable-next-line import/no-cycle
 import Desktop from '../Desktop/Desktop';
+import { WindowManagerContext } from './WindowManagerProvider';
 
-import { WindowManagerContext } from '@/app/page';
 
 export default function WindowsManager() {
   const windowContext = useContext(WindowManagerContext);
