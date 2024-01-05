@@ -5,6 +5,7 @@ import ProjectsWindow from '@/Windows/ProjectsWindow/ProjectsWindow';
 import ContactWindow from '@/Windows/ContactWindow/ContactWindow';
 import ProjectsWindowV2 from '@/Windows/ProjectsWindowV2/ProjectsWindowV2';
 import useWindowDimensions from '@/hooks/useWindowDImensions';
+import OneForTreeWindow from '@/Windows/OneForTreeWindow/OneForTreeWindow';
 
 interface windowsType {
   id: string;
@@ -13,6 +14,7 @@ interface windowsType {
   icon?: string;
   scrollBar?: boolean;
   maximized: boolean;
+  minimumSize?: { height: number; width: number };
   size?: { height: number; width: number };
   coordinates: { x: number | 'center'; y: number | 'center' };
 }
@@ -20,7 +22,7 @@ interface windowsType {
 export const WindowManagerContext = createContext<
   | {
       windowsState: windowsType[];
-      OpenWindow:(id: string) => void;
+      OpenWindow: (id: string) => void;
       SetWindowFocus: (id: string) => void;
       SetWindowMaximized: (id: string) => void;
       setWindowsState: Dispatch<SetStateAction<windowsType[]>>;
@@ -84,6 +86,16 @@ export default function WindowsManagerProvider({ children }: { children: JSX.Ele
       maximized: false,
       size: { height: 400, width: 400 },
       coordinates: { x: 0, y: 30 },
+    },
+    {
+      id: 'onefortree',
+      content: <OneForTreeWindow />,
+      title: 'One For Tree',
+      // icon: '',
+      maximized: false,
+      size: { height: 800, width: 800 },
+      minimumSize: { height: 500, width: 400 },
+      coordinates: { x: 'center', y: 60 },
     },
     {
       id: 'random',

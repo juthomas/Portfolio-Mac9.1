@@ -59,7 +59,8 @@ export default function Desktop() {
     {
       id: '4',
       position: { right: 0.1, top: 445 },
-      link: 'https://onefortree.juthomas.fr/login',
+      // link: 'https://onefortree.juthomas.fr/login',
+      windowId: 'onefortree',
       text: 'One for tree',
       icon: onefortreeIcon,
     },

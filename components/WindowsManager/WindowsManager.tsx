@@ -21,6 +21,7 @@ export default function WindowsManager() {
           scrollBar={elem.scrollBar}
           height={elem?.size?.height}
           width={elem?.size?.width}
+          minimumWindowSize={elem?.minimumSize}
           maximized={isMobile || elem.maximized}
           windowTitle={elem?.title}
           coordinates={elem.coordinates as { x: number; y: number }}
