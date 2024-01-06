@@ -3,12 +3,13 @@
 import Image from 'next/image';
 import { useDraggable } from '@dnd-kit/core';
 import { Box, Group } from '@mantine/core';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import fileIcon from '@/assets/file_icon.svg';
 import arrowUp from '@/assets/icons/arrowUp.svg';
 import arrowDown from '@/assets/icons/arrowDown.svg';
 import classes from './DraggableElement.module.css';
 import { ScrollArea } from '../ScrollArea';
+import { WindowManagerContext } from '../WindowsManager/WindowManagerProvider';
 
 function useRepeater(action: () => void, delay: number) {
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
@@ -61,16 +62,18 @@ export function DraggableElement({
   deleting: () => void;
   minimumWindowSize: { width: number; height: number };
 }) {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: 'default',
     disabled: maximized,
   });
+  const windowContext = useContext(WindowManagerContext);
 
   const {
     attributes: nwseAttributes,
     listeners: nwseListeners,
     setNodeRef: nwseSetNodeRef,
     transform: nwseTransform,
+    isDragging: nwseDragging,
   } = useDraggable({
     id: 'resize-nwse',
     disabled: maximized,
@@ -81,6 +84,7 @@ export function DraggableElement({
     listeners: neswListeners,
     setNodeRef: neswSetNodeRef,
     transform: neswTransform,
+    isDragging: neswDragging,
   } = useDraggable({
     id: 'resize-nesw',
     disabled: maximized,
@@ -91,6 +95,7 @@ export function DraggableElement({
     listeners: lewListeners,
     setNodeRef: lewSetNodeRef,
     transform: lewTransform,
+    isDragging: lewDragging,
   } = useDraggable({
     id: 'resize-lew',
     disabled: maximized,
@@ -101,6 +106,7 @@ export function DraggableElement({
     listeners: rewListeners,
     setNodeRef: rewSetNodeRef,
     transform: rewTransform,
+    isDragging: rewDragging,
   } = useDraggable({
     id: 'resize-rew',
     disabled: maximized,
@@ -111,6 +117,7 @@ export function DraggableElement({
     listeners: nsListeners,
     setNodeRef: nsSetNodeRef,
     transform: nsTransform,
+    isDragging: nsDragging,
   } = useDraggable({
     id: 'resize-ns',
     disabled: maximized,
@@ -139,6 +146,11 @@ export function DraggableElement({
   }, [maximized, viewport.current?.scrollHeight, mainContainer.current?.offsetHeight]);
 
   const windowRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    windowContext?.setWindowDragging(
+      isDragging || nwseDragging || neswDragging || lewDragging || rewDragging || nsDragging
+    );
+  }, [isDragging, nwseDragging, neswDragging, lewDragging, rewDragging, nsDragging]);
 
   return (
     <Box

@@ -22,10 +22,12 @@ interface windowsType {
 export const WindowManagerContext = createContext<
   | {
       windowsState: windowsType[];
+      windowDragging: boolean;
       OpenWindow: (id: string) => void;
       SetWindowFocus: (id: string) => void;
       SetWindowMaximized: (id: string) => void;
       setWindowsState: Dispatch<SetStateAction<windowsType[]>>;
+      setWindowDragging: Dispatch<SetStateAction<boolean>>;
     }
   | undefined
 >(undefined);
@@ -33,6 +35,8 @@ export const WindowManagerContext = createContext<
 export default function WindowsManagerProvider({ children }: { children: JSX.Element }) {
   const [windowsState, setWindowsState] = useState<windowsType[]>([]);
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
+
+  const [windowDragging, setWindowDragging] = useState(false);
 
   const windowsList: windowsType[] = [
     {
@@ -203,7 +207,15 @@ export default function WindowsManagerProvider({ children }: { children: JSX.Ele
 
   return (
     <WindowManagerContext.Provider
-      value={{ windowsState, OpenWindow, SetWindowFocus, SetWindowMaximized, setWindowsState }}
+      value={{
+        windowsState,
+        OpenWindow,
+        SetWindowFocus,
+        SetWindowMaximized,
+        setWindowsState,
+        setWindowDragging,
+        windowDragging,
+      }}
     >
       {children}
     </WindowManagerContext.Provider>
