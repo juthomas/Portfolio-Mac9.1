@@ -168,7 +168,7 @@ export default function ProjectsWindowV2(): JSX.Element {
         gap={10}
         style={{ flex: 1, padding: 10 }}
       >
-        <Carousel slides={OFT_slides} options={{ loop: true }} size="20em" />
+        <Carousel slides={OFT_slides} options={{ loop: true }} />
         <Stack px={60} gap={10}>
           <Text ta="center" fz={20}>
             {data[selected].projectName}

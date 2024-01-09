@@ -48,7 +48,7 @@ export default function ProjectsWindow(): JSX.Element {
           Projet IOTA
         </Text>
         <Flex columnGap="xl" rowGap="lg" align="stretch" wrap="wrap" justify="center" px="5%">
-          <Carousel style={{ flex: 1 }} slides={IOTA_slides} options={{ loop: true }} size="20em" />
+          <Carousel style={{ flex: 1 }} slides={IOTA_slides} options={{ loop: true }} />
           <Box
             p="xs"
             miw={250}
@@ -72,7 +72,7 @@ export default function ProjectsWindow(): JSX.Element {
           One For Tree
         </Text>
         <Flex columnGap="xl" rowGap="lg" align="stretch" wrap="wrap" justify="center" px="5%">
-          <Carousel style={{ flex: 1 }} slides={OFT_slides} options={{ loop: true }} size="20em" />
+          <Carousel style={{ flex: 1 }} slides={OFT_slides} options={{ loop: true }} />
           <Box
             p="xs"
             miw={250}
@@ -97,7 +97,7 @@ export default function ProjectsWindow(): JSX.Element {
           Mega Drinking Machina Adventure
         </Text>
         <Flex columnGap="xl" rowGap="lg" align="stretch" wrap="wrap" justify="center" px="5%">
-          <Carousel style={{ flex: 1 }} slides={MDMA_slides} options={{ loop: true }} size="20em" />
+          <Carousel style={{ flex: 1 }} slides={MDMA_slides} options={{ loop: true }} />
           <Box
             p="xs"
             miw={250}
@@ -122,12 +122,7 @@ export default function ProjectsWindow(): JSX.Element {
           NSDOS App
         </Text>
         <Flex columnGap="xl" rowGap="lg" align="stretch" wrap="wrap" justify="center" px="5%">
-          <Carousel
-            style={{ flex: 1 }}
-            slides={NSDOS_slides}
-            options={{ loop: true }}
-            size="20em"
-          />
+          <Carousel style={{ flex: 1 }} slides={NSDOS_slides} options={{ loop: true }} />
           <Box
             p="xs"
             miw={250}
