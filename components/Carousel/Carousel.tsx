@@ -14,11 +14,9 @@ type PropType = {
   slides: { image: StaticImageData; alt?: string; background?: string }[];
   options?: EmblaOptionsType;
   style?: MantineStyleProp;
-  size?: string;
 };
 
 export const Carousel: React.FC<PropType> = ({ slides, options, style }: PropType) => {
-  // const { slides, options } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay()]);
 
   const onButtonClick = useCallback((emblaApiCb: EmblaCarouselType) => {

@@ -26,6 +26,7 @@ export function DraggableWindow({
   coordinates = { x: 0, y: 30 },
   height = 400,
   width = 600,
+  zIndex = 1,
   scrollBar = false,
   minimumWindowSize = { width: 400, height: 300 },
 }: {
@@ -33,6 +34,7 @@ export function DraggableWindow({
   coordinates?: { x: number; y: number };
   height?: number;
   width?: number;
+  zIndex?: number;
   focused?: boolean;
   maximized?: boolean;
   windowTitle?: React.ReactNode;
@@ -241,6 +243,7 @@ export function DraggableWindow({
         windowIcon={windowIcon}
         maximized={maximized}
         focused={focused}
+        zIndex={zIndex}
         setMaximized={setMaximized}
         deleting={deleting}
         scrollBar={scrollBar}

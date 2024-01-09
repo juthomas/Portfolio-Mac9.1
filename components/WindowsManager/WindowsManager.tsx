@@ -7,7 +7,6 @@ import { DraggableWindow } from '../DraggableWindow/DraggableWindow';
 import Desktop from '../Desktop/Desktop';
 import { WindowManagerContext } from './WindowManagerProvider';
 
-
 export default function WindowsManager() {
   const windowContext = useContext(WindowManagerContext);
   const isMobile = useMediaQuery('(max-width: 50em)');
@@ -26,6 +25,7 @@ export default function WindowsManager() {
           windowTitle={elem?.title}
           coordinates={elem.coordinates as { x: number; y: number }}
           windowIcon={elem.icon}
+          zIndex={elem.zIndex}
           focused={index === windowContext!.windowsState.length - 1}
           setMaximized={() => windowContext?.SetWindowMaximized(elem.id)}
           focusing={() => {

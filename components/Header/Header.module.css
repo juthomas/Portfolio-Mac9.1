@@ -50,6 +50,7 @@
   padding-left: 10px;
   padding-right: 10px;
   height: 100%;
+  cursor: pointer;
   text-decoration: none;
   color: light-dark(var(--mantine-color-dark-9), var(--mantine-color-dark-0));
 
