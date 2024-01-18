@@ -13,7 +13,7 @@ export default function WindowsManager() {
 
   return (
     <>
-      {windowContext!.windowsState.map((elem, index) => (
+      {windowContext!.windowsState.map((elem) => (
         <DraggableWindow
           key={elem.id}
           id={elem.id}
@@ -29,7 +29,6 @@ export default function WindowsManager() {
           focused={elem.zIndex === windowContext!.windowsState.length}
           setMaximized={() => windowContext?.SetWindowMaximized(elem.id)}
           focusing={() => {
-            console.log('FOCUUUUS');
             windowContext?.SetWindowFocus(elem.id);
           }}
           deleting={() => {

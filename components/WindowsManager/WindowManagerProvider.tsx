@@ -141,17 +141,6 @@ export default function WindowsManagerProvider({ children }: { children: JSX.Ele
   }, []);
 
   function SetWindowFocus(id: string) {
-    // const elementAdeplacer = windowsState.find((item) => item.id === id);
-
-    // if (elementAdeplacer) {
-    //   const index = windowsState.indexOf(elementAdeplacer);
-    //   if (index !== -1) {
-    //     windowsState.splice(index, 1);
-    //   }
-    //   windowsState.push(elementAdeplacer);
-    // }
-
-    // setWindowsState([...windowsState]);
     const tmpList = [...windowsState];
     const elementAdeplacer = tmpList.find((item) => item.id === id);
 
@@ -159,7 +148,7 @@ export default function WindowsManagerProvider({ children }: { children: JSX.Ele
       const index = elementAdeplacer.zIndex;
 
       if (!index || index - 1 < 0 || index - 1 >= tmpList.length) {
-        console.error('Index invalide', index);
+        console.error('Invalid Index', index);
         return;
       }
       tmpList[tmpList.indexOf(elementAdeplacer)].zIndex = tmpList.length + 1; //
@@ -184,7 +173,7 @@ export default function WindowsManagerProvider({ children }: { children: JSX.Ele
       const index = elementAdeplacer.zIndex;
 
       if (!index || index - 1 < 0 || index - 1 >= tmpList.length) {
-        console.error('Index invalide', index);
+        console.error('Invalid Index', index);
         return;
       }
       tmpList[tmpList.indexOf(elementAdeplacer)].zIndex = tmpList.length + 1; //
@@ -200,9 +189,7 @@ export default function WindowsManagerProvider({ children }: { children: JSX.Ele
     } else {
       const elementACopier = windowsList.find((item) => item.id === id);
       if (elementACopier) {
-        console.log('Old zindex', elementACopier.zIndex);
         elementACopier.zIndex = tmpList.length + 1;
-        console.log('new zindex', elementACopier.zIndex);
       }
       if (elementACopier?.coordinates.x === 'center') {
         elementACopier.coordinates.x = windowWidth / 2 - (elementACopier?.size?.width || 600) / 2;
@@ -214,26 +201,6 @@ export default function WindowsManagerProvider({ children }: { children: JSX.Ele
     }
 
     setWindowsState(tmpList);
-    // return;
-
-    // if (elementAdeplacer) {
-    //   const index = tmpList.indexOf(elementAdeplacer);
-    //   if (index !== -1) {
-    //     tmpList.splice(index, 1);
-    //   }
-    //   tmpList.push(elementAdeplacer);
-    // } else {
-    //   const elementACopier = windowsList.find((item) => item.id === id);
-    //   if (elementACopier?.coordinates.x === 'center') {
-    //     elementACopier.coordinates.x = windowWidth / 2 - (elementACopier?.size?.width || 600) / 2;
-    //   }
-    //   if (elementACopier?.coordinates.y === 'center') {
-    //     elementACopier.coordinates.y = windowHeight / 2 - (elementACopier?.size?.height || 300) / 2;
-    //   }
-    //   elementACopier && tmpList.push(elementACopier);
-    // }
-
-    // setWindowsState(tmpList);
   }
 
   function SetWindowMaximized(id: string) {
@@ -250,25 +217,13 @@ export default function WindowsManagerProvider({ children }: { children: JSX.Ele
       };
     });
 
-    // const elementAdeplacer = tmpList.find((item) => item.id === id);
-
-    // if (elementAdeplacer) {
-    //   const index = tmpList.indexOf(elementAdeplacer);
-    //   if (index !== -1) {
-    //     tmpList.splice(index, 1);
-    //   }
-    //   tmpList.push(elementAdeplacer);
-    // }
-
-    // setWindowsState(tmpList);
-
     const elementAdeplacer = tmpList.find((item) => item.id === id);
 
     if (elementAdeplacer) {
       const index = elementAdeplacer.zIndex;
 
       if (!index || index - 1 < 0 || index - 1 >= tmpList.length) {
-        console.error('Index invalide', index);
+        console.error('Invalid index', index);
         return;
       }
       tmpList[tmpList.indexOf(elementAdeplacer)].zIndex = tmpList.length + 1; //

@@ -155,12 +155,7 @@ export function DraggableElement({
   return (
     <Box
       className={classes.windowOuter}
-      onClick={(event) => {
-        event.stopPropagation();
-
-        console.log('Window focused wtff');
-        focusing();
-      }}
+      onClick={focusing}
       ref={windowRef}
       style={{
         backgroundColor: focused ? undefined : '#bcbcbc',
