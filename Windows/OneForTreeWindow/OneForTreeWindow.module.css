@@ -1,0 +1,25 @@
+.seeMoreButton {
+  color: black;
+
+  border-radius: 0;
+  border: 0;
+  height: 25px;
+  background-color: #d7d7d7;
+  border-right: var(--borders-size) solid #ababab;
+  border-bottom: var(--borders-size) solid #ababab;
+}
+
+.seeMoreButton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.seeMoreButton::after {
+  border-left: var(--borders-size) solid #f0f0f0;
+  border-top: var(--borders-size) solid #f0f0f0;
+}
