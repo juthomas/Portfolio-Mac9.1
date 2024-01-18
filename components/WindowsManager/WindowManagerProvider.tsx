@@ -24,7 +24,7 @@ export const WindowManagerContext = createContext<
   | {
       windowsState: windowsType[];
       windowDragging: boolean;
-      OpenWindow:(id: string) => void;
+      OpenWindow: (id: string) => void;
       SetWindowFocus: (id: string) => void;
       SetWindowMaximized: (id: string) => void;
       setWindowsState: Dispatch<SetStateAction<windowsType[]>>;
@@ -125,9 +125,9 @@ export default function WindowsManagerProvider({ children }: { children: JSX.Ele
   ];
   useEffect(() => {
     const updatedWindowsList = windowsList
-      .filter((elem) => ['main'/* , 'projectsV2' */].includes(elem.id))
-      .map((elem) => {
-        const tmp = { ...elem };
+      .filter((elem) => ['main' /* , 'projectsV2' */].includes(elem.id))
+      .map((elem, index) => {
+        const tmp = { ...elem, zIndex: index + 1 };
         if (tmp.coordinates.x === 'center') {
           tmp.coordinates.x = windowWidth / 2 - (elem?.size?.width || 600) / 2;
         }
@@ -141,17 +141,38 @@ export default function WindowsManagerProvider({ children }: { children: JSX.Ele
   }, []);
 
   function SetWindowFocus(id: string) {
-    const elementAdeplacer = windowsState.find((item) => item.id === id);
+    // const elementAdeplacer = windowsState.find((item) => item.id === id);
+
+    // if (elementAdeplacer) {
+    //   const index = windowsState.indexOf(elementAdeplacer);
+    //   if (index !== -1) {
+    //     windowsState.splice(index, 1);
+    //   }
+    //   windowsState.push(elementAdeplacer);
+    // }
+
+    // setWindowsState([...windowsState]);
+    const tmpList = [...windowsState];
+    const elementAdeplacer = tmpList.find((item) => item.id === id);
 
     if (elementAdeplacer) {
-      const index = windowsState.indexOf(elementAdeplacer);
-      if (index !== -1) {
-        windowsState.splice(index, 1);
-      }
-      windowsState.push(elementAdeplacer);
-    }
+      const index = elementAdeplacer.zIndex;
 
-    setWindowsState([...windowsState]);
+      if (!index || index - 1 < 0 || index - 1 >= tmpList.length) {
+        console.error('Index invalide', index);
+        return;
+      }
+      tmpList[tmpList.indexOf(elementAdeplacer)].zIndex = tmpList.length + 1; //
+      for (let i = 0; i < tmpList.length; i += 1) {
+        const item = tmpList[i];
+
+        if (item && item.zIndex !== undefined && item.zIndex > index) {
+          item.zIndex -= 1;
+        }
+      }
+
+      setWindowsState(tmpList);
+    }
   }
 
   function OpenWindow(id: string) {
@@ -160,13 +181,29 @@ export default function WindowsManagerProvider({ children }: { children: JSX.Ele
     const elementAdeplacer = tmpList.find((item) => item.id === id);
 
     if (elementAdeplacer) {
-      const index = tmpList.indexOf(elementAdeplacer);
-      if (index !== -1) {
-        tmpList.splice(index, 1);
+      const index = elementAdeplacer.zIndex;
+
+      if (!index || index - 1 < 0 || index - 1 >= tmpList.length) {
+        console.error('Index invalide', index);
+        return;
       }
-      tmpList.push(elementAdeplacer);
+      tmpList[tmpList.indexOf(elementAdeplacer)].zIndex = tmpList.length + 1; //
+      for (let i = 0; i < tmpList.length; i += 1) {
+        const item = tmpList[i];
+
+        if (item && item.zIndex !== undefined && item.zIndex > index) {
+          item.zIndex -= 1;
+        }
+      }
+
+      setWindowsState(tmpList);
     } else {
       const elementACopier = windowsList.find((item) => item.id === id);
+      if (elementACopier) {
+        console.log('Old zindex', elementACopier.zIndex);
+        elementACopier.zIndex = tmpList.length + 1;
+        console.log('new zindex', elementACopier.zIndex);
+      }
       if (elementACopier?.coordinates.x === 'center') {
         elementACopier.coordinates.x = windowWidth / 2 - (elementACopier?.size?.width || 600) / 2;
       }
@@ -177,6 +214,26 @@ export default function WindowsManagerProvider({ children }: { children: JSX.Ele
     }
 
     setWindowsState(tmpList);
+    // return;
+
+    // if (elementAdeplacer) {
+    //   const index = tmpList.indexOf(elementAdeplacer);
+    //   if (index !== -1) {
+    //     tmpList.splice(index, 1);
+    //   }
+    //   tmpList.push(elementAdeplacer);
+    // } else {
+    //   const elementACopier = windowsList.find((item) => item.id === id);
+    //   if (elementACopier?.coordinates.x === 'center') {
+    //     elementACopier.coordinates.x = windowWidth / 2 - (elementACopier?.size?.width || 600) / 2;
+    //   }
+    //   if (elementACopier?.coordinates.y === 'center') {
+    //     elementACopier.coordinates.y = windowHeight / 2 - (elementACopier?.size?.height || 300) / 2;
+    //   }
+    //   elementACopier && tmpList.push(elementACopier);
+    // }
+
+    // setWindowsState(tmpList);
   }
 
   function SetWindowMaximized(id: string) {
@@ -193,17 +250,38 @@ export default function WindowsManagerProvider({ children }: { children: JSX.Ele
       };
     });
 
+    // const elementAdeplacer = tmpList.find((item) => item.id === id);
+
+    // if (elementAdeplacer) {
+    //   const index = tmpList.indexOf(elementAdeplacer);
+    //   if (index !== -1) {
+    //     tmpList.splice(index, 1);
+    //   }
+    //   tmpList.push(elementAdeplacer);
+    // }
+
+    // setWindowsState(tmpList);
+
     const elementAdeplacer = tmpList.find((item) => item.id === id);
 
     if (elementAdeplacer) {
-      const index = tmpList.indexOf(elementAdeplacer);
-      if (index !== -1) {
-        tmpList.splice(index, 1);
-      }
-      tmpList.push(elementAdeplacer);
-    }
+      const index = elementAdeplacer.zIndex;
 
-    setWindowsState(tmpList);
+      if (!index || index - 1 < 0 || index - 1 >= tmpList.length) {
+        console.error('Index invalide', index);
+        return;
+      }
+      tmpList[tmpList.indexOf(elementAdeplacer)].zIndex = tmpList.length + 1; //
+      for (let i = 0; i < tmpList.length; i += 1) {
+        const item = tmpList[i];
+
+        if (item && item.zIndex !== undefined && item.zIndex > index) {
+          item.zIndex -= 1;
+        }
+      }
+
+      setWindowsState(tmpList);
+    }
   }
 
   return (

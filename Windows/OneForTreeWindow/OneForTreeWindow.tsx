@@ -6,7 +6,7 @@ export default function OneForTreeWindow(): JSX.Element {
 
   const isOneForTree =
     windowContext?.windowsState &&
-    windowContext.windowsState[windowContext.windowsState.length - 1]?.id === 'onefortree';
+    windowContext.windowsState.find((item) => item.id === 'onefortree')?.zIndex === windowContext.windowsState.length
 
   useEffect(() => {
     console.log('rerender');

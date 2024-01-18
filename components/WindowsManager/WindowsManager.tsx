@@ -26,9 +26,10 @@ export default function WindowsManager() {
           coordinates={elem.coordinates as { x: number; y: number }}
           windowIcon={elem.icon}
           zIndex={elem.zIndex}
-          focused={index === windowContext!.windowsState.length - 1}
+          focused={elem.zIndex === windowContext!.windowsState.length}
           setMaximized={() => windowContext?.SetWindowMaximized(elem.id)}
           focusing={() => {
+            console.log('FOCUUUUS');
             windowContext?.SetWindowFocus(elem.id);
           }}
           deleting={() => {

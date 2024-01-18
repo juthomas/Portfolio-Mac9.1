@@ -103,7 +103,7 @@ export function DraggableWindow({
     <DndContext
       id={id}
       sensors={sensors}
-      onDragStart={focusing}
+      onDragStart={() => {console.log('Drag start'); focusing()}}
       onDragEnd={({ delta, active }) => {
         if (active.id === 'resize-nwse') {
           setWindowSize((prev) => ({
