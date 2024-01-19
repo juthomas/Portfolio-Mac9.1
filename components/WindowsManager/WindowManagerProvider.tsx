@@ -6,6 +6,7 @@ import ContactWindow from '@/Windows/ContactWindow/ContactWindow';
 import ProjectsWindowV2 from '@/Windows/ProjectsWindowV2/ProjectsWindowV2';
 import useWindowDimensions from '@/hooks/useWindowDImensions';
 import OneForTreeWindow from '@/Windows/OneForTreeWindow/OneForTreeWindow';
+import TerminalWindow from '@/Windows/TerminalWindow/TerminalWindow';
 
 interface windowsType {
   id: string;
@@ -24,7 +25,7 @@ export const WindowManagerContext = createContext<
   | {
       windowsState: windowsType[];
       windowDragging: boolean;
-      OpenWindow: (id: string) => void;
+      OpenWindow:(id: string) => void;
       SetWindowFocus: (id: string) => void;
       SetWindowMaximized: (id: string) => void;
       setWindowsState: Dispatch<SetStateAction<windowsType[]>>;
@@ -122,10 +123,22 @@ export default function WindowsManagerProvider({ children }: { children: JSX.Ele
       size: { height: 400, width: 400 },
       coordinates: { x: 0, y: 30 },
     },
+    {
+      id: 'terminal',
+      content: <TerminalWindow />,
+      // content: <>WTF</>,
+      title: 'Terminal',
+      // icon: '',
+      maximized: false,
+      scrollBar: true,
+      size: { height: 400, width: 400 },
+      coordinates: { x: 'center', y: 70 },
+    },
+
   ];
   useEffect(() => {
     const updatedWindowsList = windowsList
-      .filter((elem) => ['main' /* , 'projectsV2' */].includes(elem.id))
+      .filter((elem) => ['main'/* , 'projectsV2' */].includes(elem.id))
       .map((elem, index) => {
         const tmp = { ...elem, zIndex: index + 1 };
         if (tmp.coordinates.x === 'center') {

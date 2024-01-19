@@ -14,6 +14,7 @@ import portfolioIcon from '@/assets/icons/folderPortfolio.png';
 import binIcon from '@/assets/icons/centredBin.png';
 import electronicIcon from '@/assets/icons/folderToolbox.png';
 import webIcon from '@/assets/icons/folderPage.png';
+import terminalIcon from '@/assets/icons/terminal.png';
 
 interface shortcutType {
   id: string;
@@ -73,6 +74,14 @@ export default function Desktop() {
     },
     {
       id: '6',
+      position: { right: 0.1, top: 715 },
+      windowId: 'terminal',
+      text: 'Terminal',
+      icon: terminalIcon,
+    },
+
+    {
+      id: '7',
       position: { right: 0.1, bottom: 50 },
       windowId: 'random',
       text: 'Trash',
