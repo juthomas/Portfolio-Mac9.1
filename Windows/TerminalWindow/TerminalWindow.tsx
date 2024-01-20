@@ -12,7 +12,27 @@ export default function TerminalWindow(): JSX.Element {
   type fileSystemType = {
     [key: string]: fileSystemType | string;
   };
-  const fileSystem: fileSystemType = { home: { juthomas: { applications: {} } } };
+  const fileSystem: fileSystemType = { home: { juthomas: { applications: {} }, guest: {} } };
+
+  function listDirectory() {
+    const pathParts = currentDirectory.split('/').filter((part) => part.length > 0);
+
+    let currentPath = fileSystem;
+    const pathExists = pathParts.every((part) => {
+      if (typeof currentPath[part] === 'object' && currentPath[part] !== null) {
+        currentPath = currentPath[part] as fileSystemType;
+        return true; // Continue l'itération
+      }
+      return false; // Arrête l'itération
+    });
+
+    if (!pathExists) {
+      return `ls: ${currentDirectory}: No such file or directory`;
+    }
+
+    // Récupérer les clés du répertoire courant pour les lister
+    return Object.keys(currentPath).join('\n');
+  }
 
   function changeDirectory(param: string) {
     if (param === '') {
@@ -90,6 +110,10 @@ export default function TerminalWindow(): JSX.Element {
     },
     cd: (params) => {
       const output = changeDirectory(params);
+      return <>{output && formatText(output)} </>;
+    },
+    ls: (params) => {
+      const output = listDirectory(params);
       return <>{output && formatText(output)} </>;
     },
   };
