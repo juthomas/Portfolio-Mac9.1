@@ -15,7 +15,10 @@
 }
 
 .prompt {
-	line-height: 1.7;
+	/* padding-top: 10px; */
+	/* line-height: 0.8; */
+	/* height: 108px; */
+	/* margin-top: 4px; */
 }
 
 .input {
@@ -25,7 +28,11 @@
   background: transparent;
   /* background: #222; */
   /* color: #00fe00; */
-  width: 99%;
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  /* height: 27px; */
+  /* width: 99%; */
   /* font-family: monospace; */
   /* font-size: 18px; */
   /* margin-left: 8px; */
