@@ -25,6 +25,10 @@ export default function TerminalWindow(): JSX.Element {
 
   const commands: commandsType = {
     pwd: () => formatText(currentDirectory),
+    clear: () => {
+      setOldPrompts([]);
+      return <></>;
+    },
   };
 
   //   const;
