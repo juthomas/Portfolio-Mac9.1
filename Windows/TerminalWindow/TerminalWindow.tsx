@@ -209,8 +209,10 @@ export default function TerminalWindow(): JSX.Element {
               setOldPrompts((old) => [
                 ...old,
                 {
-                  prompt,
-                  answer: commands[promptFunction]
+                  prompt: prompt || ' ',
+                  answer: !promptFunction
+                    ? <></>
+                    : commands[promptFunction]
                     ? commands[promptFunction](promptParams)
                     : formatText(`zsh: command not found: ${promptFunction}`),
                 },
