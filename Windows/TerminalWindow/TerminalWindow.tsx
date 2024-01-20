@@ -14,8 +14,33 @@ export default function TerminalWindow(): JSX.Element {
   };
   const fileSystem: fileSystemType = { home: { juthomas: { applications: {} }, guest: {} } };
 
-  function listDirectory() {
-    const pathParts = currentDirectory.split('/').filter((part) => part.length > 0);
+  function listDirectory(param: string) {
+    let directoryToList = currentDirectory;
+
+    if (param) {
+      const newPath =
+        param[0] === '/'
+          ? param.replace(/(?<!^)\/$/, '')
+          : `${currentDirectory}/${param}`.replace(/(?<!^)\/$/, '').replace('//', '/');
+
+      const pathParts = newPath.split('/').filter((part) => part.length > 0);
+
+      let currentPath = fileSystem;
+      const exists = pathParts.every((part) => {
+        if (currentPath[part] && typeof currentPath[part] === 'object') {
+          currentPath = currentPath[part] as fileSystemType;
+          return true;
+        }
+        return false;
+      });
+
+      if (!exists) {
+        return `ls: ${param}: No such file or directory`;
+      }
+      directoryToList = newPath;
+    }
+
+    const pathParts = directoryToList.split('/').filter((part) => part.length > 0);
 
     let currentPath = fileSystem;
     const pathExists = pathParts.every((part) => {
@@ -27,7 +52,7 @@ export default function TerminalWindow(): JSX.Element {
     });
 
     if (!pathExists) {
-      return `ls: ${currentDirectory}: No such file or directory`;
+      return `ls: ${directoryToList}: No such file or directory`;
     }
 
     // Récupérer les clés du répertoire courant pour les lister
@@ -151,8 +176,8 @@ export default function TerminalWindow(): JSX.Element {
       bg="#222"
       gap={0}
     >
-      {oldPrompts.map((elem) => (
-        <Box mb={1}>
+      {oldPrompts.map((elem, index) => (
+        <Box mb={1} key={index}>
           {elem.prompt && (
             <p
               style={{
