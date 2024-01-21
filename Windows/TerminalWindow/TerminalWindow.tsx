@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { Box, Flex, Stack, Text } from '@mantine/core';
 import classes from './TerminalWindow.module.css';
+import { WindowManagerContext } from '@/components/WindowsManager/WindowManagerProvider';
 
 type commandsType = {
   [key: string]: (param: string) => JSX.Element;
@@ -16,8 +17,14 @@ const fileSystem: fileSystemType = {
   System: {},
   Users: {
     juthomas: {
-      'README.md': 'test',
-      Applications: {},
+      //   'README.md': 'onefortree',
+      Applications: {
+        Onefortree: 'onefortree',
+        Portfolio: 'main',
+        Profile: 'profile',
+        Contact: 'contact',
+        Projects: 'projects',
+      },
       Desktop: {},
       Documents: {},
       Downloads: {},
@@ -54,6 +61,8 @@ const fileSystem: fileSystemType = {
 };
 
 export default function TerminalWindow(): JSX.Element {
+  const windowContext = useContext(WindowManagerContext);
+
   const [currentDirectory, setCurrentDirectory] = useState('/Users/juthomas');
 
   function listDirectory(param: string) {
@@ -99,6 +108,63 @@ export default function TerminalWindow(): JSX.Element {
 
     // Récupérer les clés du répertoire courant pour les lister
     return Object.keys(currentPath).join('\n');
+  }
+
+  function openCommand(param: string) {
+    let directoryToList = currentDirectory;
+
+    if (param) {
+      const newPath =
+        param[0] === '/'
+          ? param.replace(/(?<!^)\/$/, '')
+          : `${currentDirectory}/${param}`.replace(/(?<!^)\/$/, '').replace('//', '/');
+
+      const pathParts = newPath.split('/').filter((part) => part.length > 0);
+
+      let currentPath = fileSystem;
+      const exists = pathParts.every((part) => {
+        if (currentPath[part]) {
+          if (typeof currentPath[part] === 'string') {
+            const windowId = currentPath[part];
+            typeof windowId === 'string' &&
+              windowContext?.OpenWindow &&
+              windowContext?.OpenWindow(windowId);
+            return false;
+          }
+          if (typeof currentPath[part] === 'object') {
+            currentPath = currentPath[part] as fileSystemType;
+            return true;
+          }
+        }
+        return true;
+      });
+
+      if (exists) {
+        return `open : ${param}: Cant open file`;
+      }
+    } else return 'Usage: open [filename]';
+    // const pathParts = directoryToList.split('/').filter((part) => part.length > 0);
+
+    // let currentPath = fileSystem;
+    // const pathExists = pathParts.every((part) => {
+    //   if (currentPath[part] !== null) {
+    //     if (typeof currentPath[part] === 'string') {
+    //       console.log('content :', currentPath[part]);
+    //     }
+    //     if (typeof currentPath[part] === 'object') {
+    //       currentPath = currentPath[part] as fileSystemType;
+    //       return true; // Continue l'itération
+    //     }
+    //   }
+    //   return false; // Arrête l'itération
+    // });
+
+    // if (!pathExists) {
+    //   return `open 2 : ${directoryToList}: No such file or directory`;
+    // }
+
+    // Récupérer les clés du répertoire courant pour les lister
+    // return Object.keys(currentPath).join('\n');
   }
 
   function changeDirectory(param: string) {
@@ -182,6 +248,10 @@ export default function TerminalWindow(): JSX.Element {
     },
     ls: (params) => {
       const output = listDirectory(params);
+      return <>{output && formatText(output)} </>;
+    },
+    open: (params) => {
+      const output = openCommand(params);
       return <>{output && formatText(output)} </>;
     },
   };
