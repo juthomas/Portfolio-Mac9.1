@@ -1,5 +1,6 @@
 import { useContext, useRef, useState } from 'react';
 import { Box, Flex, Stack, Text } from '@mantine/core';
+import { useRouter } from 'next/navigation';
 import classes from './TerminalWindow.module.css';
 import { WindowManagerContext } from '@/components/WindowsManager/WindowManagerProvider';
 import { ScrollAreaWindowContext } from '@/components/DraggableElement/DraggableElement';
@@ -15,6 +16,8 @@ type fileSystemType = {
 const homeDirectory = '/Users/juthomas';
 
 export default function TerminalWindow(): JSX.Element {
+  const router = useRouter();
+
   const windowContext = useContext(WindowManagerContext);
 
   function openApplication(appId: string) {
@@ -53,6 +56,7 @@ export default function TerminalWindow(): JSX.Element {
         Documents: {
           'Passwords.app': () => {
             window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank', 'noreferrer');
+            return 'eheheh boi';
           },
         },
         Downloads: {},
@@ -147,17 +151,16 @@ export default function TerminalWindow(): JSX.Element {
     const pathParts = newPath.split('/').filter((part) => part.length > 0);
 
     let currentPath = fileSystem;
-    let outputMessage = null;
-
+    let outputMessage = `cat : ${param}: Not a text file`;
     pathParts.some((part) => {
       if (currentPath[part]) {
         if (typeof currentPath[part] === 'function') {
           outputMessage = `cat : ${param}: Not a text file`;
           return true; // Arrête l'itération
         }
-
         if (typeof currentPath[part] === 'string') {
-          outputMessage = currentPath[part];
+          const message = currentPath[part];
+          if (typeof message === 'string') outputMessage = message;
           setLastPromptError(false);
           return true; // Arrête l'itération
         }
@@ -185,7 +188,7 @@ export default function TerminalWindow(): JSX.Element {
     const pathParts = newPath.split('/').filter((part) => part.length > 0);
 
     let currentPath = fileSystem;
-    let outputMessage = null;
+    let outputMessage: string | void | null = `open : ${param}: Not an executable file`;
 
     pathParts.some((part) => {
       if (currentPath[part]) {
@@ -327,6 +330,18 @@ export default function TerminalWindow(): JSX.Element {
     cat: (params) => {
       const output = catCommand(params);
       return <>{output && formatText(output)} </>;
+    },
+    reboot: () => {
+      setTimeout(() => {
+        router.push('/restart');
+      }, 200);
+      return <></>;
+    },
+    shutdown: () => {
+      setTimeout(() => {
+        router.push('/shutdown');
+      }, 200);
+      return <></>;
     },
   };
 
