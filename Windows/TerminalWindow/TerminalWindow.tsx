@@ -8,8 +8,10 @@ type commandsType = {
 };
 
 type fileSystemType = {
-  [key: string]: fileSystemType | (() => void) | string;
+  [key: string]: fileSystemType | (() => void | string) | string;
 };
+
+const homeDirectory = 'Users/juthomas';
 
 export default function TerminalWindow(): JSX.Element {
   const windowContext = useContext(WindowManagerContext);
@@ -21,8 +23,10 @@ export default function TerminalWindow(): JSX.Element {
     Users: {
       juthomas: {
         //   'README.md': 'onefortree',
+        'README.md':
+          'Welcome to my portfolio terminal!\nSupported commands are:\n - cat   : Print .md & .txt files\n - cd    : Change directory\n - clear : Clear terminal \n - ls    : List directory\n - open  : Open .app files\n - pwd   : Current directory\n',
         Applications: {
-          Onefortree: () => {
+          'Onefortree.app': () => {
             windowContext?.OpenWindow && windowContext?.OpenWindow('onefortree');
           },
           Portfolio: 'main',
@@ -64,7 +68,7 @@ export default function TerminalWindow(): JSX.Element {
     usr: {},
     var: {},
   };
-  const [currentDirectory, setCurrentDirectory] = useState('/Users/juthomas');
+  const [currentDirectory, setCurrentDirectory] = useState(homeDirectory);
 
   function listDirectory(param: string) {
     let directoryToList = currentDirectory;
@@ -112,6 +116,43 @@ export default function TerminalWindow(): JSX.Element {
   }
 
   function catCommand(param: string) {
+    if (!param) return 'Usage: cat [filename]';
+
+    const newPath =
+      param[0] === '/'
+        ? param.replace(/(?<!^)\/$/, '')
+        : `${currentDirectory}/${param}`.replace(/(?<!^)\/$/, '').replace('//', '/');
+
+    const pathParts = newPath.split('/').filter((part) => part.length > 0);
+
+    let currentPath = fileSystem;
+    let outputMessage = null;
+
+    pathParts.some((part) => {
+      if (currentPath[part]) {
+        if (typeof currentPath[part] === 'function') {
+          outputMessage = `cat : ${param}: Not a text file`;
+          return true; // Arrête l'itération
+        }
+
+        if (typeof currentPath[part] === 'string') {
+          outputMessage = currentPath[part];
+          return true; // Arrête l'itération
+        }
+        if (typeof currentPath[part] === 'object') {
+          currentPath = currentPath[part] as fileSystemType;
+          return false; // Continue l'itération
+        }
+        return false; // Continue l'itération
+      }
+      outputMessage = `cat : ${param}: Cannot open file`;
+      return true; // Arrête l'itération
+    });
+
+    return outputMessage;
+  }
+
+  function openCommand(param: string) {
     if (!param) return 'Usage: open [filename]';
 
     const newPath =
@@ -122,12 +163,17 @@ export default function TerminalWindow(): JSX.Element {
     const pathParts = newPath.split('/').filter((part) => part.length > 0);
 
     let currentPath = fileSystem;
-    let foundFile = null;
+    let outputMessage = null;
 
     pathParts.some((part) => {
       if (currentPath[part]) {
+        if (typeof currentPath[part] === 'function') {
+          const appFunction = currentPath[part];
+          outputMessage = typeof appFunction === 'function' ? appFunction() : null;
+          return true; // Arrête l'itération
+        }
         if (typeof currentPath[part] === 'string') {
-          foundFile = currentPath[part];
+          outputMessage = `open : ${param}: Not an executable file`;
           return true; // Arrête l'itération
         }
         if (typeof currentPath[part] === 'object') {
@@ -136,56 +182,16 @@ export default function TerminalWindow(): JSX.Element {
         }
         return false; // Continue l'itération
       }
-      foundFile = `cat : ${param}: Cannot open file`;
+      outputMessage = `open : ${param}: Cannot open file`;
       return true; // Arrête l'itération
     });
 
-    return foundFile || `cat : ${param}: Not a text file`;
-  }
-
-  function openCommand(param: string) {
-    if (param) {
-      const newPath =
-        param[0] === '/'
-          ? param.replace(/(?<!^)\/$/, '')
-          : `${currentDirectory}/${param}`.replace(/(?<!^)\/$/, '').replace('//', '/');
-
-      const pathParts = newPath.split('/').filter((part) => part.length > 0);
-
-      let currentPath = fileSystem;
-      const exists = pathParts.every((part) => {
-        if (currentPath[part]) {
-          if (typeof currentPath[part] === 'function') {
-            const appFunction = currentPath[part];
-            typeof appFunction === 'function' && appFunction();
-            return false;
-          }
-          // 	if (typeof currentPath[part] === 'string') {
-          //     const windowId = currentPath[part];
-          //     typeof windowId === 'string' &&
-          //       windowContext?.OpenWindow &&
-          //       windowContext?.OpenWindow(windowId);
-          //     return false;
-          //   }
-          if (typeof currentPath[part] === 'object') {
-            currentPath = currentPath[part] as fileSystemType;
-            return true;
-          }
-        }
-        return true;
-      });
-
-      if (exists) {
-        return `open : ${param}: Cant open file`;
-      }
-      return '';
-    }
-    return 'Usage: open [filename]';
+    return outputMessage;
   }
 
   function changeDirectory(param: string) {
     if (param === '') {
-      setCurrentDirectory('/Users/juthomas');
+      setCurrentDirectory(homeDirectory);
       return '';
     }
     if (param === '..') {
@@ -241,11 +247,11 @@ export default function TerminalWindow(): JSX.Element {
   const [oldPrompts, setOldPrompts] = useState([
     {
       prompt: '',
-      location: '/Users/juthomas',
+      location: homeDirectory,
       answer: (
         <>
           {formatText(
-            'Welcome to my portfolio terminal!\nSupported commands are:\n - clear  - open\n - ls     - cd\n - pwd    - cat'
+            'Welcome to my portfolio terminal!\nSupported commands are:\n - cat   : Print .md & .txt files\n - cd    : Change directory\n - clear : Clear terminal \n - ls    : List directory\n - open  : Open .app files\n - pwd   : Current directory\n'
           )}
         </>
       ),
@@ -299,7 +305,7 @@ export default function TerminalWindow(): JSX.Element {
   }
 
   function getCurrentDirectory(path: string) {
-    if (path === '/Users/juthomas') {
+    if (path === homeDirectory) {
       return '~';
     }
     return path.match(/^(\/[^/]*)$|\/([^/]*)$/)?.[1] || path.match(/\/([^/]*)$/)?.[1] || '';
