@@ -320,6 +320,7 @@ export default function TerminalWindow(): JSX.Element {
       return <></>;
     },
     cmds: () => {
+      setLastPromptError(false);
       const keysString = `Supported commands are:\n${Object.keys(commands)
         .map((key) => ` - ${key}`)
         .join('\n')}`;
