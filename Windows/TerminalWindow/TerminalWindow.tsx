@@ -50,7 +50,11 @@ export default function TerminalWindow(): JSX.Element {
           },
         },
         Desktop: {},
-        Documents: {},
+        Documents: {
+          'Passwords.app': () => {
+            window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank', 'noreferrer');
+          },
+        },
         Downloads: {},
         Library: {},
         Movies: {},
@@ -409,6 +413,7 @@ export default function TerminalWindow(): JSX.Element {
         </span>
         <input
           spellCheck="false"
+          autoCapitalize="none"
           data-autofocus
           ref={ref}
           onKeyDown={(e) => {
