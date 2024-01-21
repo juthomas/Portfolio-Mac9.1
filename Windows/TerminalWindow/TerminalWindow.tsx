@@ -383,9 +383,33 @@ export default function TerminalWindow(): JSX.Element {
             }
             if (e.key === 'Tab') e.preventDefault();
             if (e.key === 'ArrowUp') {
-              oldPrompts?.length && setPrompt(oldPrompts[(oldPrompts?.length || 1) - 1].prompt);
+              e.preventDefault(); // Empêche le comportement par défaut de la touche flèche vers le haut
+              if (oldPrompts?.length) {
+                const lastPrompt = oldPrompts[oldPrompts.length - 1].prompt;
+                setPrompt(lastPrompt);
+
+                // S'assurer que le changement d'état est appliqué avant de déplacer le curseur
+                setTimeout(() => {
+                  const inputElement = ref.current;
+                  if (inputElement) {
+                    inputElement.focus();
+                    const len = lastPrompt.length;
+                    inputElement.setSelectionRange(len, len);
+                  }
+                }, 0);
+              }
             }
-            console.log('Key pressed :', e.key);
+            if (e.ctrlKey && e.key === 'c') {
+              setOldPrompts((old) => [
+                ...old,
+                {
+                  prompt: prompt || ' ',
+                  location: currentDirectory,
+                  answer: <></>,
+                },
+              ]);
+              setPrompt('');
+            }
           }}
           onChange={(event) => setPrompt(event.target.value)}
           value={prompt}
