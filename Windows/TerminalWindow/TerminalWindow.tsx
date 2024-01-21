@@ -29,10 +29,18 @@ export default function TerminalWindow(): JSX.Element {
           'Onefortree.app': () => {
             windowContext?.OpenWindow && windowContext?.OpenWindow('onefortree');
           },
-          Portfolio: 'main',
-          Profile: 'profile',
-          Contact: 'contact',
-          Projects: 'projects',
+          'Portfolio.app': () => {
+            windowContext?.OpenWindow && windowContext?.OpenWindow('main');
+          },
+          'Profile.app': () => {
+            windowContext?.OpenWindow && windowContext?.OpenWindow('profile');
+          },
+          'Contact.app': () => {
+            windowContext?.OpenWindow && windowContext?.OpenWindow('contact');
+          },
+          'Projects.app': () => {
+            windowContext?.OpenWindow && windowContext?.OpenWindow('projects');
+          },
         },
         Desktop: {},
         Documents: {},
