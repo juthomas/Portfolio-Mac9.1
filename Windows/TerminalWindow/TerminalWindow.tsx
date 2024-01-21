@@ -201,18 +201,19 @@ export default function TerminalWindow(): JSX.Element {
 
   function changeDirectory(param: string) {
     if (param === '') {
+      setOldDirectory(currentDirectory);
       setCurrentDirectory(homeDirectory);
       return '';
     }
     if (param === '-') {
       const tmpOldDirectory = oldDirectory;
       setOldDirectory(currentDirectory);
-
       setCurrentDirectory(tmpOldDirectory);
       return '';
     }
     if (param === '..') {
       const lastSlashIndex = currentDirectory.lastIndexOf('/');
+      setOldDirectory(currentDirectory);
       setCurrentDirectory(
         lastSlashIndex !== -1
           ? currentDirectory.substring(0, lastSlashIndex + 1).replace(/(?<!^)\/$/, '')
