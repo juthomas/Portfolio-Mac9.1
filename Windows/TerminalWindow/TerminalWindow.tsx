@@ -11,7 +11,7 @@ type fileSystemType = {
   [key: string]: fileSystemType | (() => void | string) | string;
 };
 
-const homeDirectory = 'Users/juthomas';
+const homeDirectory = '/Users/juthomas';
 
 export default function TerminalWindow(): JSX.Element {
   const windowContext = useContext(WindowManagerContext);
