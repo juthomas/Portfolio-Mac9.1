@@ -2,6 +2,7 @@ import { useContext, useRef, useState } from 'react';
 import { Box, Flex, Stack, Text } from '@mantine/core';
 import classes from './TerminalWindow.module.css';
 import { WindowManagerContext } from '@/components/WindowsManager/WindowManagerProvider';
+import { ScrollAreaWindowContext } from '@/components/DraggableElement/DraggableElement';
 
 type commandsType = {
   [key: string]: (param: string) => JSX.Element;
@@ -294,6 +295,8 @@ export default function TerminalWindow(): JSX.Element {
 
   const ref = useRef<HTMLInputElement | null>(null);
 
+  const viewport = useContext(ScrollAreaWindowContext);
+
   function splitFirstWord(text: string): [string, string] {
     // Trouver l'index du premier espace
     const firstSpaceIndex = text.indexOf(' ');
@@ -410,6 +413,10 @@ export default function TerminalWindow(): JSX.Element {
               ]);
               setPrompt('');
             }
+            setTimeout(() => {
+              viewport?.current?.scrollTo({ top: viewport?.current?.scrollHeight });
+              viewport?.current?.click();
+            }, 0);
           }}
           onChange={(event) => setPrompt(event.target.value)}
           value={prompt}

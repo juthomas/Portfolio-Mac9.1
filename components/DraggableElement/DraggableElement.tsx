@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useDraggable } from '@dnd-kit/core';
 import { Box, Group } from '@mantine/core';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { RefObject, createContext, useContext, useEffect, useRef, useState } from 'react';
 import fileIcon from '@/assets/file_icon.svg';
 import arrowUp from '@/assets/icons/arrowUp.svg';
 import arrowDown from '@/assets/icons/arrowDown.svg';
@@ -28,6 +28,10 @@ function useRepeater(action: () => void, delay: number) {
 
   return [start, stop] as const;
 }
+
+export const ScrollAreaWindowContext = createContext<RefObject<HTMLDivElement> | undefined>(
+  undefined
+);
 
 export function DraggableElement({
   top,
@@ -153,272 +157,274 @@ export function DraggableElement({
   }, [isDragging, nwseDragging, neswDragging, lewDragging, rewDragging, nsDragging]);
 
   return (
-    <Box
-      className={classes.windowOuter}
-      onClick={focusing}
-      ref={windowRef}
-      style={{
-        backgroundColor: focused ? undefined : '#bcbcbc',
-        paddingBottom: minimized ? 0 : undefined,
-        zIndex,
-        height: minimized
-          ? undefined
-          : nwseTransform
-          ? nwseTransform.y + height < minimumWindowSize.height
-            ? minimumWindowSize.height
-            : nwseTransform.y + height
-          : neswTransform
-          ? neswTransform.y + height < minimumWindowSize.height
-            ? minimumWindowSize.height
-            : neswTransform.y + height
-          : nsTransform
-          ? nsTransform.y + height < minimumWindowSize.height
-            ? minimumWindowSize.height
-            : nsTransform.y + height
-          : height,
-        width: nwseTransform
-          ? nwseTransform.x + width < minimumWindowSize.width
-            ? minimumWindowSize.width
-            : nwseTransform.x + width
-          : neswTransform
-          ? -neswTransform.x + width < minimumWindowSize.width
-            ? minimumWindowSize.width
-            : -neswTransform.x + width
-          : lewTransform
-          ? -lewTransform.x + width < minimumWindowSize.width
-            ? minimumWindowSize.width
-            : -lewTransform.x + width
-          : rewTransform
-          ? rewTransform.x + width < minimumWindowSize.width
-            ? minimumWindowSize.width
-            : rewTransform.x + width
-          : width,
-        top,
-        left,
-        transform: transform
-          ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
-          : neswTransform
-          ? `translate3d(${
-              -neswTransform.x + width < minimumWindowSize.width
-                ? width - minimumWindowSize.width
-                : neswTransform.x
-            }px, 0px, 0)`
-          : lewTransform
-          ? `translate3d(${
-              -lewTransform.x + width < minimumWindowSize.width
-                ? width - minimumWindowSize.width
-                : lewTransform.x
-            }px, 0px, 0)`
-          : undefined,
-      }}
-    >
+    <ScrollAreaWindowContext.Provider value={viewport}>
       <Box
+        className={classes.windowOuter}
+        onClick={focusing}
+        ref={windowRef}
         style={{
-          position: 'absolute',
-          height: 8,
-          width: 8,
-          bottom: 0,
-          right: 0,
-          zIndex: 1,
-          cursor: 'nwse-resize',
+          backgroundColor: focused ? undefined : '#bcbcbc',
+          paddingBottom: minimized ? 0 : undefined,
+          zIndex,
+          height: minimized
+            ? undefined
+            : nwseTransform
+            ? nwseTransform.y + height < minimumWindowSize.height
+              ? minimumWindowSize.height
+              : nwseTransform.y + height
+            : neswTransform
+            ? neswTransform.y + height < minimumWindowSize.height
+              ? minimumWindowSize.height
+              : neswTransform.y + height
+            : nsTransform
+            ? nsTransform.y + height < minimumWindowSize.height
+              ? minimumWindowSize.height
+              : nsTransform.y + height
+            : height,
+          width: nwseTransform
+            ? nwseTransform.x + width < minimumWindowSize.width
+              ? minimumWindowSize.width
+              : nwseTransform.x + width
+            : neswTransform
+            ? -neswTransform.x + width < minimumWindowSize.width
+              ? minimumWindowSize.width
+              : -neswTransform.x + width
+            : lewTransform
+            ? -lewTransform.x + width < minimumWindowSize.width
+              ? minimumWindowSize.width
+              : -lewTransform.x + width
+            : rewTransform
+            ? rewTransform.x + width < minimumWindowSize.width
+              ? minimumWindowSize.width
+              : rewTransform.x + width
+            : width,
+          top,
+          left,
+          transform: transform
+            ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+            : neswTransform
+            ? `translate3d(${
+                -neswTransform.x + width < minimumWindowSize.width
+                  ? width - minimumWindowSize.width
+                  : neswTransform.x
+              }px, 0px, 0)`
+            : lewTransform
+            ? `translate3d(${
+                -lewTransform.x + width < minimumWindowSize.width
+                  ? width - minimumWindowSize.width
+                  : lewTransform.x
+              }px, 0px, 0)`
+            : undefined,
         }}
-        ref={nwseSetNodeRef}
-        {...nwseListeners}
-        {...nwseAttributes}
-      />
-      <Box
-        style={{
-          position: 'absolute',
-          height: 8,
-          width: 8,
-          bottom: 0,
-          left: 0,
-          zIndex: 1,
-          cursor: 'nesw-resize',
-        }}
-        ref={neswSetNodeRef}
-        {...neswListeners}
-        {...neswAttributes}
-      />
-      <Box
-        style={{
-          position: 'absolute',
-          width: 8,
-          top: 30,
-          bottom: 8,
-          left: 0,
-          zIndex: 1,
-          cursor: 'ew-resize',
-        }}
-        ref={lewSetNodeRef}
-        {...lewListeners}
-        {...lewAttributes}
-      />
-      <Box
-        style={{
-          position: 'absolute',
-          width: 8,
-          top: 30,
-          bottom: 8,
-          right: 0,
-          zIndex: 1,
-          cursor: 'ew-resize',
-        }}
-        ref={rewSetNodeRef}
-        {...rewListeners}
-        {...rewAttributes}
-      />
-      <Box
-        style={{
-          position: 'absolute',
-          height: 8,
-          bottom: 0,
-          right: 8,
-          left: 8,
-          zIndex: 1,
-          cursor: 'ns-resize',
-        }}
-        ref={nsSetNodeRef}
-        {...nsListeners}
-        {...nsAttributes}
-      />
-
-      <Box className={classes.windowBar}>
+      >
         <Box
-          className={classes.button}
-          onClick={(event) => {
-            event.stopPropagation();
-            deleting();
+          style={{
+            position: 'absolute',
+            height: 8,
+            width: 8,
+            bottom: 0,
+            right: 0,
+            zIndex: 1,
+            cursor: 'nwse-resize',
           }}
+          ref={nwseSetNodeRef}
+          {...nwseListeners}
+          {...nwseAttributes}
         />
         <Box
-          style={{ cursor: maximized ? 'default' : undefined }}
-          className={classes.dragHandle}
-          ref={setNodeRef}
-          {...listeners}
-          {...attributes}
-        >
-          <Box className={classes.stripes}>
-            {focused && (
-              <>
-                <Box className={classes.stripe} />
-                <Box className={classes.stripe} />
-                <Box className={classes.stripe} />
-                <Box className={classes.stripe} />
-              </>
-            )}
-          </Box>
-          <Group gap={5} px={10} wrap="nowrap">
-            <Image
-              src={windowIcon}
-              alt="logo"
-              width={0}
-              height={0}
-              style={{ width: 'auto', height: '70%' }}
-            />
-            {windowTitle}
-          </Group>
-          <Box className={classes.stripes}>
-            {focused && (
-              <>
-                <Box className={classes.stripe} />
-                <Box className={classes.stripe} />
-                <Box className={classes.stripe} />
-                <Box className={classes.stripe} />
-              </>
-            )}
-          </Box>
-        </Box>
-        <Group gap={3}>
-          <Box
-            className={classes.button}
-            onClick={(event) => {
-              if (minimized) setMinimized((value) => !value);
-              event.stopPropagation();
-              setMaximized();
-            }}
-          >
-            <Box className={classes.maximizeButtonBox} />
-          </Box>
-          <Box
-            style={{ display: 'flex', alignItems: 'center' }}
-            className={classes.button}
-            onClick={(event) => {
-              setMinimized((value) => !value);
-              event.stopPropagation();
-              if (!minimized && maximized) setMaximized();
-              else focusing();
-            }}
-          >
-            <Box className={classes.minimizeButtonBox} />
-          </Box>
-        </Group>
-      </Box>
+          style={{
+            position: 'absolute',
+            height: 8,
+            width: 8,
+            bottom: 0,
+            left: 0,
+            zIndex: 1,
+            cursor: 'nesw-resize',
+          }}
+          ref={neswSetNodeRef}
+          {...neswListeners}
+          {...neswAttributes}
+        />
+        <Box
+          style={{
+            position: 'absolute',
+            width: 8,
+            top: 30,
+            bottom: 8,
+            left: 0,
+            zIndex: 1,
+            cursor: 'ew-resize',
+          }}
+          ref={lewSetNodeRef}
+          {...lewListeners}
+          {...lewAttributes}
+        />
+        <Box
+          style={{
+            position: 'absolute',
+            width: 8,
+            top: 30,
+            bottom: 8,
+            right: 0,
+            zIndex: 1,
+            cursor: 'ew-resize',
+          }}
+          ref={rewSetNodeRef}
+          {...rewListeners}
+          {...rewAttributes}
+        />
+        <Box
+          style={{
+            position: 'absolute',
+            height: 8,
+            bottom: 0,
+            right: 8,
+            left: 8,
+            zIndex: 1,
+            cursor: 'ns-resize',
+          }}
+          ref={nsSetNodeRef}
+          {...nsListeners}
+          {...nsAttributes}
+        />
 
-      {!minimized && (
-        <Box className={classes.windowInner} ref={mainContainer}>
-          {scrollBar ? (
-            <ScrollArea
-              classNames={{
-                scrollbar: classes.scrollBar,
-                corner: classes.corner,
-                thumb: classes.scrollThumb,
-                viewport: classes.viewportInner,
+        <Box className={classes.windowBar}>
+          <Box
+            className={classes.button}
+            onClick={(event) => {
+              event.stopPropagation();
+              deleting();
+            }}
+          />
+          <Box
+            style={{ cursor: maximized ? 'default' : undefined }}
+            className={classes.dragHandle}
+            ref={setNodeRef}
+            {...listeners}
+            {...attributes}
+          >
+            <Box className={classes.stripes}>
+              {focused && (
+                <>
+                  <Box className={classes.stripe} />
+                  <Box className={classes.stripe} />
+                  <Box className={classes.stripe} />
+                  <Box className={classes.stripe} />
+                </>
+              )}
+            </Box>
+            <Group gap={5} px={10} wrap="nowrap">
+              <Image
+                src={windowIcon}
+                alt="logo"
+                width={0}
+                height={0}
+                style={{ width: 'auto', height: '70%' }}
+              />
+              {windowTitle}
+            </Group>
+            <Box className={classes.stripes}>
+              {focused && (
+                <Box>
+                  <Box className={classes.stripe} />
+                  <Box className={classes.stripe} />
+                  <Box className={classes.stripe} />
+                  <Box className={classes.stripe} />
+                </Box>
+              )}
+            </Box>
+          </Box>
+          <Group gap={3}>
+            <Box
+              className={classes.button}
+              onClick={(event) => {
+                if (minimized) setMinimized((value) => !value);
+                event.stopPropagation();
+                setMaximized();
               }}
-              styles={{
-                scrollbar: {
-                  visibility: scrollBarHidden ? 'collapse' : undefined, //hide
-                },
-                viewport: {
-                  paddingRight: scrollBarHidden ? 0 : undefined, //hide
-                  // '& > div:first-child': {
-                  //   // Styles pour le premier enfant
-                  //   color: 'red',
-                  // },
-                },
-              }}
-              style={{ position: 'relative' }}
-              viewportRef={viewport}
-              scrollbarSize={20}
-              mah="100%"
-              h="100%"
-              type="always"
-              offsetScrollbars="y"
             >
-              <Box
-                className={classes.scrollButtons}
-                style={{
-                  visibility: scrollBarHidden ? 'collapse' : undefined, //hide
+              <Box className={classes.maximizeButtonBox} />
+            </Box>
+            <Box
+              style={{ display: 'flex', alignItems: 'center' }}
+              className={classes.button}
+              onClick={(event) => {
+                setMinimized((value) => !value);
+                event.stopPropagation();
+                if (!minimized && maximized) setMaximized();
+                else focusing();
+              }}
+            >
+              <Box className={classes.minimizeButtonBox} />
+            </Box>
+          </Group>
+        </Box>
+
+        {!minimized && (
+          <Box className={classes.windowInner} ref={mainContainer}>
+            {scrollBar ? (
+              <ScrollArea
+                classNames={{
+                  scrollbar: classes.scrollBar,
+                  corner: classes.corner,
+                  thumb: classes.scrollThumb,
+                  viewport: classes.viewportInner,
                 }}
+                styles={{
+                  scrollbar: {
+                    visibility: scrollBarHidden ? 'collapse' : undefined, //hide
+                  },
+                  viewport: {
+                    paddingRight: scrollBarHidden ? 0 : undefined, //hide
+                    // '& > div:first-child': {
+                    //   // Styles pour le premier enfant
+                    //   color: 'red',
+                    // },
+                  },
+                }}
+                style={{ position: 'relative' }}
+                viewportRef={viewport}
+                scrollbarSize={20}
+                mah="100%"
+                h="100%"
+                type="always"
+                offsetScrollbars="y"
               >
                 <Box
-                  className={classes.scrollButton}
-                  onMouseDown={startRepeatingUp}
-                  onMouseUp={stopRepeatingUp}
-                  onMouseLeave={stopRepeatingUp}
-                  pb={2}
+                  className={classes.scrollButtons}
+                  style={{
+                    visibility: scrollBarHidden ? 'collapse' : undefined, //hide
+                  }}
                 >
-                  <Image src={arrowUp} alt="arrow Up" />
+                  <Box
+                    className={classes.scrollButton}
+                    onMouseDown={startRepeatingUp}
+                    onMouseUp={stopRepeatingUp}
+                    onMouseLeave={stopRepeatingUp}
+                    pb={2}
+                  >
+                    <Image src={arrowUp} alt="arrow Up" />
+                  </Box>
+                  <Box
+                    className={classes.scrollButton}
+                    onMouseDown={startRepeatingDown}
+                    onMouseUp={stopRepeatingDown}
+                    onMouseLeave={stopRepeatingDown}
+                    pt={2}
+                  >
+                    <Image src={arrowDown} alt="arrow Down" />
+                  </Box>
                 </Box>
-                <Box
-                  className={classes.scrollButton}
-                  onMouseDown={startRepeatingDown}
-                  onMouseUp={stopRepeatingDown}
-                  onMouseLeave={stopRepeatingDown}
-                  pt={2}
-                >
-                  <Image src={arrowDown} alt="arrow Down" />
-                </Box>
+                {children}
+              </ScrollArea>
+            ) : (
+              <Box h="100%" style={{ overflow: 'hidden' }}>
+                {children}
               </Box>
-              {children}
-            </ScrollArea>
-          ) : (
-            <Box h="100%" style={{ overflow: 'hidden' }}>
-              {children}
-            </Box>
-          )}
-        </Box>
-      )}
-    </Box>
+            )}
+          </Box>
+        )}
+      </Box>
+    </ScrollAreaWindowContext.Provider>
   );
 }
