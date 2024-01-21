@@ -111,6 +111,38 @@ export default function TerminalWindow(): JSX.Element {
     return Object.keys(currentPath).join('\n');
   }
 
+  function catCommand(param: string) {
+    if (!param) return 'Usage: open [filename]';
+
+    const newPath =
+      param[0] === '/'
+        ? param.replace(/(?<!^)\/$/, '')
+        : `${currentDirectory}/${param}`.replace(/(?<!^)\/$/, '').replace('//', '/');
+
+    const pathParts = newPath.split('/').filter((part) => part.length > 0);
+
+    let currentPath = fileSystem;
+    let foundFile = null;
+
+    pathParts.some((part) => {
+      if (currentPath[part]) {
+        if (typeof currentPath[part] === 'string') {
+          foundFile = currentPath[part];
+          return true; // Arrête l'itération
+        }
+        if (typeof currentPath[part] === 'object') {
+          currentPath = currentPath[part] as fileSystemType;
+          return false; // Continue l'itération
+        }
+        return false; // Continue l'itération
+      }
+      foundFile = `cat : ${param}: Cannot open file`;
+      return true; // Arrête l'itération
+    });
+
+    return foundFile || `cat : ${param}: Not a text file`;
+  }
+
   function openCommand(param: string) {
     if (param) {
       const newPath =
@@ -236,6 +268,10 @@ export default function TerminalWindow(): JSX.Element {
     },
     open: (params) => {
       const output = openCommand(params);
+      return <>{output && formatText(output)} </>;
+    },
+    cat: (params) => {
+      const output = catCommand(params);
       return <>{output && formatText(output)} </>;
     },
   };
