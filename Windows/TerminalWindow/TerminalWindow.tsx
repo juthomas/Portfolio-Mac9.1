@@ -298,7 +298,7 @@ export default function TerminalWindow(): JSX.Element {
       answer: (
         <>
           {formatText(
-            'Welcome to my portfolio terminal!\nSupported commands are:\n - cat   : Print .md & .txt files\n - cd    : Change directory\n - clear : Clear terminal \n - ls    : List directory\n - open  : Open .app files\n - pwd   : Current directory\n'
+            'Welcome to my portfolio terminal!\nBasic commands are:\n - cat   : Print .md & .txt files\n - cd    : Change directory\n - clear : Clear terminal \n - cmds  : List all commands\n - ls    : List directory\n - open  : Open .app files\n - pwd   : Current directory\n'
           )}
         </>
       ),
@@ -306,18 +306,25 @@ export default function TerminalWindow(): JSX.Element {
   ]);
 
   const commands: commandsType = {
-    pwd: () => {
-      setLastPromptError(false);
-      return formatText(currentDirectory);
+    cat: (params) => {
+      const output = catCommand(params);
+      return <>{output && formatText(output)} </>;
+    },
+    cd: (params) => {
+      const output = changeDirectory(params);
+      return <>{output && formatText(output)} </>;
     },
     clear: () => {
       setLastPromptError(false);
       setOldPrompts([]);
       return <></>;
     },
-    cd: (params) => {
-      const output = changeDirectory(params);
-      return <>{output && formatText(output)} </>;
+    cmds: () => {
+      const keysString = `Supported commands are:\n${Object.keys(commands)
+        .map((key) => ` - ${key}`)
+        .join('\n')}`;
+
+      return formatText(keysString);
     },
     ls: (params) => {
       const output = listDirectory(params);
@@ -327,9 +334,9 @@ export default function TerminalWindow(): JSX.Element {
       const output = openCommand(params);
       return <>{output && formatText(output)} </>;
     },
-    cat: (params) => {
-      const output = catCommand(params);
-      return <>{output && formatText(output)} </>;
+    pwd: () => {
+      setLastPromptError(false);
+      return formatText(currentDirectory);
     },
     reboot: () => {
       setTimeout(() => {
