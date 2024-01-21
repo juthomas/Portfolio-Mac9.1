@@ -348,6 +348,10 @@ export default function TerminalWindow(): JSX.Element {
               setPrompt('');
             }
             if (e.key === 'Tab') e.preventDefault();
+            if (e.key === 'ArrowUp') {
+              oldPrompts?.length && setPrompt(oldPrompts[(oldPrompts?.length || 1) - 1].prompt);
+            }
+            console.log('Key pressed :', e.key);
           }}
           onChange={(event) => setPrompt(event.target.value)}
           value={prompt}
