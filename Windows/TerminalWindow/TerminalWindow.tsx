@@ -117,6 +117,7 @@ export default function TerminalWindow(): JSX.Element {
   const [oldPrompts, setOldPrompts] = useState([
     {
       prompt: '',
+      location: '/home/juthomas',
       answer: (
         <>
           {formatText(
@@ -165,6 +166,13 @@ export default function TerminalWindow(): JSX.Element {
     return [firstWord, restOfSentence];
   }
 
+  function getCurrentDirectory(path: string) {
+    if (path === '/home/juthomas') {
+      return '~';
+    }
+    return path.match(/^(\/[^/]*)$|\/([^/]*)$/)?.[1] || path.match(/\/([^/]*)$/)?.[1] || '';
+  }
+
   return (
     <Stack
       onClick={() => {
@@ -188,7 +196,9 @@ export default function TerminalWindow(): JSX.Element {
               }}
             >
               <span className={`${classes.text} ${classes.prompt} ${classes.green}`}>➜&nbsp;</span>
-              <span className={`${classes.text} ${classes.prompt} ${classes.blue}`}>~&nbsp;</span>
+              <span className={`${classes.text} ${classes.prompt} ${classes.blue}`}>
+                {getCurrentDirectory(elem.location)}&nbsp;
+              </span>
               <span className={`${classes.text} ${classes.white} `}>{elem.prompt}</span>
             </p>
           )}
@@ -197,7 +207,9 @@ export default function TerminalWindow(): JSX.Element {
       ))}
       <Flex style={{ marginTop: -5 }}>
         <span className={`${classes.text} ${classes.prompt} ${classes.green}`}>➜&nbsp;</span>
-        <span className={`${classes.text} ${classes.prompt} ${classes.blue}`}>~&nbsp;</span>
+        <span className={`${classes.text} ${classes.prompt} ${classes.blue}`}>
+          {getCurrentDirectory(currentDirectory)}&nbsp;
+        </span>
         <input
           spellCheck="false"
           data-autofocus
@@ -210,15 +222,19 @@ export default function TerminalWindow(): JSX.Element {
                 ...old,
                 {
                   prompt: prompt || ' ',
-                  answer: !promptFunction
-                    ? <></>
-                    : commands[promptFunction]
-                    ? commands[promptFunction](promptParams)
-                    : formatText(`zsh: command not found: ${promptFunction}`),
+                  location: currentDirectory,
+                  answer: !promptFunction ? (
+                    <></>
+                  ) : commands[promptFunction] ? (
+                    commands[promptFunction](promptParams)
+                  ) : (
+                    formatText(`zsh: command not found: ${promptFunction}`)
+                  ),
                 },
               ]);
               setPrompt('');
             }
+            if (e.key === 'Tab') e.preventDefault();
           }}
           onChange={(event) => setPrompt(event.target.value)}
           value={prompt}
