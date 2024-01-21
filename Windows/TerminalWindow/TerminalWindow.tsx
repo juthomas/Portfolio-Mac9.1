@@ -17,6 +17,12 @@ const homeDirectory = '/Users/juthomas';
 export default function TerminalWindow(): JSX.Element {
   const windowContext = useContext(WindowManagerContext);
 
+  function openApplication(appId: string) {
+    setTimeout(() => {
+      windowContext?.OpenWindow && windowContext?.OpenWindow(appId);
+    }, 200);
+  }
+
   const fileSystem: fileSystemType = {
     Applications: {},
     Library: {},
@@ -28,19 +34,19 @@ export default function TerminalWindow(): JSX.Element {
           'Welcome to my portfolio terminal!\nSupported commands are:\n - cat   : Print .md & .txt files\n - cd    : Change directory\n - clear : Clear terminal \n - ls    : List directory\n - open  : Open .app files\n - pwd   : Current directory\n',
         Applications: {
           'Onefortree.app': () => {
-            windowContext?.OpenWindow && windowContext?.OpenWindow('onefortree');
+            openApplication('onefortree');
           },
           'Portfolio.app': () => {
-            windowContext?.OpenWindow && windowContext?.OpenWindow('main');
+            openApplication('main');
           },
           'Profile.app': () => {
-            windowContext?.OpenWindow && windowContext?.OpenWindow('profile');
+            openApplication('profile');
           },
           'Contact.app': () => {
-            windowContext?.OpenWindow && windowContext?.OpenWindow('contact');
+            openApplication('contact');
           },
           'Projects.app': () => {
-            windowContext?.OpenWindow && windowContext?.OpenWindow('projects');
+            openApplication('projects');
           },
         },
         Desktop: {},
@@ -79,7 +85,7 @@ export default function TerminalWindow(): JSX.Element {
   };
   const [currentDirectory, setCurrentDirectory] = useState(homeDirectory);
   const [oldDirectory, setOldDirectory] = useState(homeDirectory);
-
+  const [lastPromptError, setLastPromptError] = useState(false);
   function listDirectory(param: string) {
     let directoryToList = currentDirectory;
 
@@ -120,6 +126,7 @@ export default function TerminalWindow(): JSX.Element {
     if (!pathExists) {
       return `ls: ${directoryToList}: No such file or directory`;
     }
+    setLastPromptError(false);
 
     // Récupérer les clés du répertoire courant pour les lister
     return Object.keys(currentPath).join('\n');
@@ -147,6 +154,7 @@ export default function TerminalWindow(): JSX.Element {
 
         if (typeof currentPath[part] === 'string') {
           outputMessage = currentPath[part];
+          setLastPromptError(false);
           return true; // Arrête l'itération
         }
         if (typeof currentPath[part] === 'object') {
@@ -180,6 +188,7 @@ export default function TerminalWindow(): JSX.Element {
         if (typeof currentPath[part] === 'function') {
           const appFunction = currentPath[part];
           outputMessage = typeof appFunction === 'function' ? appFunction() : null;
+          setLastPromptError(false);
           return true; // Arrête l'itération
         }
         if (typeof currentPath[part] === 'string') {
@@ -203,12 +212,19 @@ export default function TerminalWindow(): JSX.Element {
     if (param === '') {
       setOldDirectory(currentDirectory);
       setCurrentDirectory(homeDirectory);
+      setLastPromptError(false);
       return '';
     }
     if (param === '-') {
       const tmpOldDirectory = oldDirectory;
       setOldDirectory(currentDirectory);
       setCurrentDirectory(tmpOldDirectory);
+      setLastPromptError(false);
+      return '';
+    }
+    if (param === '.') {
+      setOldDirectory(currentDirectory);
+      setLastPromptError(false);
       return '';
     }
     if (param === '..') {
@@ -219,6 +235,7 @@ export default function TerminalWindow(): JSX.Element {
           ? currentDirectory.substring(0, lastSlashIndex + 1).replace(/(?<!^)\/$/, '')
           : currentDirectory
       );
+      setLastPromptError(false);
       return '';
     }
     const newPath =
@@ -243,6 +260,8 @@ export default function TerminalWindow(): JSX.Element {
     setOldDirectory(currentDirectory);
 
     setCurrentDirectory(newPath);
+    setLastPromptError(false);
+
     return '';
   }
 
@@ -268,6 +287,7 @@ export default function TerminalWindow(): JSX.Element {
     {
       prompt: '',
       location: homeDirectory,
+      error: false,
       answer: (
         <>
           {formatText(
@@ -279,8 +299,12 @@ export default function TerminalWindow(): JSX.Element {
   ]);
 
   const commands: commandsType = {
-    pwd: () => formatText(currentDirectory),
+    pwd: () => {
+      setLastPromptError(false);
+      return formatText(currentDirectory);
+    },
     clear: () => {
+      setLastPromptError(false);
       setOldPrompts([]);
       return <></>;
     },
@@ -356,7 +380,13 @@ export default function TerminalWindow(): JSX.Element {
                 whiteSpace: 'pre-wrap',
               }}
             >
-              <span className={`${classes.text} ${classes.prompt} ${classes.green}`}>➜&nbsp;</span>
+              <span
+                className={`${classes.text} ${classes.prompt} ${
+                  elem.error ? classes.red : classes.green
+                }`}
+              >
+                ➜&nbsp;
+              </span>
               <span className={`${classes.text} ${classes.prompt} ${classes.blue}`}>
                 {getCurrentDirectory(elem.location)}&nbsp;
               </span>
@@ -367,7 +397,13 @@ export default function TerminalWindow(): JSX.Element {
         </Box>
       ))}
       <Flex style={{ marginTop: -5 }}>
-        <span className={`${classes.text} ${classes.prompt} ${classes.green}`}>➜&nbsp;</span>
+        <span
+          className={`${classes.text} ${classes.prompt} ${
+            lastPromptError ? classes.red : classes.green
+          }`}
+        >
+          ➜&nbsp;
+        </span>
         <span className={`${classes.text} ${classes.prompt} ${classes.blue}`}>
           {getCurrentDirectory(currentDirectory)}&nbsp;
         </span>
@@ -378,12 +414,13 @@ export default function TerminalWindow(): JSX.Element {
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               const [promptFunction, promptParams] = splitFirstWord(prompt);
-
+              setLastPromptError(true);
               setOldPrompts((old) => [
                 ...old,
                 {
                   prompt: prompt || ' ',
                   location: currentDirectory,
+                  error: lastPromptError,
                   answer: !promptFunction ? (
                     <></>
                   ) : commands[promptFunction] ? (
@@ -418,6 +455,7 @@ export default function TerminalWindow(): JSX.Element {
                 ...old,
                 {
                   prompt: prompt || ' ',
+                  error: lastPromptError,
                   location: currentDirectory,
                   answer: <></>,
                 },
