@@ -6,13 +6,55 @@ type commandsType = {
   [key: string]: (param: string) => JSX.Element;
 };
 
-export default function TerminalWindow(): JSX.Element {
-  const [currentDirectory, setCurrentDirectory] = useState('/home/juthomas');
+type fileSystemType = {
+  [key: string]: fileSystemType | string;
+};
 
-  type fileSystemType = {
-    [key: string]: fileSystemType | string;
-  };
-  const fileSystem: fileSystemType = { home: { juthomas: { applications: {} }, guest: {} } };
+const fileSystem: fileSystemType = {
+  Applications: {},
+  Library: {},
+  System: {},
+  Users: {
+    juthomas: {
+      'README.md': 'test',
+      Applications: {},
+      Desktop: {},
+      Documents: {},
+      Downloads: {},
+      Library: {},
+      Movies: {},
+      Music: {},
+      Pictures: {},
+      Public: {},
+    },
+    guest: {
+      Applications: {},
+      Desktop: {},
+      Documents: {},
+      Downloads: {},
+      Library: {},
+      Movies: {},
+      Music: {},
+      Pictures: {},
+      Public: {},
+    },
+  },
+  Volumes: {},
+  bin: {},
+  cores: {},
+  dev: {},
+  etc: {},
+  home: {},
+  opt: {},
+  private: {},
+  sbin: {},
+  tmp: {},
+  usr: {},
+  var: {},
+};
+
+export default function TerminalWindow(): JSX.Element {
+  const [currentDirectory, setCurrentDirectory] = useState('/Users/juthomas');
 
   function listDirectory(param: string) {
     let directoryToList = currentDirectory;
@@ -61,7 +103,7 @@ export default function TerminalWindow(): JSX.Element {
 
   function changeDirectory(param: string) {
     if (param === '') {
-      setCurrentDirectory('/home/juthomas');
+      setCurrentDirectory('/Users/juthomas');
       return '';
     }
     if (param === '..') {
@@ -81,7 +123,7 @@ export default function TerminalWindow(): JSX.Element {
     const pathParts = newPath.split('/').filter((part) => part.length > 0);
 
     let currentPath = fileSystem;
-    const exists = pathParts.every((part) => {
+    const error = pathParts.every((part) => {
       if (currentPath[part] && typeof currentPath[part] === 'object') {
         currentPath = currentPath[part] as fileSystemType;
         return true;
@@ -89,7 +131,7 @@ export default function TerminalWindow(): JSX.Element {
       return false;
     });
 
-    if (!exists) {
+    if (!error) {
       return `cd: no such file or directory: ${param}`;
     }
     setCurrentDirectory(newPath);
@@ -117,7 +159,7 @@ export default function TerminalWindow(): JSX.Element {
   const [oldPrompts, setOldPrompts] = useState([
     {
       prompt: '',
-      location: '/home/juthomas',
+      location: '/Users/juthomas',
       answer: (
         <>
           {formatText(
@@ -167,7 +209,7 @@ export default function TerminalWindow(): JSX.Element {
   }
 
   function getCurrentDirectory(path: string) {
-    if (path === '/home/juthomas') {
+    if (path === '/Users/juthomas') {
       return '~';
     }
     return path.match(/^(\/[^/]*)$|\/([^/]*)$/)?.[1] || path.match(/\/([^/]*)$/)?.[1] || '';
