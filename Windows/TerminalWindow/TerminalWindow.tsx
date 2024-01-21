@@ -225,6 +225,7 @@ export default function TerminalWindow(): JSX.Element {
       pos="relative"
       bg="#222"
       gap={0}
+      style={{ cursor: 'text' }}
     >
       {oldPrompts.map((elem, index) => (
         <Box mb={1} key={index}>
