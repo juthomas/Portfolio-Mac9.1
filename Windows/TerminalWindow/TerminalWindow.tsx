@@ -78,6 +78,7 @@ export default function TerminalWindow(): JSX.Element {
     var: {},
   };
   const [currentDirectory, setCurrentDirectory] = useState(homeDirectory);
+  const [oldDirectory, setOldDirectory] = useState(homeDirectory);
 
   function listDirectory(param: string) {
     let directoryToList = currentDirectory;
@@ -203,6 +204,13 @@ export default function TerminalWindow(): JSX.Element {
       setCurrentDirectory(homeDirectory);
       return '';
     }
+    if (param === '-') {
+      const tmpOldDirectory = oldDirectory;
+      setOldDirectory(currentDirectory);
+
+      setCurrentDirectory(tmpOldDirectory);
+      return '';
+    }
     if (param === '..') {
       const lastSlashIndex = currentDirectory.lastIndexOf('/');
       setCurrentDirectory(
@@ -231,6 +239,8 @@ export default function TerminalWindow(): JSX.Element {
     if (!error) {
       return `cd: no such file or directory: ${param}`;
     }
+    setOldDirectory(currentDirectory);
+
     setCurrentDirectory(newPath);
     return '';
   }
