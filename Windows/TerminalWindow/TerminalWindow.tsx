@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Box, Flex, Stack, Text } from '@mantine/core';
 import { useRouter } from 'next/navigation';
 import classes from './TerminalWindow.module.css';
@@ -23,7 +23,7 @@ export default function TerminalWindow(): JSX.Element {
     }, 200);
   }
 
-  const [fileSystem] = useState<fileSystemType>({
+  const [fileSystem, setFileSystem] = useState<fileSystemType>({
     Applications: {},
     Library: {},
     System: {},
@@ -96,6 +96,21 @@ export default function TerminalWindow(): JSX.Element {
           .map((key) => ` - ${key}`)
           .join('\n')}`;
 
+        setFileSystem((prevOuter) => {
+          // Assurez-vous que prevOuter est un objet et contient la clé outerKey
+          if (prevOuter && typeof prevOuter === 'object' && prevOuter['bin']) {
+            // Copie profonde du dictionnaire interne
+            const newInner = { ...prevOuter['bin'] }; // Ici, prevOuter[outerKey] doit être un objet
+
+            // Supprime la clé du nouveau dictionnaire interne
+            delete newInner['cmds'];
+
+            // Retourne un nouvel objet avec le dictionnaire interne mis à jour
+            return { ...prevOuter, ['bin']: newInner };
+          }
+          return prevOuter;
+        });
+
         return formatText(keysString);
       },
       ls: (params) => {
@@ -134,9 +149,17 @@ export default function TerminalWindow(): JSX.Element {
     usr: {},
     var: {},
   } as fileSystemType);
+
+  const fileSystemRef = useRef(fileSystem);
+
+  useEffect(() => {
+    fileSystemRef.current = fileSystem; // Met à jour la référence à chaque changement de monEtat
+  }, [fileSystem]);
+
   const [currentDirectory, setCurrentDirectory] = useState(homeDirectory);
   const [oldDirectory, setOldDirectory] = useState(homeDirectory);
   const [lastPromptError, setLastPromptError] = useState(false);
+
   function listDirectory(param: string) {
     let directoryToList = currentDirectory;
 
@@ -148,7 +171,7 @@ export default function TerminalWindow(): JSX.Element {
 
       const pathParts = newPath.split('/').filter((part) => part.length > 0);
 
-      let currentPath = fileSystem;
+      let currentPath = fileSystemRef.current;
       const exists = pathParts.every((part) => {
         if (currentPath[part] && typeof currentPath[part] === 'object') {
           currentPath = currentPath[part] as fileSystemType;
@@ -165,7 +188,7 @@ export default function TerminalWindow(): JSX.Element {
 
     const pathParts = directoryToList.split('/').filter((part) => part.length > 0);
 
-    let currentPath = fileSystem as fileSystemType;
+    let currentPath = fileSystemRef.current as fileSystemType;
     const pathExists = pathParts.every((part) => {
       if (typeof currentPath[part] === 'object' && currentPath[part] !== null) {
         currentPath = currentPath[part] as fileSystemType;
