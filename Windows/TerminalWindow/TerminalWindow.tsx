@@ -14,8 +14,22 @@ const homeDirectory = '/Users/juthomas';
 
 export default function TerminalWindow(): JSX.Element {
   const router = useRouter();
-
+  const [currentDirectory, setCurrentDirectory] = useState(homeDirectory);
+  const [oldDirectory, setOldDirectory] = useState(homeDirectory);
+  const [lastPromptError, setLastPromptError] = useState(false);
   const windowContext = useContext(WindowManagerContext);
+
+  const currentDirectoryRef = useRef(currentDirectory);
+
+  useEffect(() => {
+    currentDirectoryRef.current = currentDirectory; // Met à jour la référence à chaque changement de monEtat
+  }, [currentDirectory]);
+
+  const oldDirectoryRef = useRef(oldDirectory);
+
+  useEffect(() => {
+    oldDirectoryRef.current = oldDirectory; // Met à jour la référence à chaque changement de monEtat
+  }, [oldDirectory]);
 
   function openApplication(appId: string) {
     setTimeout(() => {
@@ -123,7 +137,7 @@ export default function TerminalWindow(): JSX.Element {
       },
       pwd: () => {
         setLastPromptError(false);
-        return formatText(currentDirectory);
+        return formatText(currentDirectoryRef.current);
       },
       reboot: () => {
         setTimeout(() => {
@@ -156,18 +170,14 @@ export default function TerminalWindow(): JSX.Element {
     fileSystemRef.current = fileSystem; // Met à jour la référence à chaque changement de monEtat
   }, [fileSystem]);
 
-  const [currentDirectory, setCurrentDirectory] = useState(homeDirectory);
-  const [oldDirectory, setOldDirectory] = useState(homeDirectory);
-  const [lastPromptError, setLastPromptError] = useState(false);
-
   function listDirectory(param: string) {
-    let directoryToList = currentDirectory;
+    let directoryToList = currentDirectoryRef.current;
 
     if (param) {
       const newPath =
         param[0] === '/'
           ? param.replace(/(?<!^)\/$/, '')
-          : `${currentDirectory}/${param}`.replace(/(?<!^)\/$/, '').replace('//', '/');
+          : `${currentDirectoryRef.current}/${param}`.replace(/(?<!^)\/$/, '').replace('//', '/');
 
       const pathParts = newPath.split('/').filter((part) => part.length > 0);
 
@@ -306,30 +316,30 @@ export default function TerminalWindow(): JSX.Element {
 
   function changeDirectory(param: string) {
     if (param === '') {
-      setOldDirectory(currentDirectory);
+      setOldDirectory(currentDirectoryRef.current);
       setCurrentDirectory(homeDirectory);
       setLastPromptError(false);
       return '';
     }
     if (param === '-') {
-      const tmpOldDirectory = oldDirectory;
-      setOldDirectory(currentDirectory);
+      const tmpOldDirectory = oldDirectoryRef.current;
+      setOldDirectory(currentDirectoryRef.current);
       setCurrentDirectory(tmpOldDirectory);
       setLastPromptError(false);
       return '';
     }
     if (param === '.') {
-      setOldDirectory(currentDirectory);
+      setOldDirectory(currentDirectoryRef.current);
       setLastPromptError(false);
       return '';
     }
     if (param === '..') {
-      const lastSlashIndex = currentDirectory.lastIndexOf('/');
-      setOldDirectory(currentDirectory);
+      const lastSlashIndex = currentDirectoryRef.current.lastIndexOf('/');
+      setOldDirectory(currentDirectoryRef.current);
       setCurrentDirectory(
         lastSlashIndex !== -1
-          ? currentDirectory.substring(0, lastSlashIndex + 1).replace(/(?<!^)\/$/, '')
-          : currentDirectory
+          ? currentDirectoryRef.current.substring(0, lastSlashIndex + 1).replace(/(?<!^)\/$/, '')
+          : currentDirectoryRef.current
       );
       setLastPromptError(false);
       return '';
@@ -337,7 +347,7 @@ export default function TerminalWindow(): JSX.Element {
     const newPath =
       param[0] === '/'
         ? param.replace(/(?<!^)\/$/, '')
-        : `${currentDirectory}/${param}`.replace(/(?<!^)\/$/, '').replace('//', '/');
+        : `${currentDirectoryRef.current}/${param}`.replace(/(?<!^)\/$/, '').replace('//', '/');
 
     const pathParts = newPath.split('/').filter((part) => part.length > 0);
 
@@ -353,7 +363,7 @@ export default function TerminalWindow(): JSX.Element {
     if (!error) {
       return `cd: no such file or directory: ${param}`;
     }
-    setOldDirectory(currentDirectory);
+    setOldDirectory(currentDirectoryRef.current);
 
     setCurrentDirectory(newPath);
     setLastPromptError(false);
