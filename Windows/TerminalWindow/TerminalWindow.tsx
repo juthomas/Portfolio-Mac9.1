@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import { useContext, useRef, useState } from 'react';
 import { Box, Flex, Stack, Text } from '@mantine/core';
 import { useRouter } from 'next/navigation';
@@ -5,12 +6,8 @@ import classes from './TerminalWindow.module.css';
 import { WindowManagerContext } from '@/components/WindowsManager/WindowManagerProvider';
 import { ScrollAreaWindowContext } from '@/components/DraggableElement/DraggableElement';
 
-type commandsType = {
-  [key: string]: (param: string) => JSX.Element;
-};
-
 type fileSystemType = {
-  [key: string]: fileSystemType | (() => void | string) | string;
+  [key: string]: fileSystemType | ((params?: string) => void | string | JSX.Element) | string;
 };
 
 const homeDirectory = '/Users/juthomas';
@@ -26,7 +23,7 @@ export default function TerminalWindow(): JSX.Element {
     }, 200);
   }
 
-  const fileSystem: fileSystemType = {
+  const [fileSystem] = useState<fileSystemType>({
     Applications: {},
     Library: {},
     System: {},
@@ -79,7 +76,53 @@ export default function TerminalWindow(): JSX.Element {
       },
     },
     Volumes: {},
-    bin: {},
+    bin: {
+      cat: (params) => {
+        const output = catCommand(params || '');
+        return <>{output && formatText(output)} </>;
+      },
+      cd: (params) => {
+        const output = changeDirectory(params || '');
+        return <>{output && formatText(output)} </>;
+      },
+      clear: () => {
+        setLastPromptError(false);
+        setOldPrompts([]);
+        return <></>;
+      },
+      cmds: () => {
+        setLastPromptError(false);
+        const keysString = `Supported commands are:\n${Object.keys(commands)
+          .map((key) => ` - ${key}`)
+          .join('\n')}`;
+
+        return formatText(keysString);
+      },
+      ls: (params) => {
+        const output = listDirectory(params || '');
+        return <>{output && formatText(output)} </>;
+      },
+      open: (params) => {
+        const output = openCommand(params || '');
+        return <>{output}</>;
+      },
+      pwd: () => {
+        setLastPromptError(false);
+        return formatText(currentDirectory);
+      },
+      reboot: () => {
+        setTimeout(() => {
+          router.push('/restart');
+        }, 200);
+        return <></>;
+      },
+      shutdown: () => {
+        setTimeout(() => {
+          router.push('/shutdown');
+        }, 200);
+        return <></>;
+      },
+    },
     cores: {},
     dev: {},
     etc: {},
@@ -90,7 +133,7 @@ export default function TerminalWindow(): JSX.Element {
     tmp: {},
     usr: {},
     var: {},
-  };
+  } as fileSystemType);
   const [currentDirectory, setCurrentDirectory] = useState(homeDirectory);
   const [oldDirectory, setOldDirectory] = useState(homeDirectory);
   const [lastPromptError, setLastPromptError] = useState(false);
@@ -122,7 +165,7 @@ export default function TerminalWindow(): JSX.Element {
 
     const pathParts = directoryToList.split('/').filter((part) => part.length > 0);
 
-    let currentPath = fileSystem;
+    let currentPath = fileSystem as fileSystemType;
     const pathExists = pathParts.every((part) => {
       if (typeof currentPath[part] === 'object' && currentPath[part] !== null) {
         currentPath = currentPath[part] as fileSystemType;
@@ -138,6 +181,25 @@ export default function TerminalWindow(): JSX.Element {
 
     // Récupérer les clés du répertoire courant pour les lister
     return Object.keys(currentPath).join('\n');
+  }
+
+  function formatText(value: string) {
+    const lines = value.split('\n').map((line, index) => (
+      // Utilisation de l'index comme clé n'est recommandée que si la liste des lignes ne change pas
+      <span key={index}>
+        {line}
+        {index < value.split('\n').length - 1 && <br />}
+      </span>
+    ));
+
+    return (
+      <Text
+        style={{ lineHeight: '0.95', whiteSpace: 'pre-wrap' }}
+        className={`${classes.text} ${classes.white} `}
+      >
+        {lines}
+      </Text>
+    );
   }
 
   function catCommand(param: string) {
@@ -188,7 +250,11 @@ export default function TerminalWindow(): JSX.Element {
     const pathParts = newPath.split('/').filter((part) => part.length > 0);
 
     let currentPath = fileSystem;
-    let outputMessage: string | void | null = `open : ${param}: Not an executable file`;
+    let outputMessage:
+      | string
+      | void
+      | JSX.Element
+      | null = `open : ${param}: Not an executable file`;
 
     pathParts.some((part) => {
       if (currentPath[part]) {
@@ -212,7 +278,7 @@ export default function TerminalWindow(): JSX.Element {
       return true; // Arrête l'itération
     });
 
-    return outputMessage;
+    return typeof outputMessage === 'string' ? formatText(outputMessage) : outputMessage;
   }
 
   function changeDirectory(param: string) {
@@ -272,24 +338,6 @@ export default function TerminalWindow(): JSX.Element {
     return '';
   }
 
-  function formatText(value: string) {
-    const lines = value.split('\n').map((line, index) => (
-      // Utilisation de l'index comme clé n'est recommandée que si la liste des lignes ne change pas
-      <span key={index}>
-        {line}
-        {index < value.split('\n').length - 1 && <br />}
-      </span>
-    ));
-
-    return (
-      <Text
-        style={{ lineHeight: '0.95', whiteSpace: 'pre-wrap' }}
-        className={`${classes.text} ${classes.white} `}
-      >
-        {lines}
-      </Text>
-    );
-  }
   const [oldPrompts, setOldPrompts] = useState([
     {
       prompt: '',
@@ -305,53 +353,56 @@ export default function TerminalWindow(): JSX.Element {
     },
   ]);
 
-  const commands: commandsType = {
-    cat: (params) => {
-      const output = catCommand(params);
-      return <>{output && formatText(output)} </>;
-    },
-    cd: (params) => {
-      const output = changeDirectory(params);
-      return <>{output && formatText(output)} </>;
-    },
-    clear: () => {
-      setLastPromptError(false);
-      setOldPrompts([]);
-      return <></>;
-    },
-    cmds: () => {
-      setLastPromptError(false);
-      const keysString = `Supported commands are:\n${Object.keys(commands)
-        .map((key) => ` - ${key}`)
-        .join('\n')}`;
+  const commands: fileSystemType | ((params?: string) => void | string | JSX.Element) | string =
+    fileSystem.bin;
 
-      return formatText(keysString);
-    },
-    ls: (params) => {
-      const output = listDirectory(params);
-      return <>{output && formatText(output)} </>;
-    },
-    open: (params) => {
-      const output = openCommand(params);
-      return <>{output && formatText(output)} </>;
-    },
-    pwd: () => {
-      setLastPromptError(false);
-      return formatText(currentDirectory);
-    },
-    reboot: () => {
-      setTimeout(() => {
-        router.push('/restart');
-      }, 200);
-      return <></>;
-    },
-    shutdown: () => {
-      setTimeout(() => {
-        router.push('/shutdown');
-      }, 200);
-      return <></>;
-    },
-  };
+  //   {
+  //     cat: (params) => {
+  //       const output = catCommand(params);
+  //       return <>{output && formatText(output)} </>;
+  //     },
+  //     cd: (params) => {
+  //       const output = changeDirectory(params);
+  //       return <>{output && formatText(output)} </>;
+  //     },
+  //     clear: () => {
+  //       setLastPromptError(false);
+  //       setOldPrompts([]);
+  //       return <></>;
+  //     },
+  //     cmds: () => {
+  //       setLastPromptError(false);
+  //       const keysString = `Supported commands are:\n${Object.keys(commands)
+  //         .map((key) => ` - ${key}`)
+  //         .join('\n')}`;
+
+  //       return formatText(keysString);
+  //     },
+  //     ls: (params) => {
+  //       const output = listDirectory(params);
+  //       return <>{output && formatText(output)} </>;
+  //     },
+  //     open: (params) => {
+  //       const output = openCommand(params);
+  //       return <>{output}</>;
+  //     },
+  //     pwd: () => {
+  //       setLastPromptError(false);
+  //       return formatText(currentDirectory);
+  //     },
+  //     reboot: () => {
+  //       setTimeout(() => {
+  //         router.push('/restart');
+  //       }, 200);
+  //       return <></>;
+  //     },
+  //     shutdown: () => {
+  //       setTimeout(() => {
+  //         router.push('/shutdown');
+  //       }, 200);
+  //       return <></>;
+  //     },
+  //   };
 
   const [prompt, setPrompt] = useState('');
 
@@ -441,8 +492,28 @@ export default function TerminalWindow(): JSX.Element {
           ref={ref}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
-              const [promptFunction, promptParams] = splitFirstWord(prompt);
               setLastPromptError(true);
+              const [promptFunction, promptParams] = splitFirstWord(prompt);
+              let command:
+                | string
+                | fileSystemType
+                | ((params?: string | undefined) => string | void | JSX.Element)
+                | null = null;
+              let tmpFunction: string | JSX.Element | null = null;
+
+              if (
+                typeof commands === 'object' &&
+                commands !== null &&
+                promptFunction in commands &&
+                typeof commands[promptFunction] === 'function'
+              ) {
+                command = commands[promptFunction];
+              }
+              if (command !== null && typeof command === 'function') {
+                tmpFunction = command(promptParams) || '';
+              }
+              // commands[promptFunction] ? (
+              // commands[promptFunction](promptParams)
               setOldPrompts((old) => [
                 ...old,
                 {
@@ -451,8 +522,8 @@ export default function TerminalWindow(): JSX.Element {
                   error: lastPromptError,
                   answer: !promptFunction ? (
                     <></>
-                  ) : commands[promptFunction] ? (
-                    commands[promptFunction](promptParams)
+                  ) : tmpFunction && typeof tmpFunction !== 'string' ? (
+                    tmpFunction
                   ) : (
                     formatText(`zsh: command not found: ${promptFunction}`)
                   ),
