@@ -114,7 +114,7 @@ export default function TerminalWindow(): JSX.Element {
           // Assurez-vous que prevOuter est un objet et contient la clé outerKey
           if (prevOuter && typeof prevOuter === 'object' && prevOuter['bin']) {
             // Copie profonde du dictionnaire interne
-            const newInner = { ...prevOuter['bin'] }; // Ici, prevOuter[outerKey] doit être un objet
+            const newInner = { ...prevOuter['bin'] as fileSystemType }; // Ici, prevOuter[outerKey] doit être un objet
 
             // Supprime la clé du nouveau dictionnaire interne
             delete newInner['cmds'];
@@ -239,31 +239,31 @@ export default function TerminalWindow(): JSX.Element {
     );
   }
 
-  // Fonction pour modifier une valeur dans un dictionnaire imbriqué
-  function modifyNestedValue(dictionary: NestedDictionary, keys: string[], newValue: any) {
-    let currentLevel = dictionary;
+  // // Fonction pour modifier une valeur dans un dictionnaire imbriqué
+  // function modifyNestedValue(dictionary: NestedDictionary, keys: string[], newValue: any) {
+  //   let currentLevel = dictionary;
 
-    // Parcourir toutes les clés sauf la dernière
-    for (let i = 0; i < keys.length - 1; i += 1) {
-      const key = keys[i];
+  //   // Parcourir toutes les clés sauf la dernière
+  //   for (let i = 0; i < keys.length - 1; i += 1) {
+  //     const key = keys[i];
 
-      // Vérifier si la clé existe
-      if (!(key in currentLevel)) {
-        throw new Error(`Key not found: ${key}`);
-      }
+  //     // Vérifier si la clé existe
+  //     if (!(key in currentLevel)) {
+  //       throw new Error(`Key not found: ${key}`);
+  //     }
 
-      currentLevel = currentLevel[key];
-    }
+  //     currentLevel = currentLevel[key];
+  //   }
 
-    // La dernière clé est celle de la valeur à modifier
-    const lastKey = keys[keys.length - 1];
-    if (!(lastKey in currentLevel)) {
-      throw new Error(`Key not found: ${lastKey}`);
-    }
+  //   // La dernière clé est celle de la valeur à modifier
+  //   const lastKey = keys[keys.length - 1];
+  //   if (!(lastKey in currentLevel)) {
+  //     throw new Error(`Key not found: ${lastKey}`);
+  //   }
 
-    // Modifier la valeur
-    currentLevel[lastKey] = newValue;
-  }
+  //   // Modifier la valeur
+  //   currentLevel[lastKey] = newValue;
+  // }
 
   function rmCommand(param: string) {
     if (!param) return 'Usage: rm [filename]';
