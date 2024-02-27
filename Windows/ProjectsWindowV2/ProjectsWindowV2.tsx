@@ -19,6 +19,10 @@ import NSDOS_4 from '@/assets/carousels/NSDOS/NSDOS_app_4.png';
 import NSDOS_5 from '@/assets/carousels/NSDOS/NSDOS_app_5.png';
 
 import { OpenButton } from '@/components/OpenButton/OpenButton';
+import React from 'react';
+import { StaticImageData } from 'next/image';
+
+
 
 export default function ProjectsWindowV2(): JSX.Element {
   const MDMA_slides = [{ image: mdma, alt: 'mdma image' }];
@@ -47,13 +51,14 @@ export default function ProjectsWindowV2(): JSX.Element {
 
   const data = [
     {
-      projectName: 'test1',
-      beginDate: 'test2',
-      endDate: 'test3',
-      type: 'test4',
+      projectName: 'One for tree',
+      beginDate: '2021',
+      endDate: '2022',
+      type: 'Gamejam / Personal Project',
       slides: OFT_slides,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
+      technologies: ['Typescript', 'React.js', 'Pixi.js', 'Node.js', 'Gitlab', 'Notion']
     },
     {
       projectName: 'test1',
@@ -189,6 +194,17 @@ export default function ProjectsWindowV2(): JSX.Element {
             <Text>Description</Text>
             <Text c="#4B4B4B">{data[selected].description}</Text>
           </Stack>
+          <Flex justify="space-between" gap={20}>
+            <Text>Technologies</Text>
+            <Flex justify="end" gap={6} wrap={'wrap'}>
+              {data[selected].technologies?.map((elem) => {
+
+
+                return <Text className={classes.technologychip} c="#4B4B4B">{elem}</Text>
+              })
+              }
+            </Flex>
+          </Flex>
           <Group justify="center">
             <OpenButton />
           </Group>

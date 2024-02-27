@@ -41,7 +41,11 @@
 
 }
 
-
+.technologychip {
+	background-color: #b3b2b2;
+	padding: 0px 5px 0px 4px;
+	color: black;
+}
 
 .thtd {
 	/* border-collapse: collapse; */
