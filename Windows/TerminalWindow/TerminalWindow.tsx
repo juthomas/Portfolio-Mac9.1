@@ -145,6 +145,10 @@ export default function TerminalWindow(): JSX.Element {
         }, 200);
         return <></>;
       },
+      rm: (params) => {
+        const output = rmCommand(params || '');
+        return <>{output && formatText(output)} </>;
+      },
       shutdown: () => {
         setTimeout(() => {
           router.push('/shutdown');
@@ -235,13 +239,101 @@ export default function TerminalWindow(): JSX.Element {
     );
   }
 
+  // Fonction pour modifier une valeur dans un dictionnaire imbriqué
+  function modifyNestedValue(dictionary: NestedDictionary, keys: string[], newValue: any) {
+    let currentLevel = dictionary;
+
+    // Parcourir toutes les clés sauf la dernière
+    for (let i = 0; i < keys.length - 1; i += 1) {
+      const key = keys[i];
+
+      // Vérifier si la clé existe
+      if (!(key in currentLevel)) {
+        throw new Error(`Key not found: ${key}`);
+      }
+
+      currentLevel = currentLevel[key];
+    }
+
+    // La dernière clé est celle de la valeur à modifier
+    const lastKey = keys[keys.length - 1];
+    if (!(lastKey in currentLevel)) {
+      throw new Error(`Key not found: ${lastKey}`);
+    }
+
+    // Modifier la valeur
+    currentLevel[lastKey] = newValue;
+  }
+
+  function rmCommand(param: string) {
+    if (!param) return 'Usage: rm [filename]';
+
+    const newPath =
+      param[0] === '/'
+        ? param.replace(/(?<!^)\/$/, '')
+        : `${currentDirectoryRef.current}/${param}`.replace(/(?<!^)\/$/, '').replace('//', '/');
+
+    const pathParts = newPath.split('/').filter((part) => part.length > 0);
+
+    let currentPath = fileSystemRef.current;
+    const exists = pathParts.every((part, index) => {
+      if (currentPath[part] && pathParts.length === index + 1) {
+        delete currentPath[part];
+        return true;
+      }
+      if (currentPath[part]) {
+        currentPath = currentPath[part] as fileSystemType;
+        return true;
+      }
+      return false;
+    });
+
+    setFileSystem(currentPath);
+
+    // let currentPath = fileSystemRef.current;
+    // const exists = pathParts.every((part, index) => {
+    //   if (currentPath[part]) {
+    //     if (pathParts.length === index + 1) {
+    //       // Supprime toutes les propriétés de l'objet
+    //       Object.keys(currentPath[part]).forEach((key) => {
+    //         delete currentPath[part][key];
+    //       });
+    //       return true;
+    //     }
+    //     currentPath = currentPath[part];
+    //     return true;
+    //   }
+    //   return false;
+    // });
+    // setFileSystem((prevOuter) => {
+    //   // Assurez-vous que prevOuter est un objet et contient la clé outerKey
+    //   if (prevOuter && typeof prevOuter === 'object' && prevOuter['bin']) {
+    //     // Copie profonde du dictionnaire interne
+    //     const newInner = { ...prevOuter['bin'] }; // Ici, prevOuter[outerKey] doit être un objet
+
+    //     // Supprime la clé du nouveau dictionnaire interne
+    //     delete newInner['cmds'];
+
+    //     // Retourne un nouvel objet avec le dictionnaire interne mis à jour
+    //     return { ...prevOuter, ['bin']: newInner };
+    //   }
+    //   return prevOuter;
+    // });
+
+    if (!exists) {
+      return `rm: ${param}: No such file or directory`;
+    }
+    return `rm: ${param}: exist`;
+    // directoryToList = newPath;
+  }
+
   function catCommand(param: string) {
     if (!param) return 'Usage: cat [filename]';
 
     const newPath =
       param[0] === '/'
         ? param.replace(/(?<!^)\/$/, '')
-        : `${currentDirectory}/${param}`.replace(/(?<!^)\/$/, '').replace('//', '/');
+        : `${currentDirectoryRef.current}/${param}`.replace(/(?<!^)\/$/, '').replace('//', '/');
 
     const pathParts = newPath.split('/').filter((part) => part.length > 0);
 
@@ -278,7 +370,7 @@ export default function TerminalWindow(): JSX.Element {
     const newPath =
       param[0] === '/'
         ? param.replace(/(?<!^)\/$/, '')
-        : `${currentDirectory}/${param}`.replace(/(?<!^)\/$/, '').replace('//', '/');
+        : `${currentDirectoryRef.current}/${param}`.replace(/(?<!^)\/$/, '').replace('//', '/');
 
     const pathParts = newPath.split('/').filter((part) => part.length > 0);
 
