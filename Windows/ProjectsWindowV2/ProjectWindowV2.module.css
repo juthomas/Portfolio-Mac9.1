@@ -33,7 +33,7 @@
 
 
 .td {
-	padding: 0;
+	padding: 0 0 0 2px;
 	height: 4x;
 	max-height: 4px;
 	border-bottom: 2px solid black;

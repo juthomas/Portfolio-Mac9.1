@@ -52,22 +52,26 @@ export default function ProjectsWindowV2(): JSX.Element {
   const data = [
     {
       projectName: 'One for tree',
+      type: 'Gamejam / Personal Project',
       beginDate: '2021',
       endDate: '2022',
-      type: 'Gamejam / Personal Project',
+      role: 'Lead Dev',
       slides: OFT_slides,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
       technologies: ['Typescript', 'React.js', 'Pixi.js', 'Node.js', 'Gitlab', 'Notion']
     },
     {
-      projectName: 'test1',
-      beginDate: 'test2',
-      endDate: 'test3',
-      type: 'test4',
-      slides: NSDOS_slides,
+      projectName: 'Projet Iota',
+      beginDate: '2022',
+      endDate: '2023',
+      type: 'CDD',
+      role: 'Designer & Front-end Developer',
+      slides: IOTA_slides,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
+      technologies: ['Typescript', 'React.js', 'Next.js', 'Three.js', 'Storybook.js', 'Gitlab', 'Notion', 'Figma']
+
     },
     {
       projectName: 'test1',
@@ -173,8 +177,8 @@ export default function ProjectsWindowV2(): JSX.Element {
         gap={10}
         style={{ flex: 1, padding: 10 }}
       >
-        <Carousel slides={OFT_slides} options={{ loop: true }} />
-        <Stack px={60} gap={10}>
+        <Carousel slides={data[selected].slides} options={{ loop: true }} />
+        <Stack px={60} gap={7}>
           <Text ta="center" fz={20}>
             {data[selected].projectName}
           </Text>
@@ -190,6 +194,10 @@ export default function ProjectsWindowV2(): JSX.Element {
             <Text>End Date</Text>
             <Text c="#4B4B4B">{data[selected].endDate}</Text>
           </Group>
+          <Group justify="space-between">
+            <Text>Role</Text>
+            <Text c="#4B4B4B">{data[selected].role}</Text>
+          </Group>
           <Stack gap={0}>
             <Text>Description</Text>
             <Text c="#4B4B4B">{data[selected].description}</Text>
@@ -200,12 +208,12 @@ export default function ProjectsWindowV2(): JSX.Element {
               {data[selected].technologies?.map((elem) => {
 
 
-                return <Text className={classes.technologychip} c="#4B4B4B">{elem}</Text>
+                return <Text className={classes.technologychip} c="#3B3B3B">{elem}</Text>
               })
               }
             </Flex>
           </Flex>
-          <Group justify="center">
+          <Group justify="center" mt={5}>
             <OpenButton />
           </Group>
         </Stack>
