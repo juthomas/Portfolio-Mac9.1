@@ -35,6 +35,9 @@ dependencies:
   cookies-next:
     specifier: ^4.1.1
     version: 4.1.1
+  embla-carousel:
+    specifier: ^8.0.0
+    version: 8.0.0
   embla-carousel-autoplay:
     specifier: 8.0.0
     version: 8.0.0(embla-carousel@8.0.0)

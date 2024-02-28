@@ -1,6 +1,15 @@
 import Image, { StaticImageData } from 'next/image';
 import React, { useCallback } from 'react';
-import useEmblaCarousel, { EmblaOptionsType, EmblaCarouselType } from 'embla-carousel-react';
+// import useEmblaCarousel, { EmblaOptionsType, EmblaCarouselType } from 'embla-carousel-react';
+
+import  {
+  type EmblaCarouselType,
+  type EmblaOptionsType,
+} from "embla-carousel"
+
+import useEmblaCarousel from "embla-carousel-react"
+
+
 import Autoplay from 'embla-carousel-autoplay';
 import { Box, Button, Flex, MantineStyleProp } from '@mantine/core';
 import { usePrevNextButtons } from './CarouselButtons';
