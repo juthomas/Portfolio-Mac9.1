@@ -74,6 +74,41 @@ export default function ProjectsWindowV2(): JSX.Element {
 
     },
     {
+      projectName: 'Lab Concept-Car',
+      beginDate: '2019',
+      endDate: '2020',
+      type: 'Freelance / Partnership ',
+      role: 'Researcher / Developer',
+      slides: IOTA_slides,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
+      technologies: ['Javascript', 'P5.js', 'Node.js', 'Gitlab', 'Flutter', 'Unity', 'C#']
+
+    },
+    {
+      projectName: 'ARG - CCNRB',
+      beginDate: '2023',
+      endDate: '2023',
+      type: 'Freelance',
+      role: 'Electronic & Web Developer',
+      slides: IOTA_slides,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
+      technologies: ['Typescript', 'React.js', 'Next.js', 'Gitlab', 'Figma', 'Python', 'Pygame', 'Raspberry']
+
+    },
+
+
+    {
+      projectName: 'test1',
+      beginDate: 'test2',
+      endDate: 'test3',
+      type: 'test4',
+      slides: IOTA_slides,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
+    },
+    {
       projectName: 'test1',
       beginDate: 'test2',
       endDate: 'test3',
@@ -175,7 +210,7 @@ export default function ProjectsWindowV2(): JSX.Element {
         align="stretch"
         justify="center"
         gap={10}
-        style={{ flex: 1, padding: 10 }}
+        style={{ flex: 1, padding: 20 }}
       >
         <Carousel slides={data[selected].slides} options={{ loop: true }} />
         <Stack px={60} gap={7}>
