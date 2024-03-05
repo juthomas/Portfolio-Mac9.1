@@ -138,7 +138,7 @@ export default function WindowsManagerProvider({ children }: { children: JSX.Ele
   ];
   useEffect(() => {
     const updatedWindowsList = windowsList
-      .filter((elem) => ['main', 'projectsV2'].includes(elem.id))
+      .filter((elem) => ['main'/* , 'projectsV2' */].includes(elem.id))
       .map((elem, index) => {
         const tmp = { ...elem, zIndex: index + 1 };
         if (tmp.coordinates.x === 'center') {
