@@ -22,8 +22,6 @@ import { OpenButton } from '@/components/OpenButton/OpenButton';
 import React from 'react';
 import { StaticImageData } from 'next/image';
 
-
-
 export default function ProjectsWindowV2(): JSX.Element {
   const MDMA_slides = [{ image: mdma, alt: 'mdma image' }];
 
@@ -52,14 +50,15 @@ export default function ProjectsWindowV2(): JSX.Element {
   const data = [
     {
       projectName: 'One for tree',
-      type: 'Gamejam / Personal Project',
       beginDate: '2021',
       endDate: '2022',
+      type: 'Gamejam / Personal Project',
+      domain: 'Web',
       role: 'Lead Dev',
       slides: OFT_slides,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
-      technologies: ['Typescript', 'React.js', 'Pixi.js', 'Node.js', 'Gitlab', 'Notion']
+      technologies: ['Typescript', 'React.js', 'Pixi.js', 'Node.js', 'Gitlab', 'Notion'],
     },
     {
       projectName: 'Projet Iota',
@@ -67,100 +66,113 @@ export default function ProjectsWindowV2(): JSX.Element {
       endDate: '2023',
       type: 'CDD',
       role: 'Designer & Front-end Developer',
+      domain: 'Web',
       slides: IOTA_slides,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
-      technologies: ['Typescript', 'React.js', 'Next.js', 'Three.js', 'Storybook.js', 'Gitlab', 'Notion', 'Figma']
-
+      technologies: [
+        'Typescript',
+        'React.js',
+        'Next.js',
+        'Three.js',
+        'Storybook.js',
+        'Gitlab',
+        'Notion',
+        'Figma',
+      ],
     },
     {
       projectName: 'Lab Concept-Car',
       beginDate: '2019',
       endDate: '2020',
       type: 'Freelance / Partnership ',
+      domain: 'Elec / Web',
       role: 'Researcher / Developer',
       slides: IOTA_slides,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
-      technologies: ['Javascript', 'P5.js', 'Node.js', 'Gitlab', 'Flutter', 'Unity', 'C#']
-
+      technologies: ['Javascript', 'P5.js', 'Node.js', 'Gitlab', 'Flutter', 'Unity', 'C#'],
     },
     {
       projectName: 'ARG - CCNRB',
       beginDate: '2023',
       endDate: '2023',
       type: 'Freelance',
+      domain: 'Elec / Web',
       role: 'Electronic & Web Developer',
       slides: IOTA_slides,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
-      technologies: ['Typescript', 'React.js', 'Next.js', 'Gitlab', 'Figma', 'Python', 'Pygame', 'Raspberry']
-
+      technologies: [
+        'Typescript',
+        'React.js',
+        'Next.js',
+        'Gitlab',
+        'Figma',
+        'Python',
+        'Pygame',
+        'Raspberry',
+      ],
     },
-
-
     {
-      projectName: 'test1',
-      beginDate: 'test2',
-      endDate: 'test3',
-      type: 'test4',
+      projectName: 'GE Power',
+      beginDate: '2018',
+      endDate: '2019',
+      type: 'Internship',
+      domain: 'App',
+      role: 'Software Engineer Junior',
       slides: IOTA_slides,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
+      technologies: ['C#', 'WPF', 'SQL'],
     },
     {
-      projectName: 'test1',
-      beginDate: 'test2',
-      endDate: 'test3',
-      type: 'test4',
+      projectName: 'NSDOS',
+      beginDate: '2020',
+      endDate: 'now',
+      type: 'Freelance',
+      domain: 'Elec / App',
+      role: '',
       slides: IOTA_slides,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
+      technologies: ['C++', 'Typescript', 'React.js', 'Raspberry', 'Vue.js', 'Electron.js', 'Fusion360'],
     },
     {
-      projectName: 'test1',
-      beginDate: 'test2',
-      endDate: 'test3',
-      type: 'test4',
-      slides: NSDOS_slides,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
-    },
-    {
-      projectName: 'test1',
-      beginDate: 'test2',
-      endDate: 'test3',
-      type: 'test4',
+      projectName: 'As-simt',
+      beginDate: '2020',
+      endDate: 'now',
+      type: 'Personal Project',
+      domain: 'Elec',
+      role: '',
       slides: IOTA_slides,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
+      technologies: ['C++', 'ESP32', 'Typescript', 'React.js', 'Fusion360'],
     },
     {
-      projectName: 'test1',
-      beginDate: 'test2',
-      endDate: 'test3',
-      type: 'test4',
-      slides: OFT_slides,
+      projectName: 'CNES',
+      beginDate: '2020',
+      endDate: 'now',
+      type: 'Freelance',
+      domain: 'Elec / App',
+      role: '',
+      slides: IOTA_slides,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
+      technologies: ['C', 'KiCad'],
     },
     {
-      projectName: 'test1',
-      beginDate: 'test2',
-      endDate: 'test3',
-      type: 'test4',
-      slides: NSDOS_slides,
+      projectName: 'Way to Silence',
+      beginDate: '2023',
+      endDate: '2024',
+      type: 'Freelance',
+      domain: 'Elec',
+      role: '',
+      slides: IOTA_slides,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
-    },
-    {
-      projectName: 'test1',
-      beginDate: 'test2',
-      endDate: 'test3',
-      type: 'test4',
-      slides: OFT_slides,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non urna imperdiet, pulvinar ligula suscipit, lacinia tortor. Quisque ornare purus nunc, at malesuada velit varius eu. Maecenas tempus at augue vitae fermentum. Etiam sit amet nulla nisi.',
+      technologies: ['C++', 'ESP32', 'KiCad'],
     },
   ];
 
@@ -181,10 +193,10 @@ export default function ProjectsWindowV2(): JSX.Element {
             <thead>
               <tr>
                 <th className={`${classes.th} ${classes.thtd}`}>Project Name</th>
-                <th className={`${classes.th} ${classes.thtd}`}>Begin Date</th>
-                <th className={`${classes.th} ${classes.thtd}`}>End Date</th>
+                <th className={`${classes.th} ${classes.thtd}`}>Date</th>
+                <th className={`${classes.th} ${classes.thtd}`}>Type</th>
                 <th className={`${classes.th} ${classes.thtd}`} style={{ borderRight: 0 }}>
-                  Type
+                  Domain
                 </th>
               </tr>
             </thead>
@@ -196,9 +208,9 @@ export default function ProjectsWindowV2(): JSX.Element {
                   style={{ backgroundColor: index === selected ? '#CECEE2' : undefined }}
                 >
                   <td className={`${classes.td} ${classes.thtd}`}>{elem.projectName}</td>
-                  <td className={`${classes.td} ${classes.thtd}`}>{elem.beginDate}</td>
-                  <td className={`${classes.td} ${classes.thtd}`}>{elem.endDate}</td>
+                  <td className={`${classes.td} ${classes.thtd}`}>{elem.beginDate}-{elem.endDate} </td>
                   <td className={`${classes.td} ${classes.thtd}`}>{elem.type}</td>
+                  <td className={`${classes.td} ${classes.thtd}`}>{elem.domain}</td>
                 </tr>
               ))}
             </tbody>
@@ -239,13 +251,12 @@ export default function ProjectsWindowV2(): JSX.Element {
           </Stack>
           <Flex justify="space-between" gap={20}>
             <Text>Technologies</Text>
-            <Flex justify="end" gap={6} wrap={'wrap'}>
-              {data[selected].technologies?.map((elem) => {
-
-
-                return <Text className={classes.technologychip} c="#3B3B3B">{elem}</Text>
-              })
-              }
+            <Flex justify="end" gap={6} wrap="wrap">
+              {data[selected].technologies?.map((elem) => (
+                  <Text className={classes.technologychip} c="#3B3B3B">
+                    {elem}
+                  </Text>
+                ))}
             </Flex>
           </Flex>
           <Group justify="center" mt={5}>
