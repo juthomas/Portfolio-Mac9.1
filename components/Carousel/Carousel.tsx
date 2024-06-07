@@ -21,6 +21,7 @@ import themeClasses from '@/styles/theme.module.css';
 
 type PropType = {
   slides: { image: StaticImageData; alt?: string; background?: string }[];
+  options?: EmblaOptionsType;
   style?: MantineStyleProp;
 };
 
