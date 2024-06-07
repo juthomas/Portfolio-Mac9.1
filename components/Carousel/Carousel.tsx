@@ -2,12 +2,12 @@ import Image, { StaticImageData } from 'next/image';
 import React, { useCallback } from 'react';
 // import useEmblaCarousel, { EmblaOptionsType, EmblaCarouselType } from 'embla-carousel-react';
 
-import  {
+import {
   type EmblaCarouselType,
   type EmblaOptionsType,
-} from "embla-carousel"
+} from 'embla-carousel';
 
-import useEmblaCarousel from "embla-carousel-react"
+import useEmblaCarousel from 'embla-carousel-react';
 
 
 import Autoplay from 'embla-carousel-autoplay';
@@ -21,12 +21,11 @@ import themeClasses from '@/styles/theme.module.css';
 
 type PropType = {
   slides: { image: StaticImageData; alt?: string; background?: string }[];
-  options?: EmblaOptionsType;
   style?: MantineStyleProp;
 };
 
-export const Carousel: React.FC<PropType> = ({ slides, options, style }: PropType) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay()]);
+export const Carousel: React.FC<PropType> = ({ slides, style }: PropType) => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({}, [Autoplay()]);
 
   const onButtonClick = useCallback((emblaApiCb: EmblaCarouselType) => {
     const { autoplay } = emblaApiCb.plugins();
