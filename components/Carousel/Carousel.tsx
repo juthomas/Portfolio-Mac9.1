@@ -9,7 +9,6 @@ import {
 
 import useEmblaCarousel from 'embla-carousel-react';
 
-
 import Autoplay from 'embla-carousel-autoplay';
 import { Box, Button, Flex, MantineStyleProp } from '@mantine/core';
 import { usePrevNextButtons } from './CarouselButtons';
@@ -25,8 +24,8 @@ type PropType = {
   style?: MantineStyleProp;
 };
 
-export const Carousel: React.FC<PropType> = ({ slides, style }: PropType) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({}, [Autoplay()]);
+export const Carousel: React.FC<PropType> = ({ slides, options, style }: PropType) => {
+  const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay()]);
 
   const onButtonClick = useCallback((emblaApiCb: EmblaCarouselType) => {
     const { autoplay } = emblaApiCb.plugins();
