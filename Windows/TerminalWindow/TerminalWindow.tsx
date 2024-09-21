@@ -104,6 +104,7 @@ export default function TerminalWindow(): JSX.Element {
   const [currentDirectory, setCurrentDirectory] = useState(homeDirectory);
   const [oldDirectory, setOldDirectory] = useState(homeDirectory);
   const [lastPromptError, setLastPromptError] = useState(false);
+  const [promtHistoryIndex, setPromptHistoryIndex] = useState(0);
   function listDirectory(param: string) {
     let directoryToList = currentDirectory;
 
@@ -469,12 +470,35 @@ export default function TerminalWindow(): JSX.Element {
                 },
               ]);
               setPrompt('');
+              setPromptHistoryIndex(0);
             }
+            // TODO: Search in commands and to magic
             if (e.key === 'Tab') e.preventDefault();
+            // TODO: remove whitespaces promps from searched prompts
             if (e.key === 'ArrowUp') {
               e.preventDefault(); // Empêche le comportement par défaut de la touche flèche vers le haut
               if (oldPrompts?.length) {
-                const lastPrompt = oldPrompts[oldPrompts.length - 1].prompt;
+                // const lastPrompt = oldPrompts[oldPrompts.length - 1].prompt;
+                const lastPrompt = oldPrompts[oldPrompts.length - promtHistoryIndex - 1].prompt;
+                setPromptHistoryIndex((old) => oldPrompts.length - 1 > old ? old + 1 : old);
+                setPrompt(lastPrompt);
+
+                // S'assurer que le changement d'état est appliqué avant de déplacer le curseur
+                setTimeout(() => {
+                  const inputElement = ref.current;
+                  if (inputElement) {
+                    inputElement.focus();
+                    const len = lastPrompt.length;
+                    inputElement.setSelectionRange(len, len);
+                  }
+                }, 0);
+              }
+            }
+            if (e.key === 'ArrowDown') {
+              e.preventDefault(); // Empêche le comportement par défaut de la touche flèche vers le bas
+              if (oldPrompts?.length) {
+                const lastPrompt = oldPrompts[oldPrompts.length - promtHistoryIndex].prompt;
+                setPromptHistoryIndex((old) => old > 1 ? old - 1 : old);
                 setPrompt(lastPrompt);
 
                 // S'assurer que le changement d'état est appliqué avant de déplacer le curseur
@@ -499,6 +523,7 @@ export default function TerminalWindow(): JSX.Element {
                 },
               ]);
               setPrompt('');
+              setPromptHistoryIndex(0);
             }
             setTimeout(() => {
               viewport?.current?.scrollTo({ top: viewport?.current?.scrollHeight });
