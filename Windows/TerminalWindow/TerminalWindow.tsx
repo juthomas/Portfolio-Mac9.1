@@ -370,6 +370,13 @@ export default function TerminalWindow(): JSX.Element {
 
   const viewport = useContext(ScrollAreaWindowContext);
 
+  function isWhitespaces(str: String) {
+    for (let i = 0; i < str.length; i += 1) {
+      if (str[i] !== ' ' && str[i] !== '\t') return false;
+    }
+    return true;
+  }
+
   function splitFirstWord(text: string): [string, string] {
     // Trouver l'index du premier espace
     const firstSpaceIndex = text.indexOf(' ');
@@ -409,7 +416,7 @@ export default function TerminalWindow(): JSX.Element {
     >
       {oldPrompts.map((elem, index) => (
         <Box mb={1} key={index}>
-          {elem.prompt && (
+          {(elem.prompt || elem?.prompt === '') && (
             <p
               style={{
                 margin: 0,
@@ -457,7 +464,7 @@ export default function TerminalWindow(): JSX.Element {
               setOldPrompts((old) => [
                 ...old,
                 {
-                  prompt: prompt || ' ',
+                  prompt: prompt || '',
                   location: currentDirectory,
                   error: lastPromptError,
                   answer: !promptFunction ? (
@@ -474,13 +481,18 @@ export default function TerminalWindow(): JSX.Element {
             }
             // TODO: Search in commands and to magic
             if (e.key === 'Tab') e.preventDefault();
-            // TODO: remove whitespaces promps from searched prompts
+            // TODO: Last prompt = current prompt, not last prompt
             if (e.key === 'ArrowUp') {
               e.preventDefault(); // Empêche le comportement par défaut de la touche flèche vers le haut
-              if (oldPrompts?.length) {
+              const oldPromptsReduced = oldPrompts?.filter((v) => !isWhitespaces(v.prompt));
+              if (oldPromptsReduced?.length) {
                 // const lastPrompt = oldPrompts[oldPrompts.length - 1].prompt;
-                const lastPrompt = oldPrompts[oldPrompts.length - promtHistoryIndex - 1].prompt;
-                setPromptHistoryIndex((old) => oldPrompts.length - 1 > old ? old + 1 : old);
+                console.log('Old prompts reduced', oldPromptsReduced, oldPrompts);
+                const lastPrompt =
+                  oldPromptsReduced[oldPromptsReduced.length - promtHistoryIndex - 1].prompt;
+                setPromptHistoryIndex((old) =>
+                  oldPromptsReduced.length - 1 > old ? old + 1 : old
+                );
                 setPrompt(lastPrompt);
 
                 // S'assurer que le changement d'état est appliqué avant de déplacer le curseur
@@ -496,9 +508,12 @@ export default function TerminalWindow(): JSX.Element {
             }
             if (e.key === 'ArrowDown') {
               e.preventDefault(); // Empêche le comportement par défaut de la touche flèche vers le bas
-              if (oldPrompts?.length) {
-                const lastPrompt = oldPrompts[oldPrompts.length - promtHistoryIndex].prompt;
-                setPromptHistoryIndex((old) => old > 1 ? old - 1 : old);
+              const oldPromptsReduced = oldPrompts?.filter((v) => !isWhitespaces(v.prompt));
+
+              if (oldPromptsReduced?.length) {
+                const lastPrompt =
+                  oldPromptsReduced[oldPromptsReduced.length - promtHistoryIndex].prompt;
+                setPromptHistoryIndex((old) => (old > 1 ? old - 1 : old));
                 setPrompt(lastPrompt);
 
                 // S'assurer que le changement d'état est appliqué avant de déplacer le curseur
