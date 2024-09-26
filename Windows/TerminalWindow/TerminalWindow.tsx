@@ -105,6 +105,7 @@ export default function TerminalWindow(): JSX.Element {
   const [oldDirectory, setOldDirectory] = useState(homeDirectory);
   const [lastPromptError, setLastPromptError] = useState(false);
   const [promtHistoryIndex, setPromptHistoryIndex] = useState(0);
+  const [tmpPrompt, setTmpPrompt] = useState('');
   function listDirectory(param: string) {
     let directoryToList = currentDirectory;
 
@@ -487,7 +488,9 @@ export default function TerminalWindow(): JSX.Element {
               const oldPromptsReduced = oldPrompts?.filter((v) => !isWhitespaces(v.prompt));
               if (oldPromptsReduced?.length) {
                 // const lastPrompt = oldPrompts[oldPrompts.length - 1].prompt;
-                console.log('Old prompts reduced', oldPromptsReduced, oldPrompts);
+                if (promtHistoryIndex === 0) {
+                  setTmpPrompt(prompt);
+                }
                 const lastPrompt =
                   oldPromptsReduced[oldPromptsReduced.length - promtHistoryIndex - 1].prompt;
                 setPromptHistoryIndex((old) =>
@@ -511,20 +514,25 @@ export default function TerminalWindow(): JSX.Element {
               const oldPromptsReduced = oldPrompts?.filter((v) => !isWhitespaces(v.prompt));
 
               if (oldPromptsReduced?.length) {
-                const lastPrompt =
-                  oldPromptsReduced[oldPromptsReduced.length - promtHistoryIndex].prompt;
-                setPromptHistoryIndex((old) => (old > 1 ? old - 1 : old));
-                setPrompt(lastPrompt);
+                if (promtHistoryIndex <= 1) {
+                  setPrompt(tmpPrompt);
+                  setPromptHistoryIndex(0);
+                } else {
+                  const lastPrompt =
+                    oldPromptsReduced[oldPromptsReduced.length - promtHistoryIndex + 1].prompt;
+                  setPromptHistoryIndex((old) => (old > 1 ? old - 1 : old));
+                  setPrompt(lastPrompt);
 
-                // S'assurer que le changement d'état est appliqué avant de déplacer le curseur
-                setTimeout(() => {
-                  const inputElement = ref.current;
-                  if (inputElement) {
-                    inputElement.focus();
-                    const len = lastPrompt.length;
-                    inputElement.setSelectionRange(len, len);
-                  }
-                }, 0);
+                  // S'assurer que le changement d'état est appliqué avant de déplacer le curseur
+                  setTimeout(() => {
+                    const inputElement = ref.current;
+                    if (inputElement) {
+                      inputElement.focus();
+                      const len = lastPrompt.length;
+                      inputElement.setSelectionRange(len, len);
+                    }
+                  }, 0);
+                }
               }
             }
             if (e.ctrlKey && e.key === 'c') {
