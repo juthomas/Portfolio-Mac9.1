@@ -79,6 +79,13 @@ export default function Desktop() {
       text: 'Terminal',
       icon: terminalIcon,
     },
+    {
+      id: '8',
+      position: { right: 110, top: 175 },
+      windowId: 'computor',
+      text: 'Computor',
+      icon: terminalIcon,
+    },
 
     {
       id: '7',

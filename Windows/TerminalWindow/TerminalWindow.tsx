@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Box, Flex, Stack, Text } from '@mantine/core';
 import { useRouter } from 'next/navigation';
 import classes from './TerminalWindow.module.css';
@@ -16,11 +16,13 @@ type fileSystemType = {
 const homeDirectory = '/Users/juthomas';
 
 export default function TerminalWindow({
-  directory = '/Users/juthomas/Applications', //todo : replace with homeDirectory
-  command = './Onefortree.app',
+  directory = homeDirectory, //todo : replace with homeDirectory
+  command = '',
+  executeCommand = false,
 }: {
   directory?: string;
   command?: string;
+  executeCommand?: boolean;
 }): JSX.Element {
   const router = useRouter();
 
@@ -156,6 +158,28 @@ export default function TerminalWindow({
 
     // Récupérer les clés du répertoire courant pour les lister
     return Object.keys(currentPath).join('\n');
+  }
+
+  function executePrompt() {
+    const [promptFunction, promptParams] = splitFirstWord(prompt);
+    setLastPromptError(true);
+    setOldPrompts((old) => [
+      ...old,
+      {
+        prompt: prompt || '',
+        location: currentDirectory,
+        error: lastPromptError,
+        answer: !promptFunction ? (
+          <></>
+        ) : commands[promptFunction] ? (
+          commands[promptFunction](promptParams)
+        ) : (
+          formatText(`zsh: command not found: ${promptFunction}`)
+        ),
+      },
+    ]);
+    setPrompt('');
+    setPromptHistoryIndex(0);
   }
 
   function catCommand(param: string) {
@@ -383,6 +407,12 @@ export default function TerminalWindow({
 
   const viewport = useContext(ScrollAreaWindowContext);
 
+  useEffect(() => {
+    if (executeCommand) {
+      executePrompt();
+    }
+  }, [executeCommand]);
+
   function isWhitespaces(str: String) {
     for (let i = 0; i < str.length; i += 1) {
       if (str[i] !== ' ' && str[i] !== '\t') return false;
@@ -475,25 +505,26 @@ export default function TerminalWindow({
           ref={ref}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
-              const [promptFunction, promptParams] = splitFirstWord(prompt);
-              setLastPromptError(true);
-              setOldPrompts((old) => [
-                ...old,
-                {
-                  prompt: prompt || '',
-                  location: currentDirectory,
-                  error: lastPromptError,
-                  answer: !promptFunction ? (
-                    <></>
-                  ) : commands[promptFunction] ? (
-                    commands[promptFunction](promptParams)
-                  ) : (
-                    formatText(`zsh: command not found: ${promptFunction}`)
-                  ),
-                },
-              ]);
-              setPrompt('');
-              setPromptHistoryIndex(0);
+              executePrompt();
+              // const [promptFunction, promptParams] = splitFirstWord(prompt);
+              // setLastPromptError(true);
+              // setOldPrompts((old) => [
+              //   ...old,
+              //   {
+              //     prompt: prompt || '',
+              //     location: currentDirectory,
+              //     error: lastPromptError,
+              //     answer: !promptFunction ? (
+              //       <></>
+              //     ) : commands[promptFunction] ? (
+              //       commands[promptFunction](promptParams)
+              //     ) : (
+              //       formatText(`zsh: command not found: ${promptFunction}`)
+              //     ),
+              //   },
+              // ]);
+              // setPrompt('');
+              // setPromptHistoryIndex(0);
             }
             // TODO: Search in commands and to magic
             if (e.key === 'Tab') e.preventDefault();

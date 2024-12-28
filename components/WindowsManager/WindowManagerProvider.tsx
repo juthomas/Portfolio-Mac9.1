@@ -26,8 +26,8 @@ export const WindowManagerContext = createContext<
       windowsState: windowsType[];
       windowDragging: boolean;
       OpenWindow:(id: string) => void;
-      SetWindowFocus: (id: string) => void;
-      SetWindowMaximized: (id: string) => void;
+      SetWindowFocus:(id: string) => void;
+      SetWindowMaximized:(id: string) => void;
       setWindowsState: Dispatch<SetStateAction<windowsType[]>>;
       setWindowDragging: Dispatch<SetStateAction<boolean>>;
     }
@@ -134,11 +134,27 @@ export default function WindowsManagerProvider({ children }: { children: JSX.Ele
       size: { height: 400, width: 400 },
       coordinates: { x: 'center', y: 70 },
     },
-
+    {
+      id: 'computor',
+      content: (
+        <TerminalWindow
+          directory="/Users/juthomas/Applications"
+          command="./Onefortree.app"
+          executeCommand
+        />
+      ),
+      // content: <>WTF</>,
+      title: 'Computor',
+      // icon: '',
+      maximized: false,
+      scrollBar: true,
+      size: { height: 400, width: 400 },
+      coordinates: { x: 'center', y: 70 },
+    },
   ];
   useEffect(() => {
     const updatedWindowsList = windowsList
-      .filter((elem) => ['main'/*, 'projectsV2'*/].includes(elem.id))
+      .filter((elem) => ['main' /*, 'projectsV2'*/].includes(elem.id))
       .map((elem, index) => {
         const tmp = { ...elem, zIndex: index + 1 };
         if (tmp.coordinates.x === 'center') {
