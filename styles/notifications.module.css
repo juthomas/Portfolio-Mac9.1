@@ -74,8 +74,8 @@
   display: none;
 }
 
-.notificationsRoot {
-  /* top: 43px; */
+.notificationsRoot:where([data-position=top-right]) {
+  top: 43px;
   right: 10px;
   width: 'unset';
 }
