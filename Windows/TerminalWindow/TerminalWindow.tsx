@@ -10,7 +10,7 @@ type commandsType = {
 };
 
 type fileSystemType = {
-  [key: string]: fileSystemType | (() => void | string) | string;
+  [key: string]: fileSystemType | ((args?: string[]) => void | string) | string;
 };
 
 const homeDirectory = '/Users/juthomas';
@@ -198,21 +198,23 @@ export default function TerminalWindow({
   function openCommand(param: string) {
     if (!param) return 'Usage: open [filename]';
 
+    const [path, ...args] = param.trim().split(/\s+/);
+
     const newPath =
-      param[0] === '/'
-        ? param.replace(/(?<!^)\/$/, '')
-        : `${currentDirectory}/${param}`.replace(/(?<!^)\/$/, '').replace('//', '/');
+      path[0] === '/'
+        ? path.replace(/(?<!^)\/$/, '')
+        : `${currentDirectory}/${path}`.replace(/(?<!^)\/$/, '').replace('//', '/');
 
     const pathParts = newPath.split('/').filter((part) => part.length > 0);
 
     let currentPath = fileSystem;
     let outputMessage: string | void | null = `open : ${param}: Not an executable file`;
-
+    console.log('pathParts :', pathParts);
     pathParts.some((part) => {
       if (currentPath[part]) {
         if (typeof currentPath[part] === 'function') {
           const appFunction = currentPath[part];
-          outputMessage = typeof appFunction === 'function' ? appFunction() : null;
+          outputMessage = typeof appFunction === 'function' ? appFunction(args) : null;
           setLastPromptError(false);
           return true; // Arrête l'itération
         }
@@ -308,21 +310,24 @@ export default function TerminalWindow({
       </Text>
     );
   }
-  const [oldPrompts, setOldPrompts] = useState(homeDirectory === directory ? [
-    {
-      prompt: '',
-      location: homeDirectory,
-      error: false,
-      answer: (
-        <>
-          {formatText(
-            'Welcome to my portfolio terminal!\nBasic commands are:\n - cat   : Print .md & .txt files\n - cd    : Change directory\n - clear : Clear terminal \n - cmds  : List all commands\n - ls    : List directory\n - open  : Open .app files\n - pwd   : Current directory\n'
-          )}
-        </>
-      ),
-        },
-      ]
-    : []);
+  const [oldPrompts, setOldPrompts] = useState(
+    homeDirectory === directory
+      ? [
+          {
+            prompt: '',
+            location: homeDirectory,
+            error: false,
+            answer: (
+              <>
+                {formatText(
+                  'Welcome to my portfolio terminal!\nBasic commands are:\n - cat   : Print .md & .txt files\n - cd    : Change directory\n - clear : Clear terminal \n - cmds  : List all commands\n - ls    : List directory\n - open  : Open .app files\n - pwd   : Current directory\n'
+                )}
+              </>
+            ),
+          },
+        ]
+      : []
+  );
 
   const commands: commandsType = {
     cat: (params) => {
