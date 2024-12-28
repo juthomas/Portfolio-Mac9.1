@@ -15,7 +15,13 @@ type fileSystemType = {
 
 const homeDirectory = '/Users/juthomas';
 
-export default function TerminalWindow(): JSX.Element {
+export default function TerminalWindow({
+  directory = '/Users/juthomas/Applications', //todo : replace with homeDirectory
+  command = './Onefortree.app',
+}: {
+  directory?: string;
+  command?: string;
+}): JSX.Element {
   const router = useRouter();
 
   const windowContext = useContext(WindowManagerContext);
@@ -101,8 +107,8 @@ export default function TerminalWindow(): JSX.Element {
     usr: {},
     var: {},
   };
-  const [currentDirectory, setCurrentDirectory] = useState(homeDirectory);
-  const [oldDirectory, setOldDirectory] = useState(homeDirectory);
+  const [currentDirectory, setCurrentDirectory] = useState(directory);
+  const [oldDirectory, setOldDirectory] = useState(directory);
   const [lastPromptError, setLastPromptError] = useState(false);
   const [promtHistoryIndex, setPromptHistoryIndex] = useState(0);
   const [tmpPrompt, setTmpPrompt] = useState('');
@@ -302,7 +308,7 @@ export default function TerminalWindow(): JSX.Element {
       </Text>
     );
   }
-  const [oldPrompts, setOldPrompts] = useState([
+  const [oldPrompts, setOldPrompts] = useState(homeDirectory === directory ? [
     {
       prompt: '',
       location: homeDirectory,
@@ -314,8 +320,9 @@ export default function TerminalWindow(): JSX.Element {
           )}
         </>
       ),
-    },
-  ]);
+        },
+      ]
+    : []);
 
   const commands: commandsType = {
     cat: (params) => {
@@ -365,7 +372,7 @@ export default function TerminalWindow(): JSX.Element {
     },
   };
 
-  const [prompt, setPrompt] = useState('');
+  const [prompt, setPrompt] = useState(command);
 
   const ref = useRef<HTMLInputElement | null>(null);
 
@@ -380,6 +387,9 @@ export default function TerminalWindow(): JSX.Element {
 
   function splitFirstWord(text: string): [string, string] {
     // Trouver l'index du premier espace
+    if (text.startsWith('/') || text.startsWith('./')) {
+      return ['open', text.startsWith('./') ? text.substring(2) : text];
+    }
     const firstSpaceIndex = text.indexOf(' ');
 
     // Si aucun espace n'est trouvé, retourner toute la chaîne comme le premier mot

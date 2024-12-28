@@ -10,7 +10,6 @@ import { WindowManagerContext } from './WindowManagerProvider';
 export default function WindowsManager() {
   const windowContext = useContext(WindowManagerContext);
   const isMobile = useMediaQuery('(max-width: 50em)');
-
   return (
     <>
       {windowContext!.windowsState.map((elem) => (
