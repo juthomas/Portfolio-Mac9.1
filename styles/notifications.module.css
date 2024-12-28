@@ -75,7 +75,7 @@
 }
 
 .notificationsRoot {
-  top: 43px;
+  /* top: 43px; */
   right: 10px;
   width: 'unset';
 }
