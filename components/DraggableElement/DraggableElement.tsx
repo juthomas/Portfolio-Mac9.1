@@ -300,6 +300,11 @@ export function DraggableElement({
             style={{ cursor: maximized ? 'default' : undefined }}
             className={classes.dragHandle}
             ref={setNodeRef}
+            onDoubleClick={(event) => {
+              if (minimized) setMinimized((value) => !value);
+              event.stopPropagation();
+              setMaximized();
+            }}
             {...listeners}
             {...attributes}
           >
