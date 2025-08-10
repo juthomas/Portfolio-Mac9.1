@@ -62,6 +62,9 @@ export default function TerminalWindow({
         },
         Desktop: {},
         Documents: {
+          LinearRegression: {
+            predict: (args: string[] = []) => `test${args[0] ?? ''}`,
+          },
           'Passwords.app': () => {
             window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank', 'noreferrer');
             return 'eheheh boi';
@@ -233,7 +236,6 @@ export default function TerminalWindow({
 
     let currentPath = fileSystem;
     let outputMessage: string | void | null = `open : ${param}: Not an executable file`;
-    console.log('pathParts :', pathParts);
     pathParts.some((part) => {
       if (currentPath[part]) {
         if (typeof currentPath[part] === 'function') {
@@ -318,7 +320,6 @@ export default function TerminalWindow({
 
   function formatText(value: string) {
     const lines = value.split('\n').map((line, index) => (
-      // Utilisation de l'index comme clé n'est recommandée que si la liste des lignes ne change pas
       <span key={index}>
         {line}
         {index < value.split('\n').length - 1 && <br />}
@@ -398,6 +399,38 @@ export default function TerminalWindow({
         router.push('/shutdown');
       }, 200);
       return <></>;
+    },
+  };
+
+  fileSystem.bin = {
+    cat: (args?: string[]) => catCommand(args?.[0] ?? ''),
+    cd: (args?: string[]) => changeDirectory(args?.[0] ?? ''),
+    clear: () => {
+      setLastPromptError(false);
+      setOldPrompts([]);
+      return '';
+    },
+    cmds: () => {
+      setLastPromptError(false);
+      return `Supported commands are:\n${Object.keys(commands)
+        .map((key) => ` - ${key}`)
+        .join('\n')}`;
+    },
+    ls: (args?: string[]) => listDirectory(args?.[0] ?? ''),
+    open: (args?: string[]) => openCommand(args?.join(' ') ?? ''),
+    pwd: () => {
+      setLastPromptError(false);
+      return currentDirectory;
+    },
+    reboot: () => {
+      setTimeout(() => {
+        router.push('/restart');
+      }, 200);
+    },
+    shutdown: () => {
+      setTimeout(() => {
+        router.push('/shutdown');
+      }, 200);
     },
   };
 
