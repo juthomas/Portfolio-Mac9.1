@@ -49,6 +49,8 @@ export function DraggableElement({
   windowIcon = fileIcon,
   windowTitle = 'Portfolio',
   minimumWindowSize,
+  minimized,
+  toggleMinimize,
 }: {
   top: number;
   left: number;
@@ -65,6 +67,8 @@ export function DraggableElement({
   focusing: () => void;
   deleting: () => void;
   minimumWindowSize: { width: number; height: number };
+  minimized?: boolean;
+  toggleMinimize: () => void;
 }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: 'default',
@@ -127,7 +131,7 @@ export function DraggableElement({
     disabled: maximized,
   });
 
-  const [minimized, setMinimized] = useState(false);
+  // minimized state is now managed by parent DraggableWindow
   const viewport = useRef<HTMLDivElement>(null);
   const mainContainer = useRef<HTMLDivElement>(null);
   const [scrollBarHidden, setScrollBarHidden] = useState(false);
@@ -301,7 +305,7 @@ export function DraggableElement({
             className={classes.dragHandle}
             ref={setNodeRef}
             onDoubleClick={(event) => {
-              if (minimized) setMinimized((value) => !value);
+              if (minimized) toggleMinimize();
               event.stopPropagation();
               setMaximized();
             }}
@@ -343,7 +347,7 @@ export function DraggableElement({
             <Box
               className={classes.button}
               onClick={(event) => {
-                if (minimized) setMinimized((value) => !value);
+                if (minimized) toggleMinimize();
                 event.stopPropagation();
                 setMaximized();
               }}
@@ -354,7 +358,7 @@ export function DraggableElement({
               style={{ display: 'flex', alignItems: 'center' }}
               className={classes.button}
               onClick={(event) => {
-                setMinimized((value) => !value);
+                toggleMinimize();
                 event.stopPropagation();
                 if (!minimized && maximized) setMaximized();
                 else focusing();

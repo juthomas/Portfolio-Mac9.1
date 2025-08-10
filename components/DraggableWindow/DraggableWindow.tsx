@@ -48,6 +48,24 @@ export function DraggableWindow({
 }) {
   const [{ x, y }, setCoordinates] = useState<Coordinates>(coordinates);
 
+  // --- Minimize logic moved up from DraggableElement ---
+  const [minimized, setMinimized] = useState(false);
+  const [savedHeight, setSavedHeight] = useState(height);
+
+  const toggleMinimize = () => {
+    setMinimized((prev) => {
+      if (prev) {
+        // restore previous height
+        setWindowSize((s) => ({ ...s, y: savedHeight }));
+      } else {
+        // save current height and reduce to bar height
+        setSavedHeight(windowSizeRef.current.y);
+        setWindowSize((s) => ({ ...s, y: 30 }));
+      }
+      return !prev;
+    });
+  };
+
   const [windowSize, setWindowSize] = useState<Coordinates>({ x: width, y: height });
 
   const windowSizeRef = useRef(windowSize);
@@ -249,6 +267,8 @@ export function DraggableWindow({
         scrollBar={scrollBar}
         focusing={focusing}
         minimumWindowSize={minimumWindowSize}
+        minimized={minimized}
+        toggleMinimize={toggleMinimize}
       >
         {children}
       </DraggableElement>
