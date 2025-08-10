@@ -23,7 +23,7 @@ export interface ContactFormProps {
 }
 
 export default function ContactWindow(): JSX.Element {
-  const form = useForm({
+  const form = useForm<ContactFormProps>({
     initialValues: {
       name: '',
       email: '',
@@ -31,11 +31,11 @@ export default function ContactWindow(): JSX.Element {
       message: '',
     },
     validate: {
-      name: (value) => (value.length < 1 ? 'Name cannot be blank' : null),
-      email: (value) =>
+      name: (value: string) => (value.length < 1 ? 'Name cannot be blank' : null),
+      email: (value: string) =>
         /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(value) ? null : 'Invalid mail',
-      subject: (value) => (value.length < 1 ? 'Subject cannot be blank' : null),
-      message: (value) => (value.length < 1 ? 'Message cannot be blank' : null),
+      subject: (value: string) => (value.length < 1 ? 'Subject cannot be blank' : null),
+      message: (value: string) => (value.length < 1 ? 'Message cannot be blank' : null),
     },
   });
 
